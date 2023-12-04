@@ -21,14 +21,17 @@ class UsuariosController{
     }
 
     public function guardarUsuarios(){
+        
+        $ci_usuario = $_POST['cedula'];
         $nombres = $_POST['nombres'];
         $apellidos = $_POST['apellidos'];
         $edad = $_POST['edad'];
         $correo = $_POST['correo'];
-        $contrasenia = $_POST['contrasenia'];
+        $contrasenia = $_POST['clave'];
+        $genero = $_POST['sexo'];
         
         $usuarios = new UsuariosModel();
-        $usuarios->insertar_Usuarios($nombres, $apellidos, $edad, $correo, $contrasenia);
+        $usuarios->insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero);
         $data["titulo"] = "Usuarios";
         $this->verUsuarios();
     }
@@ -37,23 +40,23 @@ class UsuariosController{
 			
         $usuarios = new UsuariosModel();
         
-        $data["id"] = $id;
+        $data["ci_usuario"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "usuarios";
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
     }
     
     public function actualizarUsuarios(){
-
         $id = $_POST['id'];
         $nombres = $_POST['nombres'];
         $apellidos = $_POST['apellidos'];
         $edad = $_POST['edad'];
         $correo = $_POST['correo'];
-        $contrasenia = $_POST['contrasenia'];
+        $contrasenia = $_POST['clave'];
+        $genero = $_POST['sexo'];
 
         $usuarios = new UsuariosModel();
-        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia);
+        $usuarios->modificar_Usuarios($id,$nombres, $apellidos, $edad, $correo, $contrasenia, $genero);
         $data["titulo"] = "usuarios";
         $this->verUsuarios();
     }

@@ -58,19 +58,26 @@
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=guardarUsuarios" autocomplete="off">
     <h2>Registro<?php echo $data['titulo'];?></h2>
 
-    <label for="nombre">Nombre:</label>
+    <label for="cedula">Cedula:</label>
+    <input type="text" id="cedula" name="cedula" required>
+
+    <label for="nombre">Nombres:</label>
     <input type="text" id="nombres" name="nombres" required>
-    <label for="apellido">Apellido:</label>
+
+    <label for="apellido">Apellidos:</label>
     <input type="text" id="apellidos" name="apellidos" required>
 
-    <label for="usuario">Edad:</label>
+    <label for="edad">Edad:</label>
     <input type="text" id="edad" name="edad" required>
 
     <label for="correo">Correo:</label>
     <input type="email" id="correo" name="correo" required>
 
-    <label for="contrasena">Contraseña:</label>
-    <input type="password" id="contrasenia" name="contrasenia" required>
+    <label for="clave">Contraseña:</label>
+    <input type="password" id="clave" name="clave" required>
+
+    <label for="sexo">Sexo:</label>
+    <input type="text" id="sexo" name="sexo" required>
     
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
   </form>
