@@ -12,12 +12,12 @@ class UsuariosController{
         $data['titulo'] = 'usuarios';
         $data['usuarios'] = $usuarios->get_Usuarios();
 
-        require_once(__DIR__ . '/../View/ver_usuarios.php');
+        require_once(__DIR__ . '/../View/usuarios/ver_usuarios.php');
     }
 
     public function nuevoUsuarios(){
         $data['titulo'] = ' usuarios';
-        require_once(__DIR__ . '/../View/nuevoUsuarios.php');
+        require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
     }
 
     public function guardarUsuarios(){
@@ -40,7 +40,7 @@ class UsuariosController{
         $data["id"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "usuarios";
-        require_once(__DIR__ . '/../View/modificarUsuarios.php');
+        require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
     }
     
     public function actualizarUsuarios(){
