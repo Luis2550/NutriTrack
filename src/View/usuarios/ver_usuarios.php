@@ -12,11 +12,14 @@
 
         <thead>
             <tr>
+                <th>Cedula</th>
+                <th>Rol</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>Correo</th>
                 <th>Contraseña</th>
+                <th>Sexo</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -27,13 +30,16 @@
             <?php
                 foreach($data['usuarios'] as $dato){
                     echo"<tr>";
+                        echo"<td>".$dato['ci_usuario']."</td>";
+                        echo"<td>".$dato['id_rol']."</td>";
                         echo"<td>".$dato['nombres']."</td>";
                         echo"<td>".$dato['apellidos']."</td>";
                         echo"<td>".$dato['edad']."</td>";
                         echo"<td>".$dato['correo']."</td>";
-                        echo"<td>".$dato['contrasenia']."</td>";
-                        echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios&id=".$dato["id"]."'>Modificar</a></td>";
-						echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["id"]."'>Eliminar</a></td>";
+                        echo"<td>".$dato['clave']."</td>";
+                        echo"<td>".$dato['sexo']."</td>";
+                        echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios&id=".$dato["ci_usuario"]."'>Modificar</a></td>";
+						echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["ci_usuario"]."'>Eliminar</a></td>";
                     echo"</tr>";
                 }
             ?>

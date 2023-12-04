@@ -56,14 +56,15 @@
 <body>
 
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off">
-    <h2>Editar<?php echo $data['titulo'];?></h2>
+    <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["id"]; ?>" />
+    <label for="nombre">Cedula:</label>
+    <input type="text" id="id" name="id" readonly value="<?php echo $data["ci_usuario"]; ?>" />
 
-    <label for="nombre">Nombre:</label>
+    <label for="nombre">Nombres:</label>
     <input type="text" id="nombres" name="nombres" required value="<?php echo $data["usuarios"]["nombres"]?>">
 
-    <label for="apellido">Apellido:</label>
+    <label for="apellido">Apellidos:</label>
     <input type="text" id="apellidos" name="apellidos" required value="<?php echo $data["usuarios"]["apellidos"]?>">
 
     <label for="usuario">Edad:</label>
@@ -72,10 +73,13 @@
     <label for="correo">Correo:</label>
     <input type="email" id="correo" name="correo" required value="<?php echo $data["usuarios"]["correo"]?>">
 
-    <label for="contrasena">Contraseña:</label>
-    <input type="password" id="contrasenia" name="contrasenia" required value="<?php echo $data["usuarios"]["contrasenia"]?>">
+    <label for="clave">Contraseña:</label>
+    <input type="password" id="clave" name="clave" required value="<?php echo $data["usuarios"]["clave"]?>">
+
+    <label for="sexo">Sexo:</label>
+    <input type="text" id="sexo" name="sexo" required value="<?php echo $data["usuarios"]["sexo"]?>">
     
-    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+    <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>
 
 </body>
