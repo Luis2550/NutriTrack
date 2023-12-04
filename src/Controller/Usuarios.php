@@ -1,0 +1,72 @@
+<?php
+
+class UsuariosController{
+
+    public function __construct(){
+        require_once __DIR__ . "/../Model/usuariosModel.php";
+    }
+
+    public function verUsuarios(){
+
+        $usuarios = new UsuariosModel();
+        $data['titulo'] = 'usuarios';
+        $data['usuarios'] = $usuarios->get_Usuarios();
+
+        require_once(__DIR__ . '/../View/usuarios/ver_usuarios.php');
+    }
+
+    public function nuevoUsuarios(){
+        $data['titulo'] = ' usuarios';
+        require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
+    }
+
+    public function guardarUsuarios(){
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
+        $edad = $_POST['edad'];
+        $correo = $_POST['correo'];
+        $contrasenia = $_POST['contrasenia'];
+        
+        $usuarios = new UsuariosModel();
+        $usuarios->insertar_Usuarios($nombres, $apellidos, $edad, $correo, $contrasenia);
+        $data["titulo"] = "Usuarios";
+        $this->verUsuarios();
+    }
+
+    public function modificarUsuarios($id){
+			
+        $usuarios = new UsuariosModel();
+        
+        $data["id"] = $id;
+        $data["usuarios"] = $usuarios->get_Usuario($id);
+        $data["titulo"] = "usuarios";
+        require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
+    }
+    
+    public function actualizarUsuarios(){
+
+        $id = $_POST['id'];
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
+        $edad = $_POST['edad'];
+        $correo = $_POST['correo'];
+        $contrasenia = $_POST['contrasenia'];
+
+        $usuarios = new UsuariosModel();
+        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia);
+        $data["titulo"] = "usuarios";
+        $this->verUsuarios();
+    }
+    
+    public function eliminarUsuarios($id){
+        
+        $usuarios = new UsuariosModel();
+        $usuarios->eliminar_Usuarios($id);
+        $data["titulo"] = "usuarios";
+        $this->verUsuarios();
+    }
+
+    
+}
+
+?>
