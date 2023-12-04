@@ -55,29 +55,24 @@
 </head>
 <body>
 
-  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off">
-    <h2>Editar<?php echo $data['titulo'];?></h2>
+  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=guardarPacientes" autocomplete="off">
+    <h2>Registro<?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["id"]; ?>" />
+    <label for="ci_usuario">Cedula Paciente:</label>
+    <select id="ci_usuario" name="ci_usuario" required>
+         
+    <?php
+        foreach ($data['opciones_usuario'] as $ci) {
+            echo "<option value='{$ci}'>{$ci}</option>";
+        }
+    ?>
+    </select>
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombres" name="nombres" required value="<?php echo $data["usuarios"]["nombres"]?>">
-
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellidos" name="apellidos" required value="<?php echo $data["usuarios"]["apellidos"]?>">
-
-    <label for="usuario">Edad:</label>
-    <input type="text" id="edad" name="edad" required value="<?php echo $data["usuarios"]["edad"]?>">
-
-    <label for="correo">Correo:</label>
-    <input type="email" id="correo" name="correo" required value="<?php echo $data["usuarios"]["correo"]?>">
-
-    <label for="contrasena">Contraseña:</label>
-    <input type="password" id="contrasenia" name="contrasenia" required value="<?php echo $data["usuarios"]["contrasenia"]?>">
+    <label for="id_suscripcion">Suscripcion:</label>
+    <input type="numb" id="id_suscripcion" name="id_suscripcion" required>
     
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
   </form>
 
 </body>
 </html>
-
