@@ -54,12 +54,12 @@ class planNutricionalController{
     
     public function actualizarPlanNutricional(){
 
-        $id = $_POST['id_plan_nutricional'];
+        $id = $_POST['id'];
         $ci_nutriologa = $_POST['ci_nutriologa'];
         $ci_paciente = $_POST['ci_paciente'];
-        $duracion_dias = $_POST['duracionDias'];
-        $fecha_fin = $_POST['fecha_fin'];
         $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_fin = $_POST['fecha_fin'];
+        $duracion_dias = $_POST['duracionDias'];
        
         $planNutri = new  planNutricionalModel();
         $planNutri->modificar_planNutricional($id, $ci_nutriologa, $ci_paciente, $duracion_dias , $fecha_fin, $fecha_inicio);

@@ -78,16 +78,15 @@
     ?>
     </select>
 
-    <label for="duracionDias">Duración en Dias:</label>
-    <input type="text" id="duracionDias" name="duracionDias" required>
+    <label for="fechaIni">Fecha Inicio:</label>
+    <input type="date" id="fecha_ini" name="fecha_ini" required>
 
     <label for="fechaFin">Fecha Fin:</label>
     <input type="date" id="fecha_fin" name="fecha_fin" required>
 
-    <label for="fechaIni">Fecha Inicio:</label>
-    <input type="date" id="fecha_ini" name="fecha_ini" required>
+    <label for="duracionDias">Duración en Dias:</label>
+    <input type="text" id="duracionDias" name="duracionDias" required>
 
-    
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
   </form>
 
