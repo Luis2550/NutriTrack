@@ -1,0 +1,220 @@
+-- Crear la tabla calendario_citas
+CREATE TABLE calendario_citas (
+    id_calendario_citas INT AUTO_INCREMENT PRIMARY KEY,
+    ci_paciente VARCHAR(10) NULL,
+    ci_nutriologa VARCHAR(10) NULL,
+    fecha DATE NULL,
+    hora_inicio INT NULL CHECK (hora_inicio >= 0 AND hora_inicio <= 23),
+    hora_fin INT NULL CHECK (hora_fin >= 0 AND hora_fin <= 23),
+    estado VARCHAR(15) NOT NULL CHECK (UPPER(estado) IN ('DISPONIBLE', 'NO DISPONIBLE'))
+);
+
+-- Crear la tabla cita
+CREATE TABLE cita (
+    id_cita INT AUTO_INCREMENT PRIMARY KEY,
+    ci_paciente VARCHAR(10) NULL,
+    fecha DATE NOT NULL,
+    hora_inicio INT NOT NULL CHECK (hora_inicio >= 0 AND hora_inicio <= 23),
+    duracion_cita INT NOT NULL CHECK (duracion_cita > 0)
+);
+
+-- Crear la tabla comida
+CREATE TABLE comida (
+    id_comida INT AUTO_INCREMENT PRIMARY KEY,
+    comida VARCHAR(30) NULL,
+    numero_comidas INT NULL CHECK (numero_comidas > 0),
+    dia VARCHAR(30) NULL CHECK (UPPER(dia) IN ('LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO')),
+    descripcion VARCHAR(300) NULL,
+    cantidad_proteina INT NULL CHECK (cantidad_proteina > 0),
+    cantidad_carbohidratos INT NULL CHECK (cantidad_carbohidratos > 0),
+    cantidad_grasas_saludables CHAR(10) NULL CHECK (cantidad_grasas_saludables > 0)
+);
+
+-- Crear la tabla configuracion
+CREATE TABLE configuracion (
+    id_configuracion INT AUTO_INCREMENT PRIMARY KEY,
+    ci_nutriologa VARCHAR(10) NOT NULL UNIQUE,
+    dias_laborales INT NULL CHECK (dias_laborales > 0),
+    duracion_cita INT NULL CHECK (duracion_cita > 0)
+);
+
+-- Crear la tabla enfermedad_previa
+CREATE TABLE enfermedad_previa (
+    id_enfermedad_previa INT AUTO_INCREMENT PRIMARY KEY,
+    id_historial_clinico INT NULL,
+    enfermedad_previa VARCHAR(100) NULL,
+    descripcion VARCHAR(250) NULL,
+    fecha DATE NULL
+);
+
+-- Crear la tabla historial_clinico
+CREATE TABLE historial_clinico (
+    id_historial_clinico INT AUTO_INCREMENT PRIMARY KEY,
+    ci_paciente VARCHAR(10) NOT NULL UNIQUE,
+    fecha_creacion DATE NULL
+);
+
+-- Crear la tabla historial_medidas
+CREATE TABLE historial_medidas (
+    id_historial_medidas INT AUTO_INCREMENT PRIMARY KEY,
+    id_historial_clinico INT NULL,
+    peso INT NULL CHECK (peso > 0),
+    estatura INT NULL CHECK (estatura > 0 AND estatura < 300),
+    presion_arterial_sistolica INT NULL CHECK (presion_arterial_sistolica > 0 AND presion_arterial_sistolica < 300),
+    presion_arterial_diastolica INT NULL CHECK (presion_arterial_diastolica > 0 AND presion_arterial_diastolica < 200),
+    fecha DATE NULL
+);
+
+-- Crear la tabla horario_laboral
+CREATE TABLE horario_laboral (
+    id_horario_laboral INT AUTO_INCREMENT PRIMARY KEY,
+    id_configuracion INT NOT NULL UNIQUE,
+    dia_inicio VARCHAR(10) NULL CHECK (UPPER(dia_inicio) IN ('LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO')),
+    dia_fin VARCHAR(10) NULL CHECK (UPPER(dia_fin) IN ('LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO')),
+    descripcion VARCHAR(300) NULL,
+    hora_inicio INT NULL CHECK (hora_inicio > 0 AND hora_inicio < 24),
+    hora_fin INT NULL CHECK (hora_fin > 0 AND hora_fin < 24),
+    cantidad_horas_laborales INT NULL CHECK (cantidad_horas_laborales > 0)
+);
+
+-- Crear la tabla nutriologa
+CREATE TABLE nutriologa (
+    ci_nutriologa VARCHAR(10) NOT NULL PRIMARY KEY,
+    cantidad_cupos INT NULL CHECK (cantidad_cupos > 0),
+    certificacion VARBINARY (255) NOT NULL
+);
+
+-- Crear la tabla paciente
+CREATE TABLE paciente (
+    ci_paciente VARCHAR(10) NOT NULL PRIMARY KEY,
+    id_suscripcion INT NOT NULL
+);
+
+-- Crear la tabla plan_nutricional
+CREATE TABLE plan_nutricional (
+    id_plan_nutricional INT AUTO_INCREMENT PRIMARY KEY,
+    ci_nutriologa VARCHAR(10) NULL,
+    ci_paciente VARCHAR(10) NOT NULL,
+    fecha_inicio DATE NULL,
+    fecha_fin DATE NULL,
+    duracion_dias INT NULL CHECK (duracion_dias > 0)
+);
+
+-- Crear la tabla detalle_comida_plan_nutricional
+CREATE TABLE detalle_comida_plan_nutricional (
+    id_comida INT NOT NULL,
+    id_plan_nutricional INT NOT NULL,
+    PRIMARY KEY (id_comida, id_plan_nutricional)
+);
+
+-- Crear la tabla rol
+CREATE TABLE rol (
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    rol VARCHAR(10) NULL CHECK (UPPER(rol) IN ('PACIENTE', 'NUTRIOLOGA')),
+    descripcion VARCHAR(250) NULL
+);
+
+-- Crear la tabla suscripcion
+CREATE TABLE suscripcion (
+    id_suscripcion INT AUTO_INCREMENT PRIMARY KEY,
+    suscripcion VARCHAR(10) NULL CHECK (UPPER(suscripcion) IN ('MENSUAL', 'TRIMESTRAL', 'ANUAL')),
+    duracion_dias INT NULL CHECK (duracion_dias >= 0),
+    estado CHAR(20) NULL CHECK (UPPER(estado) IN ('SUSCRITO', 'SIN SUSCRIPCIÓN'))
+);
+
+-- Crear la tabla usuario
+CREATE TABLE usuario (
+    ci_usuario VARCHAR(10) NOT NULL PRIMARY KEY,
+    id_rol INT NOT NULL,
+    nombres VARCHAR(80) NULL CHECK (UPPER(nombres) COLLATE utf8mb4_general_ci LIKE '%[^A-Z ]%'),
+    apellidos VARCHAR(80) NULL CHECK (UPPER(apellidos) COLLATE utf8mb4_general_ci LIKE '%[^A-Z ]%'),
+    edad INT NULL CHECK (edad > 0 AND edad < 130),
+    correo VARCHAR(60) NULL,
+    clave VARCHAR(30) NULL,
+    sexo VARCHAR(10) NOT NULL CHECK (UPPER(sexo) IN ('FEMENINO', 'MASCULINO', 'OTRO'))
+);
+
+-- Ajustar claves
+-- Ajustar claves foráneas para la tabla CALENDARIO_CITAS
+ALTER TABLE calendario_citas
+ADD CONSTRAINT FK_CALENDARIO_CITAS_NUTRIOLOGA
+FOREIGN KEY (ci_nutriologa)
+REFERENCES nutriologa (ci_nutriologa);
+
+-- Ajustar claves foráneas para la tabla cita
+ALTER TABLE cita
+ADD CONSTRAINT FK_CITA_PACIENTE
+FOREIGN KEY (ci_paciente)
+REFERENCES paciente (ci_paciente);
+
+-- Ajustar claves foráneas para la tabla configuracion
+ALTER TABLE configuracion
+ADD CONSTRAINT FK_CONFIGURACION_NUTRIOLOGA
+FOREIGN KEY (ci_nutriologa)
+REFERENCES nutriologa (ci_nutriologa);
+
+-- Ajustar claves foráneas para la tabla enfermedad_previa
+ALTER TABLE enfermedad_previa
+ADD CONSTRAINT FK_ENFERMEDAD_PREVIA_HISTORIAL
+FOREIGN KEY (id_historial_clinico)
+REFERENCES historial_clinico (id_historial_clinico);
+
+-- Ajustar claves foráneas para la tabla historial_clinico
+ALTER TABLE historial_clinico
+ADD CONSTRAINT FK_HISTORIAL_CLINICO_PACIENTE
+FOREIGN KEY (ci_paciente)
+REFERENCES paciente (ci_paciente);
+
+-- Ajustar claves foráneas para la tabla historial_medidas
+ALTER TABLE historial_medidas
+ADD CONSTRAINT FK_HISTORIAL_MEDIDAS_HISTORIAL
+FOREIGN KEY (id_historial_clinico)
+REFERENCES historial_clinico (id_historial_clinico);
+
+-- Ajustar claves foráneas para la tabla horario_laboral
+ALTER TABLE horario_laboral
+ADD CONSTRAINT FK_HORARIO_LABORAL_CONFIGURACION
+FOREIGN KEY (id_configuracion)
+REFERENCES configuracion (id_configuracion);
+
+-- Ajustar claves foráneas para la tabla nutriologa
+ALTER TABLE nutriologa
+ADD CONSTRAINT FK_NUTRIOLOGA_USUARIO
+FOREIGN KEY (ci_nutriologa)
+REFERENCES usuario (ci_usuario);
+
+-- Ajustar claves foráneas para la tabla paciente
+ALTER TABLE paciente
+ADD CONSTRAINT FK_PACIENTE_USUARIO
+FOREIGN KEY (ci_paciente)
+REFERENCES usuario (ci_usuario);
+
+-- Ajustar claves foráneas para la tabla paciente
+ALTER TABLE paciente
+ADD CONSTRAINT FK_PACIENTE_SUSCRIPCION
+FOREIGN KEY (id_suscripcion)
+REFERENCES suscripcion (id_suscripcion);
+
+-- Ajustar claves foráneas para la tabla plan_nutricional
+ALTER TABLE plan_nutricional
+ADD CONSTRAINT FK_PLAN_NUTRICIONAL_NUTRIOLOGA
+FOREIGN KEY (ci_nutriologa)
+REFERENCES nutriologa (ci_nutriologa);
+
+-- Ajustar claves foráneas para la tabla detalle_comida_plan_nutricional
+ALTER TABLE detalle_comida_plan_nutricional
+ADD CONSTRAINT FK_DETALLE_COMIDA_PLAN_NUTRICIONAL_COMIDA
+FOREIGN KEY (id_comida)
+REFERENCES comida (id_comida);
+
+-- Ajustar claves foráneas para la tabla detalle_comida_plan_nutricional
+ALTER TABLE detalle_comida_plan_nutricional
+ADD CONSTRAINT FK_DETALLE_COMIDA_PLAN_NUTRICIONAL_PLAN_NUTRICIONAL
+FOREIGN KEY (id_plan_nutricional)
+REFERENCES plan_nutricional (id_plan_nutricional);
+
+-- Ajustar claves foráneas para la tabla usuario
+ALTER TABLE usuario
+ADD CONSTRAINT FK_USUARIO_ROL
+FOREIGN KEY (id_rol)
+REFERENCES rol (id_rol);
