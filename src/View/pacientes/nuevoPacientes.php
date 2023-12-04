@@ -58,8 +58,8 @@
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=guardarPacientes" autocomplete="off">
     <h2>Registro<?php echo $data['titulo'];?></h2>
 
-    <label for="ci_usuario">Cedula Paciente:</label>
-    <select id="ci_usuario" name="ci_usuario" required>
+    <label for="ci_paciente">Cedula Paciente:</label>
+    <select id="ci_paciente" name="ci_paciente" required>
          
     <?php
         foreach ($data['opciones_usuario'] as $ci) {
