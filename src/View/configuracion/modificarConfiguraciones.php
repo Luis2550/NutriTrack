@@ -55,16 +55,19 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
+<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Configuracion&a=actualizarConfiguraciones" autocomplete="off">
     <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <input type="hidden" id="id_configuracion" name="id_configuracion" value="<?php echo $data["configuraciones"]["id_configuracion"]; ?>" />
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="ci_nutriologa">Cédula Nutrióloga:</label>
+    <input type="text" id="ci_nutriologa" name="ci_nutriologa" readonly required value="<?php echo $data["configuraciones"]["ci_nutriologa"]?>">
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="dias_laborales">Días Laborales:</label>
+    <input type="number" id="dias_laborales" name="dias_laborales" required value="<?php echo $data["configuraciones"]["dias_laborales"]?>">
+
+    <label for="duracion_cita">Duración Cita (minutos):</label>
+    <input type="number" id="duracion_cita" name="duracion_cita" required value="<?php echo $data["configuraciones"]["duracion_cita"]?>">
 
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
 </form>

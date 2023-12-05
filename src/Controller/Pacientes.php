@@ -44,7 +44,7 @@ class PacientesController{
     }
     
     public function actualizarPacientes(){
-        $ci_paciente = $_POST['ci_paciente'];
+        $ci_paciente = $_POST['id'];
         $id_suscripcion = $_POST['id_suscripcion'];
         
         $pacientes = new PacientesModel();

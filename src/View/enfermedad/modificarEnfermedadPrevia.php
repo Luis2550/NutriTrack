@@ -55,20 +55,22 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
+<form id="nuevo" name="nuevo" method="POST" action="index.php?c=EnfermedadPrevia&a=actualizarEnfermedadPrevia" autocomplete="off">
     <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <input type="hidden" id="id_enfermedad_previa" name="id_enfermedad_previa" value="<?php echo $data["enfermedadesprev"]["id_enfermedad_previa"]; ?>" required>
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="enfermedad_previa">Enfermedad Previa:</label>
+    <input type="numb" id="enfermedad_previa" name="enfermedad_previa" value="<?php echo $data["enfermedadesprev"]["enfermedad_previa"]; ?>" required>
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="descripcion">Descripcion de Enfermedad:</label>
+    <input type="numb" id="descripcion" name="descripcion" value="<?php echo $data["enfermedadesprev"]["descripcion"]; ?>" required>
+
+    <label for="fecha">Fecha de Registro de Enfermedad:</label>
+    <input type="date" id="fecha" name="fecha" value="<?php echo $data["enfermedadesprev"]["fecha"]; ?>" required>
 
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
 </form>
 
 </body>
 </html>
-
