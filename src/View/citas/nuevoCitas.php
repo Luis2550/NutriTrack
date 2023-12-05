@@ -55,20 +55,34 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
-    <h2>Editar <?php echo $data['titulo'];?></h2>
+<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=guardarCitas" autocomplete="off">
+    <h2>Registro<?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <label for="ci_paciente">Paciente:</label>
+    <select id="ci_paciente" name="ci_paciente" required>
+         
+    <?php
+        foreach ($data['opciones_pacientes'] as $ci) {
+            echo "<option value='{$ci}'>{$ci}</option>";
+        }
+    ?>
+    </select>
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required>
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="hora_inicio">Hora:</label>
+    <input type="time" id="hora_inicio" name="hora_inicio" required>
 
-    <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-</form>
+    <label for="duracion_cita">Duracion Cita:</label>
+    <input type="number" id="duracion_cita" name="duracion_cita" required>
+    
+    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+  </form>
 
 </body>
 </html>
+
+
+
 

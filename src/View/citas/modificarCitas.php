@@ -55,20 +55,25 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
+  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=actualizarCitas" autocomplete="off">
     <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <input type="hidden" id="id_cita" name="id_cita" required value="<?php echo $data["id_cita"]; ?>">
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="ci_paciente">Paciente:</label>
+    <input type="text" id="ci_paciente" name="ci_paciente" required readonly value="<?php echo $data["citas"]["ci_paciente"]?>">
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" required value="<?php echo $data["citas"]["fecha"]?>">
 
+    <label for="hora_inicio">Hora:</label>
+    <input type="time" id="hora_inicio" name="hora_inicio" required value="<?php echo $data["citas"]["hora_inicio"]?>">
+
+    <label for="duracion_cita">Duracion Cita:</label>
+    <input type="number" id="duracion_cita" name="duracion_cita" required value="<?php echo $data["citas"]["duracion_cita"]?>">
+    
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-</form>
+  </form>
 
 </body>
 </html>
-

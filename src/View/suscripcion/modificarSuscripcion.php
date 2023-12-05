@@ -55,20 +55,22 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
-    <h2>Editar <?php echo $data['titulo'];?></h2>
+<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=actualizarSuscripcion" autocomplete="off">
+    <h2>Actualizar<?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <input type="hidden" id="id_suscripcion" name="id_suscripcion" required value="<?php echo $data["suscripcion"]["id_suscripcion"]?>">
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="suscripcion">Suscripcion:</label>
+    <input type="text" id="suscripcion" name="suscripcion" required value="<?php echo $data["suscripcion"]["suscripcion"]?>">
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="duracion_dias">Duracion Dias:</label>
+    <input type="num" id="duracion_dias" name="duracion_dias" required value="<?php echo $data["suscripcion"]["duracion_dias"]?>">
 
+    <label for="estado">Estado:</label>
+    <input type="text" id="estado" name="estado" required value="<?php echo $data["suscripcion"]["estado"]?>">
+    
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-</form>
+  </form>
 
 </body>
 </html>
-

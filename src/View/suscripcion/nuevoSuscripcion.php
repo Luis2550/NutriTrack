@@ -55,20 +55,23 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
-    <h2>Editar <?php echo $data['titulo'];?></h2>
+<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off">
+    <h2>Registro<?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
+    <label for="suscripcion">Suscripcion:</label>
+    <input type="text" id="suscripcion" name="suscripcion" required>
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="duracion_dias">Duracion Dias:</label>
+    <input type="num" id="duracion_dias" name="duracion_dias" required>
 
-    <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-</form>
+    <label for="estado">Estado:</label>
+    <input type="text" id="estado" name="estado" required>
+    
+    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+  </form>
 
 </body>
 </html>
+
 

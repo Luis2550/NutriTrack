@@ -55,20 +55,20 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Pacientes&a=actualizarPacientes" autocomplete="off">
+  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Rol&a=actualizarRol" autocomplete="off">
     <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["paciente"]["ci_paciente"]; ?>" />
+    <input type="hidden" id="id_rol" name="id_rol" required value="<?php echo $data["id_rol"]; ?>">
 
-    <label for="ci_paciente">Cedula Paciente:</label>
-    <input type="text" id="paciente" name="ci_paciente" readonly required value="<?php echo $data["paciente"]["ci_paciente"]?>">
 
-    <label for="id_suscripcion">Suscripcion:</label>
-    <input type="number" id="suscripcion" name="id_suscripcion" required value="<?php echo $data["paciente"]["id_suscripcion"]?>">
+    <label for="rol">Rol:</label>
+    <input type="text" id="rol" name="rol" required value="<?php echo $data["rol"]["rol"]?>">
 
+    <label for="descripcion">Descripcion:</label>
+    <input type="text" id="descripcion" name="descripcion" required value="<?php echo $data["rol"]["descripcion"]?>">
+    
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-</form>
+  </form>
 
 </body>
 </html>
-
