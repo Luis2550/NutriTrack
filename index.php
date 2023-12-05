@@ -4,6 +4,9 @@ require_once "config/dataBase.php";
 require_once "core/route.php";
 require_once "config/config.php";
 require_once "src/Controller/Usuarios.php";
+require_once "src/Controller/historialClinico.php";
+require_once "src/Controller/Pacientes.php";
+require_once "src/Controller/historialMedidas.php";
 
 if(isset($_GET['c'])){
 		
