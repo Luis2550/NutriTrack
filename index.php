@@ -6,6 +6,7 @@ require_once "config/config.php";
 
 require_once "src/Controller/Pacientes.php";
 require_once "src/Controller/EnfermedadPrevia.php";
+require_once "src/Controller/Configuracion.php";
 
 if(isset($_GET['c'])){
 		
