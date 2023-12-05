@@ -3,7 +3,7 @@
 class CitasController{
 
     public function __construct(){
-        require_once __DIR__ . "/../Model/CitasModel.php";
+        require_once __DIR__ . "/../Model/citasModel.php";
     }
 
     public function verCitas(){
