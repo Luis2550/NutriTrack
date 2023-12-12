@@ -13,10 +13,11 @@
         <thead>
             <tr>
                 <th>ID Paciente</th>
-                <th>Cedula</th>
+                <th>Cedula Paciente</th>
                 <th>Fecha</th>
-                <th>Hora</th>
-                <th>Duracion</th>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Cedula Nutriologa</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -31,7 +32,8 @@
                         echo"<td>".$dato['ci_paciente']."</td>";
                         echo"<td>".$dato['fecha']."</td>";
                         echo"<td>".$dato['hora_inicio']."</td>";
-                        echo"<td>".$dato['duracion_cita']."</td>";
+                        echo"<td>".$dato['hora_fin']."</td>";
+                        echo"<td>".$dato['ci_nutriologa']."</td>";
                         
                         echo "<td><a href='index.php?c=Citas&a=modificarCitas&id=".$dato["id_cita"]."'>Modificar</a></td>";
 						echo "<td><a href='index.php?c=Citas&a=eliminarCitas&id=".$dato["id_cita"]."'>Eliminar</a></td>";

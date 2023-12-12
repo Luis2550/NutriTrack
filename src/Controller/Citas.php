@@ -20,6 +20,7 @@ class CitasController{
         $citas = new CitasModel();
          // Obtener opciones para ci_nutriologa y ci_paciente
          $data['opciones_pacientes'] = $citas->getCIPacientes();
+         $data2['opciones_nutriologa'] = $citas->getCINutriologa();
 
         require_once(__DIR__ . '/../View/citas/nuevoCitas.php');
     }
@@ -29,10 +30,11 @@ class CitasController{
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha'];
         $hora_inicio = $_POST['hora_inicio'];
-        $duracion_cita = $_POST['duracion_cita'];
+        $hora_fin = $_POST['hora_fin'];
+        $nutriologa = $_POST['ci_nutriologa'];
         
         $citas = new CitasModel();
-        $citas->insertar_Citas($ci_paciente, $fecha, $hora_inicio, $duracion_cita);
+        $citas->insertar_Citas($ci_paciente, $fecha, $hora_inicio, $hora_fin, $nutriologa);
         $data["titulo"] = "citas";
         $this->verCitas();
     }
@@ -53,10 +55,10 @@ class CitasController{
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha'];
         $hora_inicio = $_POST['hora_inicio'];
-        $duracion_cita = $_POST['duracion_cita'];
+        $hora_fin = $_POST['hora_fin'];
 
         $usuarios = new CitasModel();
-        $usuarios->modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $duracion_cita);
+        $usuarios->modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $hora_fin);
         $data["titulo"] = "citas";
         $this->verCitas();
     }

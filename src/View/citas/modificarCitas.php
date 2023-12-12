@@ -66,11 +66,14 @@
     <label for="fecha">Fecha:</label>
     <input type="date" id="fecha" name="fecha" required value="<?php echo $data["citas"]["fecha"]?>">
 
-    <label for="hora_inicio">Hora:</label>
+    <label for="hora_inicio">Hora Inicio:</label>
     <input type="time" id="hora_inicio" name="hora_inicio" required value="<?php echo $data["citas"]["hora_inicio"]?>">
 
-    <label for="duracion_cita">Duracion Cita:</label>
-    <input type="number" id="duracion_cita" name="duracion_cita" required value="<?php echo $data["citas"]["duracion_cita"]?>">
+    <label for="hora_fin">Hora fin:</label>
+    <input type="time" id="hora_fin" name="hora_fin" required value="<?php echo $data["citas"]["hora_fin"]?>">
+
+    <label for="ci_nutriologa">Nutriologa:</label>
+    <input type="text" id="ci_nutriologa" name="ci_nutriologa" required readonly value="<?php echo $data["citas"]["ci_nutriologa"]?>">
     
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>
