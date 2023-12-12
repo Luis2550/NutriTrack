@@ -20,6 +20,7 @@
                 <th>Correo</th>
                 <th>Contraseña</th>
                 <th>Sexo</th>
+                <th>Foto</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -38,6 +39,7 @@
                         echo"<td>".$dato['correo']."</td>";
                         echo"<td>".$dato['clave']."</td>";
                         echo"<td>".$dato['sexo']."</td>";
+                        echo"<td>".$dato['foto']."</td>";
                         echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios&id=".$dato["ci_usuario"]."'>Modificar</a></td>";
 						echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["ci_usuario"]."'>Eliminar</a></td>";
                     echo"</tr>";

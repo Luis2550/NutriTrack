@@ -22,16 +22,16 @@ class UsuariosModel{
         return $this->usuarios;
     }
 
-    public function insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero){
-        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo)
-        VALUES ('$ci_usuario','1','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero')");
+    public function insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto){
+        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo, foto)
+        VALUES ('$ci_usuario','1','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero','$foto')");
     }
     
 
-    public function modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero){
+    public function modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto){
 			
         $resultado = $this->db->query("UPDATE usuario 
-        SET nombres='$nombres', apellidos='$apellidos', edad='$edad', correo='$correo', clave='$contrasenia', sexo = '$genero'  WHERE ci_usuario = '$id'");			
+        SET nombres='$nombres', apellidos='$apellidos', edad='$edad', correo='$correo', clave='$contrasenia', sexo = '$genero', foto='$foto'  WHERE ci_usuario = '$id'");			
     }
 
     public function eliminar_Usuarios($id){

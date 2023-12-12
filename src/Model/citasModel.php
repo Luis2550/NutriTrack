@@ -22,9 +22,9 @@ class CitasModel{
         return $this->citas;
     }
 
-    public function insertar_Citas($ci_paciente, $fecha, $hora_inicio, $duracion_cita){
-        $resultado = $this->db->query("INSERT INTO cita (ci_paciente, fecha, hora_inicio, duracion_cita)
-        VALUES ('$ci_paciente','$fecha','$hora_inicio','$duracion_cita')");
+    public function insertar_Citas($ci_paciente, $fecha, $hora_inicio, $hora_fin, $nutriologa){
+        $resultado = $this->db->query("INSERT INTO cita (ci_paciente, ci_nutriologa, fecha, hora_inicio, hora_fin)
+        VALUES ('$ci_paciente','$nutriologa','$fecha','$hora_inicio','$hora_fin')");
     }
 
     public function getCIPacientes() {
@@ -38,12 +38,25 @@ class CitasModel{
 
         return $ciPacientes;
     }
+
+    public function getCINutriologa() {
+        $sql = "SELECT ci_nutriologa FROM nutriologa";
+        $resultado = $this->db->query($sql);
+        $ciNutriologa = array();
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $ciNutriologa[] = $fila['ci_nutriologa'];
+        }
+
+        return $ciNutriologa;
+    }
+    
     
 
-    public function modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $duracion_cita){
+    public function modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $hora_fin){
 			
         $resultado = $this->db->query("UPDATE cita 
-        SET fecha='$fecha', hora_inicio='$hora_inicio', duracion_cita='$duracion_cita' WHERE id_cita = '$id_cita'");			
+        SET fecha='$fecha', hora_inicio='$hora_inicio', hora_fin='$hora_fin' WHERE id_cita = '$id_cita'");			
     }
 
     public function eliminar_Citas($id_cita){

@@ -9,7 +9,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       margin: 0;
     }
 
@@ -78,6 +77,9 @@
 
     <label for="sexo">Sexo:</label>
     <input type="text" id="sexo" name="sexo" required>
+
+    <label for="foto">Foto:</label>
+    <input type="file" id="foto" name="foto" required>
     
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
   </form>

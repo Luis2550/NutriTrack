@@ -9,6 +9,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
       margin: 0;
     }
 
@@ -54,30 +55,15 @@
 </head>
 <body>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=guardarCitas" autocomplete="off">
-    <h2>Registro<?php echo $data['titulo'];?></h2>
+  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Certificacion&a=actualizarCertificacion" autocomplete="off">
+    <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <label for="ci_paciente">Paciente:</label>
-    <select id="ci_paciente" name="ci_paciente" required>
-         
-    <?php
-        foreach ($data['opciones_pacientes'] as $ci) {
-            echo "<option value='{$ci}'>{$ci}</option>";
-        }
-    ?>
-    </select>
+    <input type="hidden" id="id_certificacion" name="id_certificacion" required value="<?php echo $data["id_certificacion"]; ?>">
 
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" required>
-
-    <label for="hora_inicio">Hora Inicio:</label>
-    <input type="time" id="hora_inicio" name="hora_inicio" required>
-
-    <label for="hora_fin">Hora fin:</label>
-    <input type="time" id="hora_fin" name="hora_fin" required>
+    <h2>Actualizar<?php echo $data['titulo'];?></h2>
 
     <label for="ci_nutriologa">Nutriologa:</label>
-    <select id="ci_nutriologa" name="ci_nutriologa" required>
+    <select id="ci_nutriologa" name="ci_nutriologa" required value="<?php echo $data["certificacion"]["ci_nutriologa"]?>"> 
          
     <?php
         foreach ($data2['opciones_nutriologa'] as $ci) {
@@ -85,14 +71,15 @@
         }
     ?>
     </select>
-    <br>
-    <br>
-    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+
+    <label for="titulo">Titulo:</label>
+    <input type="text" id="titulo" name="titulo" required value="<?php echo $data["certificacion"]["titulo"]?>">
+
+    <label for="archivo">Archivo: <?php echo $data["certificacion"]["archivo"]?>"</label>
+    <input type="file" id="archivo" name="archivo" required value="<?php echo $data["certificacion"]["archivo"]; ?>">
+    
+    <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>
 
 </body>
 </html>
-
-
-
-

@@ -29,9 +29,10 @@ class UsuariosController{
         $correo = $_POST['correo'];
         $contrasenia = $_POST['clave'];
         $genero = $_POST['sexo'];
+        $foto = $_POST['foto'];
         
         $usuarios = new UsuariosModel();
-        $usuarios->insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero);
+        $usuarios->insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero,$foto );
         $data["titulo"] = "Usuarios";
         $this->verUsuarios();
     }
@@ -54,9 +55,10 @@ class UsuariosController{
         $correo = $_POST['correo'];
         $contrasenia = $_POST['clave'];
         $genero = $_POST['sexo'];
+        $foto = $_POST['foto'];
 
         $usuarios = new UsuariosModel();
-        $usuarios->modificar_Usuarios($id,$nombres, $apellidos, $edad, $correo, $contrasenia, $genero);
+        $usuarios->modificar_Usuarios($id,$nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto);
         $data["titulo"] = "usuarios";
         $this->verUsuarios();
     }
