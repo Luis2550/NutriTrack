@@ -6,7 +6,7 @@
     <title><?php echo $data['titulo'];?></title>
 </head>
 <body>
-    <h2>Ver Citas</h2>
+    <h2>Ver Certificacion</h2>
 
     <table border="1" width="60%">
 
