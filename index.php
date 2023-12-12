@@ -5,6 +5,7 @@ require_once "core/route.php";
 require_once "config/config.php";
 require_once "src/Controller/planNutricional.php";
 require_once "src/Controller/nutriologa.php";
+require_once "src/Controller/actividad.php";
 
 if(isset($_GET['c'])){
 		
