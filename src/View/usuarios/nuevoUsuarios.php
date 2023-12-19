@@ -76,7 +76,11 @@
     <input type="password" id="clave" name="clave" required>
 
     <label for="sexo">Sexo:</label>
-    <input type="text" id="sexo" name="sexo" required>
+    <select id="sexo" name="sexo" required>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+    </select>
+
 
     <label for="foto">Foto:</label>
     <input type="file" id="foto" name="foto" required>

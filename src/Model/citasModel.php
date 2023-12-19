@@ -13,7 +13,7 @@ class CitasModel{
 
     public function get_Citas(){
 
-        $sql = "SELECT * FROM cita";
+        $sql = "SELECT * FROM cita ORDER BY fecha" ;
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){
@@ -74,6 +74,13 @@ class CitasModel{
 
         return $fila;
     }
+
+    public function citaYaReservada($ci_paciente, $fecha, $hora_inicio) {
+        $sql = "SELECT 1 FROM cita WHERE ci_paciente = '$ci_paciente' AND fecha = '$fecha' AND hora_inicio = '$hora_inicio'";
+        $resultado = $this->db->query($sql);
+        return $resultado->num_rows > 0;
+    }
+    
 }
 
 ?>
