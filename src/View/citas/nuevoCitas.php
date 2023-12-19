@@ -55,16 +55,15 @@
 <body>
 
 <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=guardarCitas" autocomplete="off">
-    <h2>Registro<?php echo $data['titulo'];?></h2>
+    <h2>Registro de Citas</h2>
 
     <label for="ci_paciente">Paciente:</label>
     <select id="ci_paciente" name="ci_paciente" required>
-         
-    <?php
-        foreach ($data['opciones_pacientes'] as $ci) {
-            echo "<option value='{$ci}'>{$ci}</option>";
-        }
-    ?>
+        <?php
+            foreach ($data['opciones_pacientes'] as $ci) {
+                echo "<option value='{$ci}'>{$ci}</option>";
+            }
+        ?>
     </select>
 
     <label for="fecha">Fecha:</label>
@@ -78,17 +77,22 @@
 
     <label for="ci_nutriologa">Nutriologa:</label>
     <select id="ci_nutriologa" name="ci_nutriologa" required>
-         
+        <?php
+            foreach ($data2['opciones_nutriologa'] as $ci) {
+                echo "<option value='{$ci}'>{$ci}</option>";
+            }
+        ?>
+    </select>
+
     <?php
-        foreach ($data2['opciones_nutriologa'] as $ci) {
-            echo "<option value='{$ci}'>{$ci}</option>";
+        // Verificar si hay un mensaje de error y mostrarlo
+        if (isset($error_message)) {
+            echo "<p style='color: red;'>{$error_message}</p>";
         }
     ?>
-    </select>
-    <br>
-    <br>
-    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
-  </form>
+
+    <button id="guardar" name="guardar" type="submit">Registrar</button>
+</form>
 
 </body>
 </html>
