@@ -12,7 +12,7 @@
 
         <thead>
             <tr>
-                <th>Cedula</th>
+                <th>Cédula</th>
                 <th>Rol</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
@@ -32,7 +32,7 @@
                 foreach($data['usuarios'] as $dato){
                     echo"<tr>";
                         echo"<td>".$dato['ci_usuario']."</td>";
-                        echo"<td>".$dato['id_rol']."</td>";
+                        echo"<td>".$dato['rol']."</td>";
                         echo"<td>".$dato['nombres']."</td>";
                         echo"<td>".$dato['apellidos']."</td>";
                         echo"<td>".$dato['edad']."</td>";

@@ -34,17 +34,23 @@ class configuracionModel{
         return $ciNutriologa;
     }
 
-   
-    public function insertar_Configuraciones($ci_nutriologa, $dias_laborales, $duracion_cita){
-        $resultado = $this->db->query("INSERT INTO configuracion(ci_nutriologa, dias_laborales, duracion_cita) VALUES ('$ci_nutriologa', '$dias_laborales', '$duracion_cita')");
+    public function getNombreNutriologa() {
+        $sql = "SELECT u.nombres, u.apellidos, n.ci_nutriologa FROM usuario as u inner join nutriologa as n on n.ci_nutriologa = u.ci_usuario;";
+        $resultado = $this->db->query($sql);
 
+        return $resultado;
+    }
+
+   
+    public function insertar_Configuraciones($ci_nutriologa, $dias_laborales, $duracion_cita, $dia_inicio, $dia_fin, $descripcion, $hora_inicio, $hora_fin, $hora_descanso_inicio, $hora_descanso_fin, $cantidad_horas_laborales){
+        $resultado = $this->db->query("INSERT INTO configuracion(id_configuracion, ci_nutriologa, dias_laborales, duracion_cita, dia_inicio, dia_fin, descripcion, hora_inicio, hora_fin, hora_descanso_inicio, hora_descanso_fin, cantidad_horas_laborales) VALUES ('','$ci_nutriologa', '$dias_laborales', '$duracion_cita', '$dia_inicio', '$dia_fin', '$descripcion', '$hora_inicio', '$hora_fin', '$hora_descanso_inicio', '$hora_descanso_fin', '$cantidad_horas_laborales')");
     }
 
     
-    public function modificar_Configuraciones( $id_configuracion, $ci_nutriologa, $dias_laborales, $duracion_cita){
+    public function modificar_Configuraciones( $id_configuracion, $ci_nutriologa, $dias_laborales, $duracion_cita, $dia_inicio, $dia_fin, $descripcion, $hora_inicio, $hora_fin, $hora_descanso_inicio, $hora_descanso_fin, $cantidad_horas_laborales){
 			
         $resultado = $this->db->query("UPDATE configuracion
-        SET ci_nutriologa='$ci_nutriologa', dias_laborales='$dias_laborales', duracion_cita='$duracion_cita' WHERE id_configuracion = '$id_configuracion'");			
+        SET ci_nutriologa='$ci_nutriologa', dias_laborales='$dias_laborales', duracion_cita='$duracion_cita', dia_inicio='$dia_inicio', dia_fin='$dia_fin', descripcion='$descripcion', hora_inicio='$hora_inicio', hora_fin='$hora_fin', hora_descanso_inicio='$hora_descanso_inicio', hora_descanso_fin='$hora_descanso_fin', cantidad_horas_laborales='$cantidad_horas_laborales' WHERE id_configuracion = '$id_configuracion'");			
     }
 
     public function get_Configuracion($id)

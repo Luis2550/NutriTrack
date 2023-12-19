@@ -37,6 +37,14 @@
       box-sizing: border-box;
     }
 
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
     button {
       width: 100%;
       padding: 10px;
@@ -57,8 +65,11 @@
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off">
     <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <label for="nombre">Cedula:</label>
+    <label for="nombre">Cédula:</label>
     <input type="text" id="id" name="id" readonly value="<?php echo $data["ci_usuario"]; ?>" />
+
+    <label for="rol">Rol:</label>
+    <input type="text" id="rol" name="rol" readonly value="<?php echo $data["usuarios"]["rol"]; ?>" />
 
     <label for="nombre">Nombres:</label>
     <input type="text" id="nombres" name="nombres" required value="<?php echo $data["usuarios"]["nombres"]?>">
@@ -67,7 +78,14 @@
     <input type="text" id="apellidos" name="apellidos" required value="<?php echo $data["usuarios"]["apellidos"]?>">
 
     <label for="usuario">Edad:</label>
-    <input type="text" id="edad" name="edad" required value="<?php echo $data["usuarios"]["edad"]?>">
+    <select id="edad" name="edad" required>
+      <?php
+      $edadActual = $data["usuarios"]["edad"];
+      ?>
+      <?php for ($i = 5; $i <= 100; $i++) : ?>
+          <option value="<?php echo $i; ?>" <?php if ($i == $edadActual) echo "selected"; ?>><?php echo $i; ?></option>
+      <?php endfor; ?>
+    </select>
 
     <label for="correo">Correo:</label>
     <input type="email" id="correo" name="correo" required value="<?php echo $data["usuarios"]["correo"]?>">
@@ -76,10 +94,17 @@
     <input type="password" id="clave" name="clave" required value="<?php echo $data["usuarios"]["clave"]?>">
 
     <label for="sexo">Sexo:</label>
-    <input type="text" id="sexo" name="sexo" required value="<?php echo $data["usuarios"]["sexo"]?>">
+    <!-- Cambiar input de texto a un campo de selección de género -->
+    <select id="sexo" name="sexo" required>
+      <?php
+      $sexoActual = $data["usuarios"]["sexo"];
+      ?>
+      <option value="MASCULINO" <?php if ($sexoActual === "MASCULINO") echo "selected"; ?>>Masculino</option>
+      <option value="FEMENINO" <?php if ($sexoActual === "FEMENINO") echo "selected"; ?>>Femenino</option>
+    </select>
 
     <label for="foto">Foto:</label>
-    <input type="file" id="foto" name="foto" required value="<?php echo $data["usuarios"]["sexo"]?>">
+    <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required value="<?php echo $data["usuarios"]["foto"]?>">
     
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>
