@@ -90,7 +90,8 @@
             echo "<p style='color: red;'>{$error_message}</p>";
         }
     ?>
-
+    <br>
+    <br>
     <button id="guardar" name="guardar" type="submit">Registrar</button>
 </form>
 

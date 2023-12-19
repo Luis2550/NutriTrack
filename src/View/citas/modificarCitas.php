@@ -46,7 +46,7 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 10px;
+
     }
 
     button:hover {
@@ -79,8 +79,7 @@
     <?php if (isset($error_message)) : ?>
         <p style="color: red;"><?php echo $error_message; ?></p>
     <?php endif; ?>
-    <br>
-    <br>
+
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>
 
