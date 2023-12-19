@@ -13,7 +13,7 @@ class CitasModel{
 
     public function get_Citas(){
 
-        $sql = "SELECT * FROM cita";
+        $sql = "SELECT * FROM cita ORDER BY fecha" ;
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){
