@@ -4,7 +4,7 @@ class Conectar{
 
 
     public static function conexion(){
-        $conexion = new mysqli('localhost', 'root', '', 'nutritrack3');
+        $conexion = new mysqli('localhost', 'root', '', 'db_nutritrack');
         return $conexion;
     }
 
