@@ -79,8 +79,22 @@
     <label for="nombre">Nombres:</label>
     <input type="text" id="nombres" name="nombres" required>
 
+    <?php
+        // Verificar si hay un mensaje de error y mostrarlo
+        if (isset($error_message)) {
+            echo "<p style='color: red;'>{$error_message}</p>";
+        }
+    ?>
+
     <label for="apellido">Apellidos:</label>
     <input type="text" id="apellidos" name="apellidos" required>
+
+    <?php
+        // Verificar si hay un mensaje de error y mostrarlo
+        if (isset($error_message)) {
+            echo "<p style='color: red;'>{$error_message}</p>";
+        }
+    ?>
 
     <label for="edad">Edad:</label>
     <!-- Cambiar input de texto a un selector de edades -->

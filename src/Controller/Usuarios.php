@@ -5,7 +5,38 @@ class UsuariosController{
     public function __construct(){
         require_once __DIR__ . "/../Model/usuariosModel.php";
     }
+    function validarNombre($nombres) {
+        // Verificar que el nombre y el apellido contengan exactamente dos palabras
+        $nombrePalabras = explode(' ', trim($nombres));
 
+        if (preg_match('/[0-9!@#$%^&*(),.?":{}|<>]/', $nombres)) {
+            // Devolver false si se encuentran números o caracteres especiales 
+            return false;
+        }elseif(count($nombrePalabras) !== 2) {
+            // Devolver false si la validación falla
+            return false;
+        }else{
+            return true;
+        }
+        // Devolver true si la validación es exitosa
+        
+    }
+    function validarApellido($apellidos) {
+        // Verificar que el nombre y el apellido contengan exactamente dos palabras
+        $apellidoPalabras = explode(' ', trim($apellidos));
+
+        if (preg_match('/[0-9!@#$%^&*(),.?":{}|<>]/', $apellidos)) {
+            // Devolver false si se encuentran números o caracteres especiales 
+            return false;
+        }elseif(count($apellidoPalabras) !== 2) {
+            // Devolver false si la validación falla
+            return false;
+        }else{
+            return true;
+        }
+        // Devolver true si la validación es exitosa
+        
+    }
     function validarCedula($cedula) {
         // Eliminar espacios en blanco y caracteres no numéricos
         $cedula = preg_replace("/[^0-9]/", "", $cedula);
@@ -94,13 +125,28 @@ class UsuariosController{
             $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto );
             $data["titulo"] = "Usuarios";
             $this->verUsuarios();
-        }
-        else{
+        } elseif (UsuariosController::validarNombre($nombres)){
+            if (UsuariosController::validarApellido($apellidos))
+            {
+                $usuarios->insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero,$foto );
+                $data["titulo"] = "usuarios";
+                $this->verUsuarios();
+            }
+            else {
+
+                // Manejar el caso en que la validación falla
+                $error_message = 'Error: El nombre y el apellido deben contener exactamente dos palabras y no deben contener caracteres especiales.';
+                $data["titulo"] = "usuarios";
+                require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
+            } 
+        }else{
             // Mostrar un mensaje de error en el formulario
             $data["titulo"] = "Usuarios";
             $data["error_message"] = "Cédula no válida";
             require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
         }
+
+
     }
 
     public function modificarUsuarios($id){
