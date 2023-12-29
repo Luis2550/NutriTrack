@@ -12,7 +12,7 @@
   
     <form action="http://localhost/nutritrack/index.php?c=Sesion&a=iniciarSesion" method="post" class="login-form">
       <h2>Login</h2>
-      <label for="username">Usuario:</label>
+      <label for="username">Correo:</label>
       <input type="text" id="username" name="username" required>
       
       <label for="password">Contraseña:</label>
