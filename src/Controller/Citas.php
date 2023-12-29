@@ -4,13 +4,17 @@ class CitasController {
 
     public function __construct() {
         require_once __DIR__ . "/../Model/citasModel.php";
+        require_once __DIR__ . "/../Model/usuariosModel.php";
     }
 
     public function verCitas() {
         $citas = new CitasModel();
         $data['titulo'] = 'citas';
         $data['citas'] = $citas->get_Citas();
-        require_once(__DIR__ . '/../View/citas/verCitas.php');
+
+        $nombre = new usuariosModel();
+        $data2['nombre'] = $citas->get_Usuarios();
+        require_once(__DIR__ . '/../View/nutriologa/citas/verCitas.php');
     }
 
     public function nuevoCitas() {

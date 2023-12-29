@@ -22,7 +22,7 @@
                 <a href="<?php echo $urlBase;?>index.php" class="nav__link">Inicio</a>
                 <a href="<?php echo $urlBase;?>index.php?c=Inicio&a=sobre_nosotros" class="nav__link">Sobre Nosotros</a>
                 <a href="<?php echo $urlBase;?>index.php?c=Inicio&a=inicio_sesion" class="nav__link nav__link--inicio">Inicio Sesion</a>
-                <a href="<?php echo $urlBase;?>src/View/usuario/registro.php" class="nav__link">Registrarse</a>
+                <a href="http://localhost/nutritrack/index.php?c=Usuarios&a=nuevoUsuarios" class="nav__link">Registrarse</a>
             </div>
         </nav>
 

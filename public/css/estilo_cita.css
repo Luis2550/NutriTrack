@@ -1,0 +1,53 @@
+.main_citas{
+    margin-left: 30px;
+}
+
+/* Estilos para el encabezado */
+.titulo_citas {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la tabla */
+.tabla_citas {
+    margin: 0 auto; /* Centra la tabla en el contenedor */
+    border-collapse: collapse;
+    padding: 20px 0;
+}
+
+.tabla_citas th, .tabla_citas td {
+    border: 1px solid #ddd;
+    padding: 12px; /* Aumenta el espaciado interno */
+    text-align: center;
+}
+
+/* Estilos para las acciones (botones) en la última columna */
+.acciones a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px; /* Aumenta el espaciado interno */
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    transition: background-color 0.3s; /* Agrega una transición suave al color de fondo */
+}
+
+.acciones a:hover {
+    background-color: #45a049;
+    border: 1px solid #45a049;
+}
+
+/* Cambia el color del botón Eliminar a rojo */
+.acciones a.btn-eliminar {
+    background-color: #e74c3c; /* Rojo */
+    border: 1px solid #e74c3c;
+}
+
+.acciones a.btn-eliminar:hover {
+    background-color: #c0392b; /* Rojo oscuro al pasar el ratón sobre el botón */
+    border: 1px solid #c0392b;
+}
+

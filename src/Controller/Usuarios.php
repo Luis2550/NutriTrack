@@ -182,7 +182,6 @@ class UsuariosController{
         $data["titulo"] = "Usuarios";
         $this->verUsuarios();
     }
-
     
 }
 

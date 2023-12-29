@@ -43,6 +43,7 @@ body {
     padding: 20px;
     box-sizing: border-box; /* Incluir el padding en el ancho total */
     color: #fff; /* Color de texto para el contenido principal */
+    margin-left: 30px;
 }
 
 .title{

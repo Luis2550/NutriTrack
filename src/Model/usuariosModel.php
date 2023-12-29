@@ -1,6 +1,5 @@
 <?php
 
-
 class UsuariosModel{
     private $db;
     private $usuarios;
@@ -96,6 +95,7 @@ class UsuariosModel{
 
         return $fila;
     }
+    
 }
 
 ?>
