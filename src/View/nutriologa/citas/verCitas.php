@@ -8,50 +8,48 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 ?>
 
-
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main class="main_citas">
+<main class="main main_citas">
 
     <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
     <h2 class="titulo_citas">Ver Citas</h2>
 
-    <table id="tabla_id" class="tabla_citas">
+    <div class="vista_tabla">
+        
+        <table id="tabla_id" class="tabla_citas">
 
-        <thead>
-            <tr>
-                <th>ID Paciente</th>
-                <th>Cedula Paciente</th>
-                <th>Fecha</th>
-                <th>Hora Inicio</th>
-                <th>Hora Fin</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th>Cedula Paciente</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Horario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-            <?php
-                foreach($data['citas'] as $dato ){
-                    echo "<tr>";
-                    echo "<td>".$dato['id_cita']."</td>";
-                    echo "<td>".$dato['ci_paciente']."</td>";
-                    echo "<td>".$dato['fecha']."</td>";
-                    echo "<td>".$dato['hora_inicio']."</td>";
-                    echo "<td>".$dato['hora_fin']."</td>";
-                    echo "<td class='acciones'>
-                            <a href='index.php?c=Citas&a=modificarCitas&id=".$dato["id_cita"]."' class='btn-modificar'>Modificar</a>
-                            <a href='index.php?c=Citas&a=cancelar&id=".$dato["id_cita"]."' class='btn-eliminar'>Cancelar</a>
-                            <a href='index.php?c=Citas&a=eliminarCitas&id=".$dato["id_cita"]."' class='btn-eliminar'>Eliminar</a>
-                          </td>";
-                    echo "</tr>";
-                }
-            ?>
+                <?php
+                    foreach($data['citas'] as $dato ){
+                        echo "<tr>";
+                        echo "<td>".$dato['ci_paciente']."</td>";
+                        echo "<td>".$dato['nombre_paciente']."</td>";  // Cambiado a 'nombre_paciente'
+                        echo "<td>".$dato['fecha']."</td>";
+                        echo "<td>".$dato['horas_disponibles']."</td>";
+                        echo "<td class='acciones'>
+                                <a href='index.php?c=Citas&a=eliminarCitas&id=".$dato["id_cita"]."' class='btn-cancelar'>Eliminar</a>
+                        </td>";
+                        echo "</tr>";
+                    }
+                ?>           
 
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+    </div>
 
 </main>
 

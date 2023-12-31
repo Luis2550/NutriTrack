@@ -5,14 +5,14 @@ body {
 
 .container {
     display: flex;
-    height: 100vh; /* 100% del viewport height */
+    height: auto; 
 }
 
 .sidebar {
     background-color: #34b945e8;
     padding: 20px;
     color: #fff;
-    width: 20%; /* Cambiado a un porcentaje del ancho del contenedor padre */
+    width: 17%; /* Cambiado a un porcentaje del ancho del contenedor padre */
     display: flex;
     flex-direction: column;
     align-items: center; /* Centrar verticalmente el contenido */
@@ -43,7 +43,7 @@ body {
     padding: 20px;
     box-sizing: border-box; /* Incluir el padding en el ancho total */
     color: #fff; /* Color de texto para el contenido principal */
-    margin-left: 30px;
+    color: black;
 }
 
 .title{

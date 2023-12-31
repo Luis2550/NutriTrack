@@ -1,0 +1,100 @@
+.main_citas h2.title {
+    color: #333;
+    font-size: 24px;
+}
+
+.main_citas h2.titulo_citas {
+    color: black;
+}
+
+.main_citas .vista_tabla {
+    margin-top: 20px;
+}
+
+.main_citas .tabla_citas {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.main_citas th, .main_citas td {
+    border: 1px solid #10af9a;
+    padding: 12px; /* Aumenta ligeramente el relleno para mayor comodidad visual */
+    text-align: left;
+}
+
+.main_citas th {
+    background-color: #14d6bc;
+}
+
+.main_citas .acciones{
+    height: auto;
+}
+
+.main_citas .acciones a {
+    background-color: #dc3545;
+    color: white; /* Añade color al texto del botón para mejorar la legibilidad */
+    text-decoration: none;
+    padding: 5px 10px; /* Ajusta el relleno para que el botón sea más visible */
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Añade una transición suave al color de fondo */
+}
+
+.main_citas .acciones a:hover {
+    background-color: #c82333; /* Cambia el color al pasar el ratón para indicar interactividad */
+    text-decoration: none;
+}
+
+/* ingresar */
+
+.main_ingresar_cita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main_ingresar_cita h2.title {
+    color: #333;
+    font-size: 24px;
+}
+
+.main_ingresar_cita form {
+    
+    box-sizing: border-box; /* Incluye el padding en el ancho */
+}
+
+.main_ingresar_cita h2 {
+    color: #333;
+}
+
+.flatpickr-calendar{
+    margin-bottom: 20px;
+}
+
+/* .main_ingresar_cita label {
+    margin-top: 10px;
+} */
+
+.main_ingresar_cita input,
+.main_ingresar_cita select {
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.main_ingresar_cita button {
+    background-color: #0e4988;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.main_ingresar_cita button:hover {
+    background-color: #1517b3;
+}

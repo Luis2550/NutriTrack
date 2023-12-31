@@ -10,9 +10,10 @@
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./public/css/estilo_administrador2.css">
-    <link rel="stylesheet" href="./public/css/estilo_cita.css">
-
+    <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
+    <link rel="stylesheet" href="./public/css/estilo_citas3.css">
+    <link rel="stylesheet" href="./public/css/estilo_configuracion2.css">
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
@@ -28,6 +29,7 @@
                 <li><a href="#"><i class="fa-solid fa-user-plus"></i> Seguimiento Pacientes</a></li>
                 <li><a href=""><i class="fa-solid fa-book-medical"></i> Historial Clínico</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas"><i class="far fa-calendar-check"></i> Ver Citas Agendadas</a></li>
+                <li><a href="http://localhost/nutritrack/index.php?c=Configuracion&a=verConfiguracion"><i class="fa-solid fa-gear"></i> Configuracion citas</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Usuarios&a=verUsuarios"><i class="fa-solid fa-hospital-user"></i> Pacientes</a></li>
                 <li><a href="#"><i class="fa-solid fa-book"></i> Planes</a></li>
                 <li><a href="#"><i class="fas fa-user-md"></i> Cuenta</a></li>

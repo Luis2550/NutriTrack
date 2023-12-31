@@ -17,5 +17,21 @@
   
   });
 </script>
+
+<!-- Incluye Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script>
+  flatpickr("#fecha", {
+    enableTime: false,
+    dateFormat: "Y-m-d",
+    defaultDate: "today",
+    altInput: true,
+    altFormat: "F j, Y",
+    inline: true,
+    locale: "es", // Configura el idioma a español
+  });
+</script>
+
     </body>
     </html>

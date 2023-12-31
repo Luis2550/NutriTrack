@@ -22,9 +22,9 @@ class CitasModel{
         return $this->citas;
     }
 
-    public function insertar_Citas($ci_paciente, $fecha, $hora_inicio, $hora_fin, $nutriologa){
-        $resultado = $this->db->query("INSERT INTO cita (ci_paciente, ci_nutriologa, fecha, hora_inicio, hora_fin)
-        VALUES ('$ci_paciente','$nutriologa','$fecha','$hora_inicio','$hora_fin')");
+    public function insertar_Citas($ci_paciente, $fecha, $horas_disponibles, $nutriologa){
+        $resultado = $this->db->query("INSERT INTO cita (ci_paciente, ci_nutriologa, fecha, horas_disponibles, estado)
+        VALUES ('$ci_paciente','$nutriologa','$fecha','$horas_disponibles','Reservado')");
     }
 
     public function getCIPacientes() {
@@ -40,17 +40,43 @@ class CitasModel{
     }
 
     public function getCINutriologa() {
-        $sql = "SELECT ci_nutriologa FROM nutriologa";
+        $sql = "SELECT ci_nutriologa FROM nutriologa LIMIT 1";
         $resultado = $this->db->query($sql);
-        $ciNutriologa = array();
+    
+        if ($resultado) {
+            // Obtener el primer valor directamente, asumiendo que solo hay una fila y columna
+            $ciNutriologa = $resultado->fetch_assoc()['ci_nutriologa'];
+    
+            $resultado->free();
+    
+            return $ciNutriologa;
+        } else {
+            throw new Exception("Error en la consulta: " . $this->db->error);
+        }
+    }
 
-        while ($fila = $resultado->fetch_assoc()) {
-            $ciNutriologa[] = $fila['ci_nutriologa'];
+    public function getConfiguraciones($ciNutriologa) {
+        $configuraciones = array();
+
+        $sql = "SELECT * FROM configuracion WHERE ci_nutriologa = ?";
+        $stmt = $this->db->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("s", $ciNutriologa);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                $configuraciones[] = $row;
+            }
+
+            $stmt->close();
+        } else {
+            die("Error en la preparación de la consulta: " . $this->db->error);
         }
 
-        return $ciNutriologa;
+        return $configuraciones;
     }
-    
     
 
     public function modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $hora_fin){
@@ -80,6 +106,29 @@ class CitasModel{
         $resultado = $this->db->query($sql);
         return $resultado->num_rows > 0;
     }
+
+    public function getCitasPaciente($ci_paciente) {
+        $sql = "SELECT * FROM cita WHERE ci_paciente = ? ORDER BY fecha";
+        $stmt = $this->db->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("s", $ci_paciente);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $citasPaciente = array();
+    
+            while ($row = $result->fetch_assoc()) {
+                $citasPaciente[] = $row;
+            }
+    
+            $stmt->close();
+    
+            return $citasPaciente;
+        } else {
+            die("Error en la preparación de la consulta: " . $this->db->error);
+        }
+    }
+    
     
 }
 

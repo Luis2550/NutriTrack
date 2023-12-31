@@ -12,7 +12,7 @@ class ConfiguracionController{
         $data['titulo'] = ' configuracion';
         $data['configuraciones'] = $configuraciones->get_Configuraciones();
 
-        require_once(__DIR__ . '/../View/configuracion/ver_configuraciones.php');
+        require_once(__DIR__ . '/../View/nutriologa/configuracion/ver_configuracion.php');
     }
 
 
