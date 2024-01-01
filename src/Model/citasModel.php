@@ -13,7 +13,7 @@ class CitasModel{
 
     public function get_Citas(){
 
-        $sql = "SELECT * FROM cita ORDER BY fecha" ;
+        $sql = "SELECT id_cita, ci_paciente, fecha, horas_disponibles FROM cita ORDER BY fecha";
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){
@@ -79,18 +79,17 @@ class CitasModel{
     }
     
 
-    public function modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $hora_fin){
+    public function modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles){
 			
         $resultado = $this->db->query("UPDATE cita 
-        SET fecha='$fecha', hora_inicio='$hora_inicio', hora_fin='$hora_fin' WHERE id_cita = '$id_cita'");			
+        SET ci_paciente='$ci_paciente', fecha='$fecha', horas_disponibles='$horas_disponibles', estado='Reservado' WHERE id_cita = '$id_cita'");			
     }
 
     public function eliminar_Citas($id_cita){
-
-        // Eliminar el usuario después de haber eliminado los registros relacionados
+        // Eliminar la cita después de haber eliminado los registros relacionados
         $resultado = $this->db->query("DELETE FROM cita WHERE id_cita = '$id_cita'");
-        
     }
+    
     
     public function get_Cita($id_cita)
     {

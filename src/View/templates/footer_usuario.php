@@ -22,7 +22,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 <script>
-  flatpickr("#fecha", {
+  flatpickr("#fecha2", {
     enableTime: false,
     dateFormat: "Y-m-d",
     defaultDate: "today",

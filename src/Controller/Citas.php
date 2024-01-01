@@ -39,7 +39,6 @@ class CitasController {
     
         require_once(__DIR__ . '/../View/nutriologa/citas/verCitas.php');
     }
-
     
     // ...
 
@@ -153,8 +152,8 @@ class CitasController {
             // Intentar insertar la cita
             $citas->insertar_Citas($ci_paciente, $fecha, $horas_disponibles, $nutriologa);
             $data["titulo"] = "citas";
-            header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas'); // Redirige al usuario a la vista de citas
-            exit();
+
+            $this->ver_citas_paciente($ci_paciente);
         } catch (mysqli_sql_exception $e) {
             // Manejar la excepción específica de MySQLi
             $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
@@ -166,44 +165,69 @@ class CitasController {
     public function modificarCitas($id_cita) {
         $citas = new CitasModel();
         $data["id_cita"] = $id_cita;
-        $data["citas"] = $citas->get_Cita($id_cita);
+        $cita = $citas->get_Cita($id_cita);
+    
+        // Obtener las configuraciones de horas para calcular las horas disponibles
+        $configuraciones = $citas->getConfiguraciones($cita['ci_nutriologa']);
+        $data["horas_disponibles"] = $this->calcularHorasDisponibles($configuraciones);
+    
+        $data["citas"] = $cita;
         $data["titulo"] = "citas";
-        require_once(__DIR__ . '/../View/citas/modificarCitas.php');
+    
+        require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
+        
+        echo '<script>';
+            echo 'flatpickr("#fecha", {';
+            echo 'enableTime: false,';
+            echo 'dateFormat: "Y-m-d",';
+            echo 'defaultDate: "today",';
+            echo 'minDate: "today",';
+            echo 'locale: "es",';
+            echo 'inline: true,';
+            echo 'onDayCreate: function(dObj, dStr, fp, dayElem) {';
+            echo 'var now = new Date();';
+            echo 'var selectedDate = new Date(dStr);';
+            echo 'var diasLaborables = ' . json_encode($configuraciones[0]['dias_semana']) . ';';
+            echo 'var esDiaLaborable = diasLaborables.includes((selectedDate.getDay() + 6) % 7 + 1);';
+            echo 'if (selectedDate < now || !esDiaLaborable) {';
+            echo 'dayElem.classList.add("disabled");';
+            echo 'dayElem.title = esDiaLaborable ? "No se puede agendar una cita en una fecha anterior a la actual." : "Día no laborable.";';
+            echo '}';
+            echo 'if (!esDiaLaborable) {';
+            echo 'dayElem.classList.add("no-laborable");'; // Agrega un estilo CSS para días no laborables
+            echo '}';
+            echo '}';
+            echo '});';
+            echo '</script>';
     }
-
+    
     public function actualizarCitas() {
         $id_cita = $_POST['id_cita'];
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha'];
-        $hora_inicio = $_POST['hora_inicio'];
-        $hora_fin = $_POST['hora_fin'];
-        
-        $citas = new CitasModel();
+        $horas_disponibles = $_POST['horas_disponibles'];
     
-        // Validar que la hora de fin no sea menor que la hora de inicio
-        if ($hora_inicio >= $hora_fin) {
-            $error_message = 'La hora de fin debe ser mayor que la hora de inicio. Por favor, elige horas válidas.';
-            $data["titulo"] = "citas";
-            $data["id_cita"] = $id_cita;
-            $data["citas"] = $citas->get_Cita($id_cita);
-            require_once(__DIR__ . '/../View/citas/modificarCitas.php');
-            return; // Detener la ejecución para evitar la actualización con horas inválidas
-        }
+        $citas = new CitasModel();
     
         try {
             // Intentar actualizar la cita
-            $citas->modificar_Citas($id_cita, $ci_paciente, $fecha, $hora_inicio, $hora_fin);
+            $citas->modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles);
             $data["titulo"] = "citas";
-            $this->verCitas();
+
+            // Redirigir a la acción correspondiente
+            $this->ver_citas_paciente($ci_paciente);
         } catch (mysqli_sql_exception $e) {
-            // Manejar la excepción
+            // Manejar la excepción específica de MySQLi
             $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
-            $data["titulo"] = "citas";
-            $data["id_cita"] = $id_cita;
-            $data["citas"] = $citas->get_Cita($id_cita);
-            require_once(__DIR__ . '/../View/citas/modificarCitas.php');
-        }
+            header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
+            exit();
+        }    
+
+            
+
     }
+    
+    
     
 
     public function eliminarCitas($id_cita) {
@@ -220,6 +244,21 @@ class CitasController {
     
         require_once(__DIR__ . '/../View/pacientes/citas/verCitas.php');
     }
+
+    public function eliminarCitasPaciente($id_cita) {
+        $citas = new CitasModel();
+        
+        // Obtener el ci_paciente relacionado con la cita
+        $cita = $citas->get_Cita($id_cita);
+        $ci_paciente = $cita['ci_paciente'];
+        
+        $citas->eliminar_Citas($id_cita);
+        $data["titulo"] = "citas";
+        
+        // Pasar el $ci_paciente a la función
+        $this->ver_citas_paciente($ci_paciente);
+    }
+    
     
 }
 

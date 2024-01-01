@@ -9,11 +9,13 @@
 
 .main_citas .vista_tabla {
     margin-top: 20px;
+    
 }
 
 .main_citas .tabla_citas {
     width: 100%;
     border-collapse: collapse;
+    
 }
 
 .main_citas th, .main_citas td {

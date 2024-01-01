@@ -49,7 +49,7 @@ class ConfiguracionController{
         $configuraciones = new configuracionModel();
         $data["configuraciones"] = $configuraciones->get_Configuracion($id);
         $data["titulo"] = " Configuracion";
-        require_once(__DIR__ . '/../View/configuracion/modificarConfiguraciones.php');
+        require_once(__DIR__ . '/../View/nutriologa/configuracion/modificarConfiguraciones.php');
     }
     
     public function actualizarConfiguraciones(){
