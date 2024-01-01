@@ -13,7 +13,7 @@ class planNutricionalModel{
 
     public function get_PlanNutricionales(){
 
-        $sql = "SELECT * FROM plan_nutricional";
+        $sql = "SELECT pn.id_plan_nutricional, u.ci_usuario, u.nombres, u.apellidos, u.edad, u.sexo, pn.fecha_inicio, pn.fecha_fin, pn.duracion_dias FROM plan_nutricional AS pn JOIN usuario AS u ON u.ci_usuario = pn.ci_paciente";
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){
@@ -66,12 +66,12 @@ class planNutricionalModel{
 
 
     public function getCIPacientes() {
-        $sql = "SELECT ci_paciente FROM paciente";
+        $sql = "SELECT p.ci_paciente, u.nombres, u.apellidos FROM paciente AS p JOIN usuario AS u on u.ci_usuario = p.ci_paciente";
         $resultado = $this->db->query($sql);
         $ciPacientes = array();
 
         while ($fila = $resultado->fetch_assoc()) {
-            $ciPacientes[] = $fila['ci_paciente'];
+            $ciPacientes[] = $fila;
         }
 
         return $ciPacientes;

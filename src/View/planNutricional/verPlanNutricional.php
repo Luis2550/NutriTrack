@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $data['titulo'];?></title>
-</head>
-<body>
-    <h2>Ver plan Nutricional</h2>
+
+<?php include("./src/View/templates/header_administrador.php")?>
+
+
+<main>
+    <h2>Lista Planes Nutricionales</h2>
 
     <table border="1" width="60%">
 
         <thead>
             <tr>
-                <th>Ci Nutriologo</th>
-                <th>Ci Paciente</th>
-                <th>fecha inicio</th>
-                <th>fecha fin</th>
-                <th>duracion Dias</th>
+                <th>Cédula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Duración Dias</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -27,8 +27,11 @@
             <?php
                 foreach($data['plan_nutricional'] as $dato){
                     echo"<tr>";
-                        echo"<td>".$dato['ci_nutriologa']."</td>";
-                        echo"<td>".$dato['ci_paciente']."</td>";
+                        echo"<td>".$dato['ci_usuario']."</td>";
+                        echo"<td>".$dato['nombres']."</td>";
+                        echo"<td>".$dato['apellidos']."</td>";
+                        echo"<td>".$dato['edad']."</td>";
+                        echo"<td>".$dato['sexo']."</td>";
                         echo"<td>".$dato['fecha_inicio']."</td>";
                         echo"<td>".$dato['fecha_fin']."</td>";
                         echo"<td>".$dato['duracion_dias']."</td>";
@@ -41,5 +44,7 @@
         </tbody>
 
     </table>
-</body>
+</main>
 </html>
+
+<?php include("./src/View/templates/footer_administrador.php")?>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
     <link rel="stylesheet" href="./public/css/estilo_citas5.css">
     <link rel="stylesheet" href="./public/css/estilo_configuracion2.css">
+    <link rel="stylesheet" href="./public/css/plan_nutricional_ver_pacientes.css">
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
@@ -25,7 +26,7 @@
         <nav class="sidebar">
             <ul>
                 <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_n"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="#"><i class="fa-brands fa-nutritionix"></i> Plan Nutricional</a></li>
+                <li><a href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional"><i class="fa-brands fa-nutritionix"></i> Plan Nutricional</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-plus"></i> Seguimiento Pacientes</a></li>
                 <li><a href=""><i class="fa-solid fa-book-medical"></i> Historial Clínico</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas"><i class="far fa-calendar-check"></i> Ver Citas Agendadas</a></li>
