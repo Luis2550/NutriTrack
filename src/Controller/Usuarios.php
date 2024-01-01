@@ -110,7 +110,7 @@ class UsuariosController{
         $contrasenia = $_POST['clave'];
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
         $foto = $_POST['foto'];
-    
+
         // Verificar si ya existe un usuario con la misma cédula
         $usuarios = new UsuariosModel();
         $usuarioExistente = $usuarios->get_Usuario($ci_usuario);
