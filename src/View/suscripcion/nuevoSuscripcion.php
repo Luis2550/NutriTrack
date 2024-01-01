@@ -57,7 +57,6 @@
 <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off">
     <h2>Registro<?php echo $data['titulo'];?></h2>
 
-
     <label for="suscripcion">Suscripcion:</label>
     <input type="text" id="suscripcion" name="suscripcion" required>
 

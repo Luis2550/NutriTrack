@@ -20,7 +20,7 @@ class SuscripcionController{
         require_once(__DIR__ . '/../View/suscripcion/nuevoSuscripcion.php');
     }
 
-    public function guardarSuscripcion(){
+    /*public function guardarSuscripcion(){
         
         $suscripciondato = $_POST['suscripcion'];
         $duracion_dias = $_POST['duracion_dias'];
@@ -30,7 +30,26 @@ class SuscripcionController{
         $suscripcion->insertar_Suscripcion($suscripciondato, $duracion_dias, $estado);
         $data["titulo"] = "Suscripcion";
         $this->verSuscripcion();
+    }*/
+    public function guardarSuscripcion() {
+        $suscripciondato = $_POST['suscripcion'];
+        $duracion_dias = $_POST['duracion_dias'];
+        $estado = $_POST['estado'];
+    
+        $suscripcion = new SuscripcionModel();
+        $resultado = $suscripcion->insertar_Suscripcion($suscripciondato, $duracion_dias, $estado);
+    
+        $data["titulo"] = "Suscripcion";
+    
+        if ($resultado) {
+            $data["mensaje"] = "La suscripción se ha guardado correctamente.";
+        } else {
+            $data["mensaje"] = "Hubo un problema al guardar la suscripción. Inténtalo de nuevo.";
+        }
+    
+        $this->verSuscripcion($data);
     }
+    
 
     public function modificarSuscripcion($id_suscripcion){
 			

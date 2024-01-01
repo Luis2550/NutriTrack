@@ -1,42 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $data['titulo'];?></title>
-</head>
-<body>
-    <h2>Ver Pacientes</h2>
+<?php
+session_start();
 
-    <table border="1" width="60%">
+// Verifica si hay una sesión activa
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa') {
+    header('Location: http://localhost/Nutritrack2/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
+    exit();
+}
 
+// Incluye el modelo necesario o cualquier lógica para obtener los usuarios desde el controlador de historialSuscripcion
+require_once __DIR__ . "/../../Model/historialSuscripcionModel.php";
+$historialSuscripcionModel = new historialSuscripcionModel();
+$data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
+
+?>
+
+
+<?php include("./src/View/templates/header_administrador.php")?>
+
+
+<main>
+
+    <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
+    <h2>Ver Usuarios</h2>
+    <button onclick="window.location.href='http://localhost/NutriTrack2/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button>
+    <table border="1" width="40%" id="tabla_id">
         <thead>
             <tr>
-                <th>ID Suscripcion</th>
-                <th>Cédula Paciente</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+                <th>Cédula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Agregar Plan</th>
             </tr>
         </thead>
 
         <tbody>
-
             <?php
-                foreach($data['historialsuscripciones'] as $dato){
-                    echo"<tr>";
-                        echo"<td>".$dato['id_suscripcion']."</td>";
-                        echo"<td>".$dato['ci_paciente']."</td>";
-                        echo"<td>".$dato['fecha_inicio']."</td>";
-                        echo"<td>".$dato['fecha_fin']."</td>";
+            foreach ($data['usuarios'] as $dato) {
+                echo "<tr>";
+                echo "<td>".$dato['ci_usuario']."</td>";
+                echo "<td>".$dato['nombres']."</td>";
+                echo "<td>".$dato['apellidos']."</td>";
+                echo "<td><a href='index.php?c=historialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=".$dato["ci_usuario"]."'>Asignar Plan</a></td>";
 
-                        echo "<td><a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=".$dato["id_suscripcion"]."'>Modificar</a></td>";
-						echo "<td><a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=".$dato["id_suscripcion"]."'>Eliminar</a></td>";
-                    echo"</tr>";
-                }
+
+                echo "</tr>";
+            }
             ?>
         </tbody>
     </table>
-</body>
-</html>
+</main>
+
+<?php include("./src/View/templates/footer_administrador.php")?>

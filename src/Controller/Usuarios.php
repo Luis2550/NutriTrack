@@ -99,55 +99,48 @@ class UsuariosController{
         require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
     }
 
-    public function guardarUsuarios(){
+    public function guardarUsuarios() {
         $ci_usuario = mb_strtoupper($_POST['cedula'], 'UTF-8');
         $id_rol = $_POST['id_rol'];
         $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
         $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
         $edad = $_POST['edad'];
         $correo = strtolower($_POST['correo']);
-        $contrasenia = password_hash($_POST['clave'], PASSWORD_DEFAULT);
+        //$contrasenia = password_hash($_POST['clave'], PASSWORD_DEFAULT);
+        $contrasenia = $_POST['clave'];
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
         $foto = $_POST['foto'];
-
-
+    
         // Verificar si ya existe un usuario con la misma cédula
         $usuarios = new UsuariosModel();
         $usuarioExistente = $usuarios->get_Usuario($ci_usuario);
-
+    
         if ($usuarioExistente) {
             // Mostrar un mensaje de error en el formulario
             $data["titulo"] = "Usuarios";
             $data["error_message"] = "Ya existe un usuario con esa cédula";
             require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
-        } elseif(UsuariosController::validarCedula($ci_usuario)){
-            $usuarios = new UsuariosModel();
-            $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto );
-            $data["titulo"] = "Usuarios";
-            $this->verUsuarios();
-        } elseif (UsuariosController::validarNombre($nombres)){
-            if (UsuariosController::validarApellido($apellidos))
-            {
-                $usuarios->insertar_Usuarios($ci_usuario, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero,$foto );
+        } elseif (UsuariosController::validarCedula($ci_usuario)) {
+            if (UsuariosController::validarNombre($nombres) && UsuariosController::validarApellido($apellidos)) {
+                $usuarios->insertar_Usuarios($ci_usuario,$id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto);
                 $data["titulo"] = "usuarios";
-                $this->verUsuarios();
-            }
-            else {
-
+                require_once(__DIR__ . '/../View/inicio_sesion.php');
+            } else {
                 // Manejar el caso en que la validación falla
-                $error_message = 'Error: El nombre y el apellido deben contener exactamente dos palabras y no deben contener caracteres especiales.';
+                $data["error_message"] ='Error: El nombre y el apellido deben contener exactamente dos palabras y no deben contener caracteres especiales.';
                 $data["titulo"] = "usuarios";
                 require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
-            } 
-        }else{
-            // Mostrar un mensaje de error en el formulario
-            $data["titulo"] = "Usuarios";
-            $data["error_message"] = "Cédula no válida";
+            }
+        } else{
+            $data["error_message"] = 'Error: Cedula ingresada no es correcta';
+            $data["titulo"] = "usuarios";
             require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
         }
-
-
+        
     }
+    
+
+    
 
     public function modificarUsuarios($id){
 			

@@ -95,8 +95,6 @@ class UsuariosModel{
 
         return $fila;
     }
-
-    
     
 }
 
