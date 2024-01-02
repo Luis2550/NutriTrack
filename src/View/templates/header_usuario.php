@@ -35,7 +35,7 @@
             <ul>
                 <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p"><i class="fas fa-home"></i> Inicio</a></li>
                 
-                <li><a href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a></li>
+                <li><a href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a></li>
 
                 <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a></li>
 
