@@ -21,9 +21,14 @@ class historialClinicoController{
         $data['titulo'] = 'historial_clinico';
         $data['historial_clinico'] = $historiaClini->get_historialClinicoPaciente($ci_paciente);
     
-        // Pasa los datos a la vista
-        require_once(__DIR__ . '/../View/pacientes/historialClinico/verHistorialPaciente.php');
+        if ($data['historial_clinico']['fecha_creacion'] === null) {
+            echo "Usted aún no tiene un historial clínico asignado.";
+        } else {
+            // Pasa los datos a la vista
+            require_once(__DIR__ . '/../View/pacientes/historialClinico/verHistorialPaciente.php');
+        }
     }
+    
     
 
     public function modificarHistorialClinico($id) {
@@ -93,7 +98,14 @@ class historialClinicoController{
         $data["id_historial_clinico"] = $id;
         $data["historial_clinico"] = $historiaClini->get_historialClinico($id);
         $data["titulo"] = "historial_clinico";
-        require_once(__DIR__ . '/../View/nutriologa/historialClinico/verHistorialPaciente.php');
+        
+
+        if ($data['historial_clinico']['fecha_creacion'] === null) {
+            echo "Aún no se asigna un historial clínico a este paciente.";
+        } else {
+            // Pasa los datos a la vista
+            require_once(__DIR__ . '/../View/nutriologa/historialClinico/verHistorialPaciente.php');
+        }
     }
     
     
