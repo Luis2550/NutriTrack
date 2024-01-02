@@ -9,33 +9,9 @@ class CitasController {
 
     public function verCitas() {
         $citasModel = new CitasModel();
-        $usuariosModel = new UsuariosModel();
     
         $data['titulo'] = 'citas';
-        $data['citas'] = [];
-    
-        // Obtener la fecha actual
-        $fecha_actual = date('Y-m-d');
-    
-        // Obtener todas las citas sin filtrar
-        $citas = $citasModel->get_Citas();
-    
-        // Obtener un array asociativo de usuarios para buscar más eficientemente
-        $usuarios = array_column($usuariosModel->get_Usuarios(), null, 'ci_usuario');
-    
-        // Filtrar las citas para mostrar solo las de la fecha actual
-        foreach ($citas as $cita) {
-            if ($cita['fecha'] == $fecha_actual) {
-                $ci_paciente_cita = $cita['ci_paciente'];
-    
-                // Si existe el usuario, agregar nombre y apellidos a la cita
-                if (isset($usuarios[$ci_paciente_cita])) {
-                    $usuario = $usuarios[$ci_paciente_cita];
-                    $cita['nombre_paciente'] = $usuario['nombres'] . ' ' . $usuario['apellidos'];
-                    $data['citas'][] = $cita;
-                }
-            }
-        }
+        $data['citas'] = $citasModel->get_Citas();
     
         require_once(__DIR__ . '/../View/nutriologa/citas/verCitas.php');
     }
@@ -142,7 +118,7 @@ class CitasController {
     
     public function guardarCitas() {
         $ci_paciente = $_POST['ci_paciente'];
-        $fecha = $_POST['fecha'];
+        $fecha = $_POST['fecha2'];
         $horas_disponibles = $_POST['horas_disponibles'];
         $nutriologa = $_POST['ci_nutriologa'];
     
@@ -177,7 +153,7 @@ class CitasController {
         require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
         
         echo '<script>';
-            echo 'flatpickr("#fecha", {';
+            echo 'flatpickr("#fecha2", {';
             echo 'enableTime: false,';
             echo 'dateFormat: "Y-m-d",';
             echo 'defaultDate: "today",';
@@ -204,7 +180,7 @@ class CitasController {
     public function actualizarCitas() {
         $id_cita = $_POST['id_cita'];
         $ci_paciente = $_POST['ci_paciente'];
-        $fecha = $_POST['fecha'];
+        $fecha = $_POST['fecha2'];
         $horas_disponibles = $_POST['horas_disponibles'];
     
         $citas = new CitasModel();
@@ -226,8 +202,6 @@ class CitasController {
             
 
     }
-    
-    
     
 
     public function eliminarCitas($id_cita) {

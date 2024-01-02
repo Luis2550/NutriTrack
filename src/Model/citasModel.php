@@ -13,13 +13,13 @@ class CitasModel{
 
     public function get_Citas(){
 
-        $sql = "SELECT id_cita, ci_paciente, fecha, horas_disponibles FROM cita ORDER BY fecha";
-        $resultado = $this->db->query($sql);
+    $sql = "SELECT * FROM cita WHERE DATE(fecha) = CURDATE() ORDER BY fecha";
+    $resultado = $this->db->query($sql);
 
-        while($fila = $resultado->fetch_assoc()){
-            $this->citas[] = $fila;
-        }
-        return $this->citas;
+    while($fila = $resultado->fetch_assoc()){
+        $this->citas[] = $fila;
+    }
+    return $this->citas;
     }
 
     public function insertar_Citas($ci_paciente, $fecha, $horas_disponibles, $nutriologa){

@@ -19,6 +19,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <h2>Ver Configuracion</h2>
 
+    <a
+        name=""
+        id=""
+        class="btn-agregar"
+        href="http://localhost/nutritrack/index.php?c=Configuracion&a=nuevoConfiguraciones"
+        role="button"
+        >Agregar configuracion</a>
     
     <table>
         <thead>

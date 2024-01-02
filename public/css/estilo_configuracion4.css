@@ -1,0 +1,130 @@
+.main_configuracion h2.title {
+    color: #333;
+    font-size: 24px;
+}
+
+.main_configuracion h2 {
+    color: black;
+}
+
+.main_configuracion .vista {
+    margin-top: 20px;
+}
+
+.main_configuracion table {
+    width: 75%;
+    border-collapse: collapse;
+}
+
+.main_configuracion th, .main_configuracion td {
+    border: 1px solid #10af9a;
+    padding: 12px;
+    text-align: left;
+}
+
+.main_configuracion th {
+    background-color: #14d6bc;
+}
+
+.main_configuracion .btn-agregar {
+    background-color: #35dc35;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    
+}
+
+.main_configuracion .acciones {
+    display: flex;
+    flex-direction: row;
+}
+
+.main_configuracion .acciones a {
+    background-color: #35dc35;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.main_configuracion .acciones .btn-eliminar{
+    background-color: #dc3545;
+    color: white; /* Añade color al texto del botón para mejorar la legibilidad */
+    text-decoration: none;
+    padding: 5px 10px; /* Ajusta el relleno para que el botón sea más visible */
+    border-radius: 5px;
+}
+
+.main_configuracion .acciones .btn-eliminar:hover {
+    background-color: #c82333;
+    text-decoration: none;
+}
+
+/* ingresar */
+
+
+.main_configuracion .vista_configuracion {
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main_configuracion h2 {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.main_configuracion form {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.main_configuracion label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+.main_configuracion label,
+.main_configuracion input {
+  width: 100%;
+}
+
+.main_configuracion input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.main_configuracion input[type="text"] {
+  width: calc(100% - 22px); /* Ajusta el ancho del input de días de la semana */
+}
+
+.main_configuracion button {
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.main_configuracion button:hover {
+  background-color: #45a049;
+}
+
