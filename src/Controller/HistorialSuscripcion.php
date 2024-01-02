@@ -17,39 +17,14 @@ class HistorialSuscripcionController{
 
     
     
-    /*public function nuevoHistorialSuscripcion(){
-        $historialsuscripciones = new historialSuscripcionModel();
-        $data['usuarios'] = $historialsuscripciones->getCiPaciente();
-        $data['opciones_suscripcion'] = $historialsuscripciones->getSuscripcion();
-        $data['titulo'] = ' Historial Suscripcion';
-        require_once(__DIR__ . '/../View/historialSuscripcion/nuevoHistorialSuscripcion.php');
-    }*/
     public function nuevoHistorialSuscripcion(){
-        // Obtén el id_suscripcion y fecha_inicio, ya sea de la solicitud GET o POST
-        $id_suscripcion = $_GET['id_suscripcion'] ?? null;
-        $fecha_inicio = $_POST['fecha_inicio'] ?? null;
-        
         $historialsuscripciones = new historialSuscripcionModel();
-    
-        // Inicializa $data como un array
-        $data = [];
-    
         $data['usuarios'] = $historialsuscripciones->getCiPaciente();
         $data['opciones_suscripcion'] = $historialsuscripciones->getSuscripcion();
-    
-        // Calcula la fecha de finalización solo si $id_suscripcion y $fecha_inicio están definidos
-        if ($id_suscripcion !== null && $fecha_inicio !== null) {
-            $data['fecha_fin'] = $historialsuscripciones->calcula_fecha_fin($id_suscripcion, $fecha_inicio);
-        } 
-    
         $data['titulo'] = ' Historial Suscripcion';
-    
         require_once(__DIR__ . '/../View/historialSuscripcion/nuevoHistorialSuscripcion.php');
     }
     
-   
-    
-
 
     public function guardarHistorialSuscripcion(){
         
@@ -57,10 +32,13 @@ class HistorialSuscripcionController{
         $ci_usuario = isset($_POST['ci_usuario']) ? $_POST['ci_usuario'] : null;
         $fecha_inicio = $_POST['fecha_inicio'];
         $fecha_fin = $_POST['fecha_fin'];
+        $estado=$_POST['estado'];
         
         $historialsuscripciones = new historialSuscripcionModel();
-        $historialsuscripciones->insertar_HistorialSuscripcion($id_suscripcion, $ci_usuario, $fecha_inicio, $fecha_fin);
+        $historialsuscripciones->insertar_HistorialSuscripcion($id_suscripcion, $ci_usuario, $fecha_inicio, $fecha_fin, $estado);
         $data["titulo"] = " Historial Suscripcion";
+
+        echo "¡Historial Suscripción insertado correctamente!";
         $this->verHistorialSuscripcion();
     }
 
@@ -81,9 +59,10 @@ class HistorialSuscripcionController{
         $ci_paciente = $_POST['ci_paciente'];
         $fecha_inicio = $_POST['fecha_inicio'];
         $fecha_fin = $_POST['fecha_fin'];
+        $estado=$_POST['estado'];
         
         $historialsuscripciones = new historialSuscripcionModel();
-        $historialsuscripciones->modificarHistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin);
+        $historialsuscripciones->modificarHistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado);
         $data["titulo"] = " Historial Suscripcion";
         $this->verHistorialSuscripcion();
     }

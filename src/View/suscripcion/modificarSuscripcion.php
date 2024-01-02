@@ -66,8 +66,6 @@
     <label for="duracion_dias">Duracion Dias:</label>
     <input type="num" id="duracion_dias" name="duracion_dias" required value="<?php echo $data["suscripcion"]["duracion_dias"]?>">
 
-    <label for="estado">Estado:</label>
-    <input type="text" id="estado" name="estado" required value="<?php echo $data["suscripcion"]["estado"]?>">
     
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
   </form>

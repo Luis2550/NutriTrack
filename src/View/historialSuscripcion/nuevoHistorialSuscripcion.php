@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="public/js/agregarPlan-.js"></script>
   <title>Formulario Moderno</title>
   <style>
     body {
@@ -32,7 +32,8 @@
       margin-top: 10px;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
@@ -64,25 +65,35 @@
     <label for="ci_usuario">Cédula del Usuario:</label>
     <input type="text" id="ci_usuario" name="ci_usuario" value="<?php echo htmlspecialchars($_GET['ci_usuario'] ?? ''); ?>" readonly>
 
+    <select id="id_suscripcion" name="id_suscripcion" required onchange="actualizarDatos()">
+   <?php foreach ($data['opciones_suscripcion'] as $suscripcion) { ?>
+      <option value="<?php echo $suscripcion['id_suscripcion']; ?>" data-duracion_dias="<?php echo $suscripcion['duracion_dias']; ?>"><?php echo $suscripcion['suscripcion']; ?></option>
+   <?php } ?>
+   </select>
+
+    
+   <label for="duracion_dias">Duración Dias:</label>
+    <input type="text" readonly id="duracion_dias" name="duracion_dias" value="<?php echo $data['opciones_suscripcion'][0]['duracion_dias']; ?>">
+
+    <label for="fecha_inicio">Fecha Inicio:</label>
+    <input type="date" id="fecha_inicio" name="fecha_inicio" onchange="calcularFechas(parseInt('<?php echo $data['opciones_suscripcion'][0]['duracion_dias']; ?>'))" required >
 
 
-    <label for="id_suscripcion">ID Suscripcion:</label>
-    <select id="id_suscripcion" name="id_suscripcion" required>
-      <?php foreach ($data['opciones_suscripcion'] as $suscripcion) : ?>
-        <option value="<?php echo $suscripcion['id_suscripcion']; ?>"><?php echo $suscripcion['suscripcion']; ?></option>
-      <?php endforeach; ?>
+    <label for="fecha_fin">Fecha Fin:</label>
+    <input type="date" readonly id="fecha_fin" name="fecha_fin" required>
+
+    <label for="estado">Estado:</label>
+    <select id="estado" name="estado" required>
+      <option value="SUSCRITO">SUSCRITO</option>
+      <option value="SIN SUSCRIPCIÓN">SIN SUSCRIPCIÓN</option>
     </select>
+    
 
-    <label for="dias_laborales">Fecha Inicio:</label>
-    <input type="date" id="fecha_inicio" name="fecha_inicio" required>
-
-    <!--<label for="duracion_cita">Fecha Fin:</label>
-    <input type="date" id="fecha_fin" name="fecha_fin" required>-->
-    <label for="duracion_cita">Fecha Fin:</label>
-    <input type="hidden" id="fecha_fin" name="fecha_fin" value="<?php echo htmlspecialchars($data['fecha_fin'] ?? ''); ?>" required>
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
   </form>
 
 </body>
 
 </html>
+
+

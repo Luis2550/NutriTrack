@@ -42,50 +42,58 @@ class historialSuscripcionModel{
         return $row['nombres']; 
     }*/
     public function getSuscripcion() {
-        $sql = "SELECT * FROM suscripcion";
+        $sql = "SELECT id_suscripcion, suscripcion,duracion_dias FROM suscripcion";
         $resultado = $this->db->query($sql);
 
-        return $resultado;
-    }
-    public function get_suscripcion_usuario($id_suscripcion){
-        $sql = "SELECT suscripcion FROM suscripcion as s INNER JOIN usuario as u ON s.id_suscripcion = u.id_suscripcion WHERE u.id_suscripcion = '$id_suscripcion' LIMIT 1";
-        $result = $this->db->query($sql);
-        $row = $result->fetch_assoc();
-        return $row['suscripcion'];
-    }
+        $id_suscripcion = array();
     
-
-    public function calcula_fecha_fin($id_suscripcion, $fecha_inicio)
-    {
-        $sql = "SELECT duracion_dias FROM suscripcion WHERE id_suscripcion = '$id_suscripcion' LIMIT 1";
-        $result = $this->db->query($sql);
-
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $duracion_dias = $row['duracion_dias'];
-
-            if ($duracion_dias !== null && is_numeric($duracion_dias)) {
-                // Calcular la fecha de finalización
-                $fecha_inicio_obj = new DateTime($fecha_inicio);
-                $fecha_fin_obj = clone $fecha_inicio_obj; // Clonar para no modificar la fecha de inicio original
-                $fecha_fin_obj->modify("+{$duracion_dias} days");
-
-                return $fecha_fin_obj->format('Y-m-d'); // Puedes ajustar el formato según tus necesidades
-            }
+        while ($fila = $resultado->fetch_assoc()) {
+            $id_suscripcion[] = $fila;
         }
 
-        return null; // o un valor predeterminado, dependiendo de tus necesidades
+        return $id_suscripcion;
     }
-        
-    public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin){
-        $resultado = $this->db->query("INSERT INTO historial_suscripcion(id_suscripcion, ci_paciente, fecha_inicio, fecha_fin) VALUES ('$id_suscripcion', '$ci_paciente', '$fecha_inicio', '$fecha_fin')");
+    public function get_suscripcion_usuario($id_suscripcion){
+        $sql = "SELECT s.id_suscripcion, s.suscripcion, s.duracion_dias
+        FROM suscripcion AS s
+        INNER JOIN usuario AS u ON s.id_suscripcion = u.id_suscripcion
+        WHERE u.id_suscripcion = '$id_suscripcion'
+        LIMIT 1";
+
+        $result = $this->db->query($sql);
+        $suscripcion = array();
+    
+        while ($fila = $result->fetch_assoc()) {
+            $suscripcion[] = $fila;
+        }
+
+        return $suscripcion;
     }
 
     
-    public function modificarHistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin){
+        
+    /*public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
+        $resultado = $this->db->query("INSERT INTO historial_suscripcion(id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES ('$id_suscripcion', '$ci_paciente', '$fecha_inicio', '$fecha_fin', '$estado')");
+    }*/
+    public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
+        $stmt = $this->db->prepare("INSERT INTO historial_suscripcion (id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado);
+    
+        if ($stmt->execute()) {
+            echo "¡Historial Suscripción insertado correctamente!";
+        } else {
+            echo "Error al insertar historial: " . $stmt->error;
+        }
+    
+        $stmt->close();
+    }
+    
+
+    
+    public function modificarHistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
 			
         $resultado = $this->db->query("UPDATE historial_suscripcion
-        SET id_suscripcion='$id_suscripcion', fecha_inicio='$fecha_inicio', fecha_fin='$fecha_fin' WHERE ci_paciente='$ci_paciente'");			
+        SET id_suscripcion='$id_suscripcion', fecha_inicio='$fecha_inicio', fecha_fin='$fecha_fin', estado='$estado' WHERE ci_paciente='$ci_paciente'");			
     }
 
     public function get_HistorialSuscripcion($id)

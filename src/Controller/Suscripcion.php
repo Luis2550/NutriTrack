@@ -34,10 +34,9 @@ class SuscripcionController{
     public function guardarSuscripcion() {
         $suscripciondato = $_POST['suscripcion'];
         $duracion_dias = $_POST['duracion_dias'];
-        $estado = $_POST['estado'];
     
         $suscripcion = new SuscripcionModel();
-        $resultado = $suscripcion->insertar_Suscripcion($suscripciondato, $duracion_dias, $estado);
+        $resultado = $suscripcion->insertar_Suscripcion($suscripciondato, $duracion_dias);
     
         $data["titulo"] = "Suscripcion";
     
@@ -65,10 +64,9 @@ class SuscripcionController{
         $id_suscripcion = $_POST['id_suscripcion'];
         $suscripciondato = $_POST['suscripcion'];
         $duracion_dias = $_POST['duracion_dias'];
-        $estado = $_POST['estado'];
 
         $suscripcion = new SuscripcionModel();
-        $suscripcion->modificar_Suscripcion($id_suscripcion, $suscripciondato, $duracion_dias, $estado);
+        $suscripcion->modificar_Suscripcion($id_suscripcion, $suscripciondato, $duracion_dias);
         $data["titulo"] = "suscripcion";
         $this->verSuscripcion();
     }

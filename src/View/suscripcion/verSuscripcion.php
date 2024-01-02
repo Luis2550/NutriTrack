@@ -25,7 +25,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <th>ID Suscripcion</th>
                 <th>Suscripcion</th>
                 <th>Duracion Dias</th>
-                <th>Estado</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -39,7 +38,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         echo"<td>".$dato['id_suscripcion']."</td>";
                         echo"<td>".$dato['suscripcion']."</td>";
                         echo"<td>".$dato['duracion_dias']."</td>";
-                        echo"<td>".$dato['estado']."</td>";
                         
                         echo "<td><a href='index.php?c=Suscripcion&a=modificarSuscripcion&id=".$dato["id_suscripcion"]."'>Modificar</a></td>";
 						echo "<td><a href='index.php?c=Suscripcion&a=eliminarSuscripcion&id=".$dato["id_suscripcion"]."'>Eliminar</a></td>";
