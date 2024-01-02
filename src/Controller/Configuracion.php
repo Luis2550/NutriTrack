@@ -15,12 +15,11 @@ class ConfiguracionController{
         require_once(__DIR__ . '/../View/nutriologa/configuracion/ver_configuracion.php');
     }
 
-
     public function nuevoConfiguraciones(){
         $configuraciones = new configuracionModel();
         $data['opciones_nutriologa'] = $configuraciones->getNombreNutriologa();
         $data['titulo'] = 'Configuraciones';
-        require_once(__DIR__ . '/../View/configuracion/nuevoConfiguraciones.php');
+        require_once(__DIR__ . '/../View/nutriologa/configuracion/nuevoConfiguraciones.php');
     }
 								
     public function guardarConfiguraciones(){

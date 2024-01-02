@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
     <link rel="stylesheet" href="./public/css/estilo_citas5.css">
-    <link rel="stylesheet" href="./public/css/estilo_configuracion2.css">
+    <link rel="stylesheet" href="./public/css/estilo_configuracion4.css">
     <link rel="stylesheet" href="./public/css/plan_nutricional_ver_pacientes.css">
     <link rel="stylesheet" href="./public/css/estilo_suscripcion.css">
     

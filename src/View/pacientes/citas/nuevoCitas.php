@@ -22,8 +22,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     <label for="ci_paciente">Paciente:</label>
     <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario'];?>">
 
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" name="fecha" required>
+    <label for="fecha2">Fecha:</label>
+    <input type="date" id="fecha2" name="fecha2" required>
 
     <label for="horas_disponibles">Horas Disponibles:</label>
     <select id="horas_disponibles" name="horas_disponibles" required>
