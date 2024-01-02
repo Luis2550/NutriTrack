@@ -25,7 +25,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     <label for="actividad">Actividad:</label>
     <input type="text" id="actividad" name="actividad" required value="<?php echo $data["actividad"]["actividad"]?>">
     <label for="descripcion">Descripcion:</label>
-    <input type="text" id="descripcion" name="descripcion" required value="<?php echo $data["actividad"]["descripcion"]?>">
+    <textarea id="descripcion" name="descripcion" class='textarea' required>
+    <?php echo htmlspecialchars($data["actividad"]["descripcion"]); ?></textarea>
+
     <label for="fecha">Fecha :</label>
     <input type="date" id="fecha" name="fecha" readonly value="<?php echo $data["actividad"]["fecha"]?>">
 

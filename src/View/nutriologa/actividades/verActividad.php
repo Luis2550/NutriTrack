@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <?php include("./src/View/templates/header_administrador.php")?>
 
 
-<main class="main main_actividades"> 
+<main class="main main_actividades act_n"> 
    
     <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
     <h2>Ver Actividades</h2>
@@ -22,6 +22,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <tr>
         <th>Cedula Paciente</th>
         <th>Actividad</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
         <th>Descripcion</th>
         <th>Fecha</th>
     </tr>
@@ -34,6 +36,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     foreach ($data['actividad'] as $dato) {
         echo "<tr>";
         echo "<td>" . $dato['ci_paciente'] . "</td>";
+        echo "<td>" . $dato['nombres'] . "</td>";
+        echo "<td>" . $dato['apellidos'] . "</td>";
         echo "<td>" . $dato['actividad'] . "</td>";
         echo "<td>" . $dato['descripcion'] . "</td>";
         echo "<td>" . $dato['fecha'] . "</td>";

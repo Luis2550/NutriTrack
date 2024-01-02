@@ -40,7 +40,7 @@ class CitasController {
             // ...
 
             echo '<script>';
-            echo 'flatpickr("#fecha", {';
+            echo 'flatpickr("#fecha2", {';
             echo 'enableTime: false,';
             echo 'dateFormat: "Y-m-d",';
             echo 'defaultDate: "today",';
@@ -132,7 +132,7 @@ class CitasController {
             $this->ver_citas_paciente($ci_paciente);
         } catch (mysqli_sql_exception $e) {
             // Manejar la excepción específica de MySQLi
-            $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
+            $error_message =  $e;
             header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
             exit();
         }

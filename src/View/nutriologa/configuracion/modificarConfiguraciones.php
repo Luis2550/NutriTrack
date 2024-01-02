@@ -1,137 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario Moderno</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+<?php
+session_start();
 
-    form {
-      width: 300px;
-      padding: 20px;
-      margin-top: 500px; /* Añade un margen superior de 20px */
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+// Verifica si hay una sesión activa
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa') {
+    header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
+    exit();
+}
 
-    h2 {
-      text-align: center;
-    }
+include("./src/View/templates/header_administrador.php")
+?>
 
-    label {
-      display: block;
-      margin-top: 10px;
-    }
+<main class="main main_configuracion">
+    <div class="vista_configuracion">
+        <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
+        <form id="modificar" name="modificar" method="POST" action="index.php?c=Configuracion&a=actualizarConfiguraciones">
+            <h2>Modificar Configuración</h2>
 
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-    }
+            <label for="ci_nutriologa">Cedula:</label>
+            <input type="text" id="ci_nutriologa" name="ci_nutriologa" value="<?php echo $data["configuraciones"]['ci_nutriologa']; ?>"><br>
 
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+            <label for="hora_inicio_manana">Hora de inicio (mañana):</label>
+            <input type="time" id="hora_inicio_manana"  name="hora_inicio_manana" value="<?php echo $data["configuraciones"]['hora_inicio_manana']; ?>" step="1" required><br>
 
-    button:hover {
-      background-color: #2980b9;
-    }
-  </style>
-</head>
-<body>
+            <label for="hora_fin_manana">Hora de fin (mañana):</label>
+            <input type="time" id="hora_fin_manana"  name="hora_fin_manana" value="<?php echo $data["configuraciones"]['hora_fin_manana']; ?>" step="1" required><br>
 
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Configuracion&a=actualizarConfiguraciones" autocomplete="off">
-    <h2>Editar <?php echo $data['titulo'];?></h2>
+            <label for="hora_inicio_tarde">Hora de inicio (tarde):</label>
+            <input type="time" id="hora_inicio_tarde"  name="hora_inicio_tarde" value="<?php echo $data["configuraciones"]['hora_inicio_tarde']; ?>" step="1" required><br>
 
-    <input type="hidden" id="id_configuracion" name="id_configuracion" value="<?php echo $data["configuraciones"]["id_configuracion"]; ?>" />
+            <label for="hora_fin_tarde">Hora de fin (tarde):</label>
+            <input type="time" id="hora_fin_tarde"  name="hora_fin_tarde" value="<?php echo $data["configuraciones"]['hora_fin_tarde']; ?>" step="1" required><br>
 
-    <label for="ci_nutriologa">Cédula Nutrióloga:</label>
-    <input type="text" id="ci_nutriologa" name="ci_nutriologa" readonly required value="<?php echo $data["configuraciones"]["ci_nutriologa"]?>">
+            <label for="dias_semana">Días de la semana:</label>
+            <input type="text" id="dias_semana"  name="dias_semana" value="<?php echo $data["configuraciones"]['dias_semana']; ?>" placeholder="Ejemplo: Lunes,Martes,Miercoles,Viernes" required><br>
 
-    <label for="dias_laborales">Días Laborales:</label>
-    <input type="number" id="dias_laborales" readonly min="1" max="7" name="dias_laborales" required value="<?php echo $data["configuraciones"]["dias_laborales"]?>">
+            <label for="duracion_cita">Duración de la cita:</label>
+            <input type="time" id="duracion_cita"  name="duracion_cita" value="<?php echo $data["configuraciones"]['duracion_cita']; ?>" step="1" required><br>
 
-    <label for="duracion_cita">Duración Cita (minutos):</label>
-    <select id="duracion_cita" name="duracion_cita" required>
-      <?php
-        // Generar opciones para el selector (de 15 a 60 en incrementos de 5)
-        for ($i = 15; $i <= 60; $i += 5) {
-          $selected = ($i == $data["configuraciones"]["duracion_cita"]) ? "selected" : "";
-          echo "<option value=\"$i\" $selected>$i</option>";
-        }
-      ?>
-    </select>
+            <input type="hidden" name="id_configuracion" value="<?php echo $data["configuraciones"]['id_configuracion']; ?>">
 
-    <label for="dia_inicio">Día Inicio Laboral:</label>
-    <select id="dia_inicio" name="dia_inicio" required>
-      <?php
-        // Días de la semana
-        $diasSemana = ['LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO'];
+            <button id="guardar" name="guardar" type="submit">Guardar</button>
+        </form>
+    </div>
+</main>
 
-        // Generar opciones para el selector
-        foreach ($diasSemana as $dia) {
-          $selected = ($dia == $data["configuraciones"]["dia_inicio"]) ? "selected" : "";
-          echo "<option value=\"$dia\" $selected>$dia</option>";
-        }
-      ?>
-    </select>
-
-    <label for="dia_fin">Día Fin Laboral:</label>
-    <select id="dia_fin" name="dia_fin" required>
-      <?php
-        // Generar opciones para el selector
-        foreach ($diasSemana as $dia) {
-          $selected = ($dia == $data["configuraciones"]["dia_fin"]) ? "selected" : "";
-          echo "<option value=\"$dia\" $selected>$dia</option>";
-        }
-      ?>
-    </select>
-    
-    <label for="descripcion">Descripción:</label>
-    <input type="text" id="descripcion" placeholder="Ingrese una corta descripción" name="descripcion" maxlength="300" value="<?php echo $data["configuraciones"]["descripcion"] ?>">
-
-    <label for="hora_inicio">Hora Laboral Inicio:</label>
-    <input type="time" id="hora_inicio" min="07:00" max="19:00" value="<?php echo $data["configuraciones"]["hora_inicio"] ?>" name="hora_inicio">
-
-    <label for="hora_fin">Hora Laboral Fin:</label>
-    <input type="time" id="hora_fin" min="07:00" max="19:00" value="<?php echo $data["configuraciones"]["hora_fin"] ?>" name="hora_fin">
-
-    <label for="hora_descanso_inicio">Hora Descanso Inicio:</label>
-    <input type="time" id="hora_descanso_inicio" min="07:00" max="19:00" value="<?php echo $data["configuraciones"]["hora_descanso_inicio"] ?>" name="hora_descanso_inicio">
-
-    <label for="hora_descanso_fin">Hora Descanso Fin:</label>
-    <input type="time" id="hora_descanso_fin" min="07:00" max="19:00" value="<?php echo $data["configuraciones"]["hora_descanso_fin"] ?>" name="hora_descanso_fin">
-
-    <label for="cantidad_horas_laborales">Cantidad Horas Laborales:</label>
-    <input type="text" id="cantidad_horas_laborales" readonly min="1" max="10" value="<?php echo $data["configuraciones"]["cantidad_horas_laborales"] ?>" name="cantidad_horas_laborales">
-
-    <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
-    </form>
-
-</body>
-</html>
-
+<?php include("./src/View/templates/footer_administrador.php")?>

@@ -34,8 +34,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                     <td><?= $cita['horas_disponibles'] ?></td>
                     <td><?= $cita['estado'] ?></td>
                         <td>
-                        <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita'] ?>'>Modificar</a>
-                        <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>'>Cancelar</a>
+                        <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn">Modificar</a>
+                        <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-eliminar">Cancelar</a>
                         </td>
                 </tr>
             <?php endforeach; ?>
