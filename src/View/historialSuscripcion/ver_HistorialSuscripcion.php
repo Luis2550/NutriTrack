@@ -3,7 +3,7 @@ session_start();
 
 // Verifica si hay una sesión activa
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa') {
-    header('Location: http://localhost/Nutritrack2/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
+    header('Location: http://localhost/Nutritrack/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
     exit();
 }
 
@@ -22,7 +22,7 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
 
     <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
     <h2>Ver Usuarios</h2>
-    <button onclick="window.location.href='http://localhost/NutriTrack2/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button>
+    <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button>
     <table border="1" width="40%" id="tabla_id">
         <thead>
             <tr>
