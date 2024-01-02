@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +15,8 @@
 
   </style>
 </head>
+
+
 <body>
 
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=planNutricional&a=guardarPlanNutricional" autocomplete="off">
@@ -22,7 +25,7 @@
     <h3>Datos Nutriolog@</h3>
 
     <label for="ci_nutriologa">Cédula:</label>
-    <select id="ci_nutriologa" name="ci_nutriologa" required>
+    <select id="ci_nutriologa" onchange="cambiarCINutriologa()" name="ci_nutriologa" required>
          
     <?php
         foreach ($data['opciones_nutriologa'] as $ci) {
@@ -49,16 +52,18 @@
     <input type="text" readonly id="apellidos" name="apellidos" value="<?php echo $data['opciones_paciente'][0]['apellidos']; ?>">
 
     <label for="fechaIni">Fecha Inicio:</label>
-    <input type="date" id="fecha_ini" name="fecha_ini" onchange="calcularFechas()" required>
+    <input type="date" id="fecha_ini" timezone="UTC" name="fecha_ini" onchange="calcularFechas()" required>
+
+    <div id="error-message" class="error-message"><?php echo isset($data['error_message']) ? $data['error_message'] : ""; ?></div>
 
     <label for="fechaFin">Fecha Fin:</label>
-    <input type="date" readonly id="fecha_fin" name="fecha_fin" required>
+    <input type="date" readonly id="fecha_fin" timezone="UTC" name="fecha_fin" required>
 
     <label for="duracionDias">Duración en Dias:</label>
     <input type="text" readonly id="duracionDias" name="duracionDias" required>
 
     <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
-    <button id="cancelar" name="cancelar" type="submit" class="cancelar">Cancelar</button>
+    <button id="cancelar" onclick="confirmarCancelar()" name="cancelar" type="submit" class="cancelar">Cancelar</button>
   </form>
 
 </body>

@@ -4,5 +4,40 @@
 }
 
 .tabla_id{
-    margin: 20px;
+    margin: 50px;
+}
+
+/* Estilo para el botón de inserción */
+.btnNuevo {
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: #fff; /* Color del texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    margin: 30px;
+    text-decoration: none; /* Quita el subrayado */
+}
+
+/* Cambio de estilo al pasar el ratón sobre el botón */
+.btnNuevo:hover {
+    background-color: #45a049; /* Color de fondo más oscuro al pasar el ratón */
+}
+
+.btnAcciones{
+    display: inline-block; /* O puedes usar 'inline' según tus necesidades */
+    background-color: #4CAF50; /* Color de fondo verde */
+    color: #fff; /* Color del texto blanco */
+    padding: 10px 10px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    margin: 5px;
+    text-decoration: none; /* Quita el subrayado */
+}
+
+.btnAcciones:hover {
+    background-color: #45a049; /* Color de fondo más oscuro al pasar el ratón */
 }

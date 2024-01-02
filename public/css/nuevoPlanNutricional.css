@@ -54,3 +54,9 @@ button:hover {
 .cancelar:hover {
   background-color: rgba(231, 76, 60, 0.8);
 }
+
+.error-message {
+  color: #e74c3c; /* Puedes cambiar el código de color según tus preferencias */
+  font-weight: bold;
+  text-align: justify;
+}

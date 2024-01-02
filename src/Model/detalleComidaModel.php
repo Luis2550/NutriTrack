@@ -25,6 +25,22 @@ class DetalleComidaModel{
         return $this->detalle_comida;
     }
     
+    public function get_DetalleComidasId($id_plan_nutri){
+
+        $sql = "SELECT * FROM detalle_comida AS dc 
+        JOIN plan_nutricional AS pn ON dc.id_plan_nutricional = pn.id_plan_nutricional 
+        JOIN comida AS c on c.id_comida = dc.id_comida 
+        JOIN tipo_comida AS tc ON tc.id_tipo_comida = c.id_tipo_comida
+        WHERE pn.id_plan_nutricional = '$id_plan_nutri'
+        ORDER BY dc.dia";
+        $resultado = $this->db->query($sql);
+
+        while($fila = $resultado->fetch_assoc()){
+            $this->detalle_comida[] = $fila;
+        }
+        return $this->detalle_comida;
+    }
+    
 
 }
 
