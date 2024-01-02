@@ -16,14 +16,28 @@ class historialClinicoController{
     }
     
 
-    public function modificarHistorialClinico($id) {
+    public function verHistorialClinicoPaciente($ci_paciente) {
+        $historiaClini = new historialClinicoModel();
+        $data['titulo'] = 'historial_clinico';
+        $data['historial_clinico'] = $historiaClini->get_historialClinicoPaciente($ci_paciente);
+    
+        // Pasa los datos a la vista
+        require_once(__DIR__ . '/../View/pacientes/historialClinico/verHistorialPaciente.php');
+    }
+    
 
+    public function modificarHistorialClinico($id) {
         $historiaClini = new historialClinicoModel();
         $data['titulo'] = 'historial_clinico';
         $data['historial_clinico'] = $historiaClini->get_historialClinico($id);
-
-        require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
+    
+        if ($data['historial_clinico']['fecha_creacion'] !== null) {
+            echo "Ya tiene asignado el historial clinico";
+        } else {
+            require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
+        }
     }
+    
 
     public function actualizarHistorialClinico() {
         

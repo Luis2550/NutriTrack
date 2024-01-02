@@ -111,6 +111,32 @@ class historialClinicoModel{
             // Manejo del error en la preparación de la
      }
     }
+
+    public function get_historialClinicoPaciente($ci_paciente) {
+        $stmt = $this->db->prepare("SELECT * FROM historial_clinico WHERE ci_paciente = ?");
+        
+        // Verificar si la preparación de la consulta fue exitosa
+        if ($stmt) {
+            $stmt->bind_param("s", $ci_paciente);
+            $stmt->execute();
+            
+            $resultado = $stmt->get_result();
+    
+            if ($resultado) {
+                $fila = $resultado->fetch_assoc();
+                $stmt->close();
+                return $fila;
+            } else {
+                // Manejo del error al obtener el resultado.
+                // Puedes agregar un mensaje de registro o lanzar una excepción según tus necesidades.
+                $stmt->close();
+                return null;
+            }
+        } else {
+            // Manejo del error en la preparación de la consulta
+        }
+    }
+    
 }
 
 ?>

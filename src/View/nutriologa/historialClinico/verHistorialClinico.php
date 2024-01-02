@@ -39,7 +39,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <td><?php echo $historia['fecha_creacion']; ?></td>
                 <?php echo "<td class='acciones'>
                             
-                            <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinico&id=".$historia['id_historial_clinico']."' class='btn'>Modificar</a>
+                            <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinico&id=".$historia['id_historial_clinico']."' class='btn'>Asignar/Modificar</a>
                             <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialPaciente&id=".$historia['id_historial_clinico']."' class='btn'>Ver historial</a>
 
                  </td>";?>
