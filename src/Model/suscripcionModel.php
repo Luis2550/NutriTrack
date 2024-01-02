@@ -23,7 +23,7 @@ class SuscripcionModel{
     }
 
     public function insertar_Suscripcion($suscripciondato, $duracion_dias) {
-        $resultado = $this->db->query("INSERT INTO suscripcion (suscripcion, duracion_dias, estado)
+        $resultado = $this->db->query("INSERT INTO suscripcion (suscripcion, duracion_dias)
             VALUES ('$suscripciondato', '$duracion_dias')");
     }
 

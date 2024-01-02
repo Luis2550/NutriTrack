@@ -23,10 +23,21 @@ class historialSuscripcionModel{
         return $this->historialSuscripcion;
     }
 
-    public function getCiPaciente() {
+    /*public function getCiPaciente() {
         $sql = "SELECT * FROM usuario";
         $resultado = $this->db->query($sql);
         return $resultado;
+    }*/
+    public function getCiPaciente() {
+        $sql = "SELECT ci_paciente FROM paciente";
+        $resultado = $this->db->query($sql);
+        $ciPaciente = array();
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $ciPaciente[] = $fila['ci_paciente'];
+        }
+
+        return $ciPaciente;
     }
     //trae los datos segun el ci del paciente  
     public function getInformacionUsuario($ci_usuario) {
@@ -72,20 +83,8 @@ class historialSuscripcionModel{
 
     
         
-    /*public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
-        $resultado = $this->db->query("INSERT INTO historial_suscripcion(id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES ('$id_suscripcion', '$ci_paciente', '$fecha_inicio', '$fecha_fin', '$estado')");
-    }*/
     public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
-        $stmt = $this->db->prepare("INSERT INTO historial_suscripcion (id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado);
-    
-        if ($stmt->execute()) {
-            echo "¡Historial Suscripción insertado correctamente!";
-        } else {
-            echo "Error al insertar historial: " . $stmt->error;
-        }
-    
-        $stmt->close();
+        $resultado = $this->db->query("INSERT INTO historial_suscripcion(id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES ('$id_suscripcion', '$ci_paciente', '$fecha_inicio', '$fecha_fin', '$estado')");
     }
     
 
@@ -98,7 +97,7 @@ class historialSuscripcionModel{
 
     public function get_HistorialSuscripcion($id)
     {
-        $sql = "SELECT hs.*, u.nombres as usuario FROM historial_suscripcion hs JOIN usuario u ON hs.ci_paciente = u.ci_usuario WHERE hs.ci_usuario = '$id' LIMIT 1";
+        $sql = "SELECT * FROM historial_suscripcion WHERE id_suscripcion='$id' LIMIT 1";
         $resultado = $this->db->query($sql);
         $fila = $resultado->fetch_assoc();
 
@@ -110,6 +109,28 @@ class historialSuscripcionModel{
 			
         $resultado = $this->db->query("DELETE FROM historial_suscripcion WHERE id_suscripcion = '$id'");
         
+    }
+
+    public function getSuscripcionUsuarios($ci_paciente) {
+        $sql = "SELECT * FROM historial_suscripcion WHERE ci_paciente = ?";
+        $stmt = $this->db->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("s", $ci_paciente);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $HistorialPaciente = array();
+    
+            while ($row = $result->fetch_assoc()) {
+                $HistorialPaciente[] = $row;
+            }
+    
+            $stmt->close();
+    
+            return $HistorialPaciente;
+        } else {
+            die("Error en la preparación de la consulta: " . $this->db->error);
+        }
     }
    
 

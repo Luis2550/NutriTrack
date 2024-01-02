@@ -10,15 +10,15 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main>
+<main class>
 <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=nuevoSuscripcion'">Agregar Plan</button>
 <h2>Ver Suscripcion</h2>
 
 <?php if(isset($data['mensaje'])): ?>
         <div class="mensaje"><?php echo $data['mensaje']; ?></div>
-    <?php endif; ?>
-    <table border="1" width="60%">
+<?php endif; ?>
+    <table border="1" width="60%" id="tabla_id">
 
         <thead>
             <tr>

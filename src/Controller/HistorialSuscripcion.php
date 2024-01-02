@@ -26,21 +26,50 @@ class HistorialSuscripcionController{
     }
     
 
-    public function guardarHistorialSuscripcion(){
-        
+    public function guardarHistorialSuscripcion() {
         $id_suscripcion = $_POST['id_suscripcion'];
         $ci_usuario = isset($_POST['ci_usuario']) ? $_POST['ci_usuario'] : null;
         $fecha_inicio = $_POST['fecha_inicio'];
         $fecha_fin = $_POST['fecha_fin'];
-        $estado=$_POST['estado'];
-        
+        $estado = $_POST['estado'];
+    
         $historialsuscripciones = new historialSuscripcionModel();
-        $historialsuscripciones->insertar_HistorialSuscripcion($id_suscripcion, $ci_usuario, $fecha_inicio, $fecha_fin, $estado);
-        $data["titulo"] = " Historial Suscripcion";
-
-        echo "¡Historial Suscripción insertado correctamente!";
-        $this->verHistorialSuscripcion();
+    
+        // Verificar si el número de cédula ya existe
+        $historialExistente = $historialsuscripciones->getSuscripcionUsuarios($ci_usuario);
+    
+        if (!empty($historialExistente)) {
+            // El historial de suscripción ya existe para este número de cédula
+            echo  "El historial de suscripción ya existe para este número de cédula. No se realizó ninguna inserción.";
+        } else {
+            // No hay historial existente, intentar insertar
+            try {
+                // Intentar insertar el historial de suscripción
+                $historialsuscripciones->insertar_HistorialSuscripcion($id_suscripcion, $ci_usuario, $fecha_inicio, $fecha_fin, $estado);
+                $data["titulo"] = "Historial Suscripcion";
+    
+                // Agrega mensajes de depuración
+                echo "Historial de Suscripción insertado correctamente";
+    
+                // Evitar llamar a ver_citas_paciente si ha ocurrido una excepción
+               
+                
+            } catch (Exception $e) {
+                // Agrega mensajes de depuración
+                
+    
+                // Manejar la excepción general
+                echo  'Error al guardar historial de suscripción: ' . $e->getMessage();
+                header('Location: http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcion&error_message=' . urlencode($error_message));
+                exit();
+            }
+        }
     }
+    
+    
+    
+   
+
 
 
 

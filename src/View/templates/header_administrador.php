@@ -15,8 +15,10 @@
     <link rel="stylesheet" href="./public/css/estilo_configuracion4.css">
     <link rel="stylesheet" href="./public/css/plan_nutricional_ver_pacientes.css">
     <link rel="stylesheet" href="./public/css/estilo_suscripcion.css">
+    <link rel="stylesheet" href="./public/css/estilos_historialSuscripcion.css">
     <link rel="stylesheet" href="./public/css/estilo_actividades3.css">
     <link rel="stylesheet" href="./public/css/estilo_historialCli2.css">
+
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
