@@ -79,6 +79,39 @@ class actividadModel{
             // Manejo del error en la preparación de la
      }
     }
+
+    public function obtenerActividadesPorPacientek($ci_paciente) {
+        $query = "SELECT * FROM actividad WHERE ci_paciente = :ci_paciente";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':ci_paciente', $ci_paciente);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerActividadesPorPaciente($ci_paciente) {
+        $sql = "SELECT * FROM actividad WHERE ci_paciente = ?";
+        $stmt = $this->db->prepare($sql);
+    
+        if ($stmt) {
+            $stmt->bind_param("s", $ci_paciente);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $ActividadesPaciente = array();
+    
+            while ($row = $result->fetch_assoc()) {
+                $ActividadesPaciente[] = $row;
+            }
+    
+            $stmt->close();
+        
+            return $ActividadesPaciente;
+        } else {
+            die("Error en la preparación de la consulta: " . $this->db->error);
+        }
+    }
+    
+    
+    
 }
 
 ?>

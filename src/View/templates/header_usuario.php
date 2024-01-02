@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./public/css/estilo_usuario4.css">
     <link rel="stylesheet" href="./public/css/estilo_citas5.css">
+    <link rel="stylesheet" href="./public/css/estilo_actividades2.css">
+    <link rel="stylesheet" href="./public/css/estilo_historialCli2.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />

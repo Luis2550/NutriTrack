@@ -1,0 +1,97 @@
+.main_actividades {
+    background-color: #f8f8f8; /* Cambia el color de fondo según tus preferencias */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Centra el bloque en la página */
+    color: black;
+}
+
+.main_actividades .title {
+    color: #333; /* Cambia el color del título según tus preferencias */
+    margin-bottom: 10px;
+}
+
+.main_actividades table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.main_actividades th, .main_actividades td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.main_actividades th {
+    background-color: #4caf50; /* Cambia el color de fondo del encabezado según tus preferencias */
+    color: #fff;
+}
+
+.main_actividades a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4caf50; /* Cambia el color de fondo del enlace según tus preferencias */
+    border-radius: 4px;
+}
+
+.main_actividades a:hover {
+    background-color: #45a049; /* Cambia el color de fondo del enlace al pasar el mouse según tus preferencias */
+}
+
+/*estilo para main_nuevo_actividades*/
+
+
+    .main_nuevo_actividades {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        color:black;
+    }
+
+    .main_nuevo_actividades h2 {
+        color: #333;
+    }
+
+    .main_nuevo_actividades form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main_nuevo_actividades label {
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .main_nuevo_actividades select,
+    .main_nuevo_actividades input,
+    .main_nuevo_actividades button {
+        margin-bottom: 16px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .main_nuevo_actividades button {
+        background-color: #4caf50;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .main_nuevo_actividades button:hover {
+        background-color: #45a049;
+    }
+
+    .textarea{
+        margin-bottom: 10px;
+    }

@@ -1,0 +1,260 @@
+.main_historialCli h2 {
+    color: #333; /* Cambia el color del texto de los encabezados h2 */
+}
+
+.main_historialCli .btn {
+    background-color: #4caf6a;
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main_historialCli .btn:hover {
+    background-color: #45a049;
+}
+
+.main_historialCli table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.main_historialCli th, .main_historialCli td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.main_historialCli th {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+
+
+
+/* Estilos para agregar */
+.main_historialCli .formulario-intro {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 90%; /* Ajusta el ancho según sea necesario */
+    max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+    margin: 20px auto; /* Centra el bloque en la página */
+}
+
+.main_historialCli .formulario-intro-container {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.main_historialCli .formulario-intro p {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Resto de los estilos con la clase main_historialCli */
+.main_historialCli body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main_historialCli h1 {
+    color: #333;
+}
+
+.main_historialCli form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.main_historialCli label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para la tabla de opciones de enfermedades */
+.main_historialCli #enfermedadesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.main_historialCli #enfermedadesTable th, .main_historialCli #enfermedadesTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.main_historialCli #enfermedadesTable th {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.main_historialCli #enfermedadesTable input {
+    margin-right: 5px;
+}
+
+/* Estilos para alinear opciones de género y agregar contorno */
+.main_historialCli .genero-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 16px;
+}
+
+.main_historialCli input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.main_historialCli input[type="checkbox"] + label {
+    margin-right: 15px;
+}
+
+.main_historialCli input, .main_historialCli select, .main_historialCli textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.main_historialCli textarea {
+    resize: vertical;
+}
+
+/* Estilos para la lista desplegable del motivo de la consulta */
+.main_historialCli #motivoConsulta {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.main_historialCli select {
+    appearance: none;
+}
+
+.main_historialCli button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main_historialCli button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para el radio button del tiempo de actividad física */
+.main_historialCli .radio-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main_historialCli .radio-container input[type="radio"] {
+    display: none; /* Oculta el círculo de selección */
+}
+
+.main_historialCli .radio-container label {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.main_historialCli .radio-container input[type="radio"]:checked + label {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.main_historialCli .radio-container input[type="radio"]:checked + label::before {
+    content: '\2022'; /* Agrega un círculo (puedes ajustar este carácter según tus necesidades) */
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.5em;
+}
+
+/* Estilos para las opciones con check */
+.main_historialCli .question-container {
+    margin-bottom: 20px;
+}
+
+.main_historialCli .check-container {
+    display: flex;
+}
+
+.main_historialCli .check-container input[type="radio"] {
+    display: none; /* Oculta el radio */
+}
+
+.main_historialCli .check-container label {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/*Estilo para opcion genero */
+.main_historialCli .question-container_m {
+    margin-bottom: 20px;
+}
+
+.main_historialCli .check-container_m input[type="radio"]:checked + label {
+    background-color: #4caf50; /* Color de fondo verde cuando está seleccionado */
+    color: #fff;
+}
+
+.main_historialCli .check-container_m input[type="radio"] {
+    display: none; /* Oculta el radio */
+}
+
+.main_historialCli .check-container_m label {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.main_historialCli .check-container input[type="radio"]:checked + label {
+    background-color: #4caf50; /* Color de fondo verde cuando está seleccionado */
+    color: #fff;
+}
+
+.main_historialCli .check-container input[type="radio"]:checked:not([value="si"]) + label {
+    background-color: #d67f7f; /* Color de fondo rojo cuando la opción seleccionada no es 'Sí' */
+    color: #fff;
+}

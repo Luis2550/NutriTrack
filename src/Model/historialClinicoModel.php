@@ -12,20 +12,15 @@ class historialClinicoModel{
     }
 
     public function get_HistoriasClinicas(){
-
         $sql = "SELECT * FROM historial_clinico";
         $resultado = $this->db->query($sql);
-
-        while($fila = $resultado->fetch_assoc()){
-            $this->historiaClini[] = $fila;
-        }
-        return $this->historiaClini;
+    
+        // Obtén los datos como un array asociativo
+        $historiasClinicas = $resultado->fetch_all(MYSQLI_ASSOC);
+    
+        return $historiasClinicas;
     }
-
-    public function insertar_historialClinico($ci_paciente, $fecha_creacion){
-        $resultado = $this->db->query("INSERT INTO historial_clinico(ci_paciente, fecha_creacion) VALUES ('$ci_paciente', '$fecha_creacion')");
-
-    }
+    
 
     //aqui poner el get Ci paciente
     public function getCIPacientes() {
@@ -39,11 +34,48 @@ class historialClinicoModel{
 
         return $ciPacientes;
     }
-    public function modificar_historialClinico($id,$ci_paciente, $fecha_creacion){
-			
-        $resultado = $this->db->query("UPDATE historial_clinico
-        SET ci_paciente='$ci_paciente', fecha_creacion='$fecha_creacion' WHERE id_historial_clinico = '$id'");			
-    }
+    
+    public function modificar_historialClinico($id, $fecha_creacion, $fechaNacimiento, $peso, $porcentajeGrasa, $talla,
+        $ocupacion, $celular, $direccion, $neuro, $hemoglobina, $gastro, $respiratorias,
+        $cronicas, $endocrinos, $cirugias, $alergias, $hipertension, $motivoConsulta,
+        $discapacidad, $tipoDiscapacidad, $entrenamiento, $tiempoEntrenamiento, $alcohol,
+        $cafe, $medicamentosHabituales, $observaciones, $observaciones_g
+    ) {
+    $query = "UPDATE historial_clinico SET  
+        fecha_creacion = '$fecha_creacion', 
+        fechaNacimiento = '$fechaNacimiento', 
+        peso = '$peso', 
+        porcentajeGrasa = '$porcentajeGrasa', 
+        talla = '$talla',
+        ocupacion = '$ocupacion', 
+        celular = '$celular', 
+        direccion = '$direccion', 
+        neuro = '$neuro', 
+        hemoglobina = '$hemoglobina', 
+        gastro = '$gastro', 
+        respiratorias = '$respiratorias',
+        cronicas = '$cronicas', 
+        endocrinos = '$endocrinos', 
+        cirugias = '$cirugias', 
+        alergias = '$alergias', 
+        hipertension = '$hipertension', 
+        motivoConsulta = '$motivoConsulta',
+        discapacidad = '$discapacidad', 
+        tipoDiscapacidad = '$tipoDiscapacidad', 
+        entrenamiento = '$entrenamiento', 
+        tiempoEntrenamiento = '$tiempoEntrenamiento', 
+        alcohol = '$alcohol',
+        cafe = '$cafe', 
+        medicamentosHabituales = '$medicamentosHabituales', 
+        observacionesSalud = '$observaciones', 
+        observacionesGenerales = '$observaciones_g'
+        WHERE id_historial_clinico = '$id'";
+
+    $resultado = $this->db->query($query);
+
+    // Manejo de errores o retornar el resultado según sea necesario
+}
+
 
     public function eliminar_historialClinico($id){
 			
