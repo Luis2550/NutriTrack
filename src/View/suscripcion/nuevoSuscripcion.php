@@ -15,7 +15,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <h2>Registro<?php echo $data['titulo'];?></h2>
 
     <label for="suscripcion">Suscripcion:</label>
-    <input type="text" id="suscripcion" name="suscripcion" required>
+    <select id="suscripcion" name="suscripcion" required>
+      <option value="MENSUAL">MENSUAL</option>
+      <option value="BiMENSUAL">BIMENSUAL</option>
+      <option value="TRIMESTRAL">TRIMESTRAL</option>
+      <option value="SEMESTRAL">SEMESTRAL</option>
+      <option value="ANUAL">ANUAL</option>
+    </select>
 
     <label for="duracion_dias">Duracion Dias:</label>
     <input type="num" id="duracion_dias" name="duracion_dias" required>
