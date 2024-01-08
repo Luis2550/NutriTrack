@@ -18,20 +18,25 @@
   });
 </script>
 
-<!-- Incluye Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
 <script>
-  flatpickr("#fecha2", {
-    enableTime: false,
-    dateFormat: "Y-m-d",
-    defaultDate: "today",
-    altInput: true,
-    altFormat: "F j, Y",
-    inline: true,
-    locale: "es", // Configura el idioma a español
-  });
+    // Arreglo de días permitidos
+    var diasPermitidos = <?php echo json_encode($diasPermitidos); ?>;
+    console.log(diasPermitidos);
+
+    // Función para deshabilitar fechas no permitidas
+    document.getElementById('fecha2').addEventListener('input', function() {
+        var seleccionada = new Date(this.value);
+        var diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo'];
+        var diaSeleccionado = diasSemana[seleccionada.getDay()];
+
+        if (!diasPermitidos.includes(diaSeleccionado)) {
+            alert('Este día no es laboral');
+            this.value = ''; // Limpiar el valor
+        }
+    });
 </script>
+
 
     </body>
     </html>

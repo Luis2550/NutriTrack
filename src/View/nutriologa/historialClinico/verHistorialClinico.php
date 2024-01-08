@@ -17,11 +17,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <h2>Ver Historial Clinico</h2>
 
     
-    <table border="1" width="100%">
+    <table border="1" width="100%" id="tabla_id">
     <thead>
         <tr>
-            <th>Código Historial Clinico</th>
-            <th>Cédula Paciente</th>
+            <th>Código</th>
+            <!-- <th>Cédula Paciente</th> -->
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Fecha Creación</th>
@@ -33,13 +33,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <?php foreach ($data['historial_clinico'] as $historia): ?>
             <tr>
                 <td><?php echo $historia['id_historial_clinico']; ?></td>
-                <td><?php echo $historia['ci_paciente']; ?></td>
+                <!-- <td><?php echo $historia['ci_paciente']; ?></td> -->
                 <td><?php echo $historia['nombres']; ?></td>
                 <td><?php echo $historia['apellidos']; ?></td>
                 <td><?php echo $historia['fecha_creacion']; ?></td>
                 <?php echo "<td class='acciones'>
-                            
-                            <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinico&id=".$historia['id_historial_clinico']."' class='btn'>Asignar/Modificar</a>
+                            <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=asignarHistorialClinico&id=".$historia['id_historial_clinico']."' class='btn'>Asignar</a>
+                            <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinico&id=".$historia['id_historial_clinico']."' class='btn'>Modificar</a>
                             <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialPaciente&id=".$historia['id_historial_clinico']."' class='btn'>Ver historial</a>
 
                  </td>";?>

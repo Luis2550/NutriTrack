@@ -1,7 +1,10 @@
 
 <?php
     $urlBase = "http://localhost/nutritrack/";
-
+    date_default_timezone_set('America/Guayaquil'); // Establecer la zona horaria a Ecuador
+    $fecha_actual = (new DateTime())->format('Y-m-d');
+    $fecha_maxima = date("Y-m-d", strtotime($fecha_actual . " + 5 days"));
+    
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./public/css/estilo_usuario4.css">
-    <link rel="stylesheet" href="./public/css/estilo_citas7.css">
+    <link rel="stylesheet" href="./public/css/estilo_citas9.css">
     <link rel="stylesheet" href="./public/css/estilo_actividades3.css">
     <link rel="stylesheet" href="./public/css/estilo_historialCli2.css">
 

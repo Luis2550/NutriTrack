@@ -8,8 +8,25 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
 ?>
 
-<?php include("./src/View/templates/header_usuario.php")?>
+<?php
+// Array para almacenar los días permitidos
+$diasPermitidos = [];
 
+// Iterar sobre el array $configuraciones e imprimir el campo dias_semana
+foreach ($configuraciones as $configuracion) {
+    // Convertir la cadena de días_semana a un array
+    $diasConfiguracion = explode(',', $configuracion['dias_semana']);
+
+    // Agregar los días al array $diasPermitidos
+    $diasPermitidos = array_merge($diasPermitidos, $diasConfiguracion);
+}
+
+// Eliminar duplicados y ordenar alfabéticamente (opcional)
+$diasPermitidos = array_unique($diasPermitidos);
+sort($diasPermitidos);
+?>
+
+<?php include("./src/View/templates/header_usuario.php")?>
 
 <main class="main main_ingresar_cita"> 
 
@@ -19,11 +36,19 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     
   <h2>Registro de Citas</h2>
 
+    <h2 class="diaslaborales">Dias Laborales: <?php
+        // Iterar sobre el array $configuraciones e imprimir el campo dias_semana
+        foreach ($configuraciones as $configuracion) {
+            echo $configuracion['dias_semana'];
+        }?></h2> 
+
     <label for="ci_paciente">Paciente:</label>
     <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario'];?>">
 
     <label for="fecha2">Fecha:</label>
-    <input type="date" id="fecha2" name="fecha2" required>
+    <input type="date" id="fecha2" name="fecha2" min="<?= $fecha_actual; ?>" max="<?= $fecha_maxima?>" required>
+
+
 
     <label for="horas_disponibles">Horas Disponibles:</label>
     <select id="horas_disponibles" name="horas_disponibles" required>

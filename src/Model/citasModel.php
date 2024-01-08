@@ -77,8 +77,30 @@ class CitasModel{
 
         return $configuraciones;
     }
-    
 
+    public function getCorreo($id_cita) {
+        $sql = "SELECT u.correo
+                FROM cita c
+                JOIN usuario u ON c.ci_paciente = u.ci_usuario
+                WHERE c.id_cita = '$id_cita'
+                LIMIT 1";
+    
+        $resultado = $this->db->query($sql);
+    
+        if ($resultado && $resultado->num_rows > 0) {
+            // Obtener el valor del correo directamente
+            $correo = $resultado->fetch_assoc()['correo'];
+    
+            $resultado->free();
+    
+            return $correo;
+        } else {
+            // Devolver null en lugar de lanzar una excepción si no se encuentra el correo
+            return null;
+        }
+    }
+    
+    
     public function modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles){
 			
         $resultado = $this->db->query("UPDATE cita 

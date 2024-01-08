@@ -42,6 +42,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         echo "<td>".$dato['fecha']."</td>";
                         echo "<td>".$dato['horas_disponibles']."</td>";
                         echo "<td class='acciones'>
+                                <a href='' class='btn'>Asistio</a>
                                 <a href='index.php?c=Citas&a=eliminarCitas&id=".$dato["id_cita"]."' class='btn-cancelar'>Cancelar</a>
                         </td>";
                         echo "</tr>";

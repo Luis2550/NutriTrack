@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./public/css/estilo.css">
+    <link rel="stylesheet" href="./public/css/login1.css">
 </head>
 <body>
     

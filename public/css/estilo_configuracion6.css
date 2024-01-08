@@ -65,6 +65,11 @@
     text-decoration: none;
 }
 
+.scrollable-cell {
+  max-width: 270px; /* Establece el ancho máximo */
+  overflow-x: auto; /* Añade una barra de desplazamiento horizontal si es necesario */
+}
+
 /* ingresar */
 
 
@@ -128,3 +133,26 @@
   background-color: #45a049;
 }
 
+/* Estilo para el contenedor del select */
+.main_configuracion  .select-container {
+  position: relative;
+  width: 200px;
+}
+
+/* Estilo para el select */
+.main_configuracion #dias_semana {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+/* Estilo para la flecha desplegable */
+.main_configuracion .select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

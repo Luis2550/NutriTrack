@@ -51,8 +51,11 @@ class ConfiguracionController{
         $hora_fin_manana = $_POST['hora_fin_manana'];
         $hora_inicio_tarde = $_POST['hora_inicio_tarde'];
         $hora_fin_tarde = $_POST['hora_fin_tarde'];
-        $dias_semana = $_POST['dias_semana'];
+        $dias_semana_array = $_POST['dias_semana'];
         $duracion_cita = $_POST['duracion_cita'];
+    
+        // Convertir el array de días a una cadena separada por comas
+        $dias_semana = implode(',', $dias_semana_array);
     
         $configuraciones = new configuracionModel();
         $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita);
@@ -60,7 +63,6 @@ class ConfiguracionController{
         $this->verConfiguracion();
     }
     
-
     public function eliminarConfiguraciones($id){
         
         $configuraciones = new configuracionModel();

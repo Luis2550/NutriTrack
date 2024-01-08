@@ -60,6 +60,7 @@ class configuracionModel{
             WHERE id_configuracion = '$id_configuracion'");
     }
     
+    
     public function eliminarConfiguraciones($id){
 			
         $resultado = $this->db->query("DELETE FROM configuracion WHERE id_configuracion = '$id'");

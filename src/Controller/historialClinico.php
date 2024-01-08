@@ -35,15 +35,30 @@ class historialClinicoController{
         $historiaClini = new historialClinicoModel();
         $data['titulo'] = 'historial_clinico';
         $data['historial_clinico'] = $historiaClini->get_historialClinico($id);
-    
-        if ($data['historial_clinico']['fecha_creacion'] !== null) {
-            echo "Ya tiene asignado el historial clinico";
+        
+        if ($data['historial_clinico']['fecha_creacion'] == null) {
+            echo "No puede modificar ya que no tiene datos";
         } else {
+            // Pasa los datos a la vista
             require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
         }
+         
+    }
+
+    public function asignarHistorialClinico($id) {
+        $historiaClini = new historialClinicoModel();
+        $data['titulo'] = 'historial_clinico';
+        $data['historial_clinico'] = $historiaClini->get_historialClinico($id);
+        
+        if ($data['historial_clinico']['fecha_creacion'] != null) {
+            echo "Este paciente ya tiene un historial clinico";
+        } else {
+            // Pasa los datos a la vista
+            require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
+        }
+         
     }
     
-
     public function actualizarHistorialClinico() {
         
         $id = $_POST['id_historial_clinico'];

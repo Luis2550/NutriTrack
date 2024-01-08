@@ -18,14 +18,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
     <h2>Ver Configuracion</h2>
-
-    <a
-        name=""
-        id=""
-        class="btn-agregar"
-        href="http://localhost/nutritrack/index.php?c=Configuracion&a=nuevoConfiguraciones"
-        role="button"
-        >Agregar configuracion</a>
     
     <table>
         <thead>
@@ -51,7 +43,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         echo"<td>".$dato['hora_fin_manana']."</td>";
                         echo"<td>".$dato['hora_inicio_tarde']."</td>";
                         echo"<td>".$dato['hora_fin_tarde']."</td>";
-                        echo"<td>".$dato['dias_semana']."</td>";
+                        echo"<td class='scrollable-cell'>".$dato['dias_semana']."</td>";
                         echo"<td>".$dato['duracion_cita']."</td>";
                         echo"<td>".$dato['horas_laborales']."</td>";
                         echo "<td class='acciones'>

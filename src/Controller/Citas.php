@@ -1,4 +1,8 @@
 <?php
+require __DIR__ . '/../../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class CitasController {
 
@@ -37,31 +41,6 @@ class CitasController {
 
             require_once(__DIR__ . '/../View/pacientes/citas/nuevoCitas.php');
 
-            // ...
-
-            echo '<script>';
-            echo 'flatpickr("#fecha2", {';
-            echo 'enableTime: false,';
-            echo 'dateFormat: "Y-m-d",';
-            echo 'defaultDate: "today",';
-            echo 'minDate: "today",';
-            echo 'locale: "es",';
-            echo 'inline: true,';
-            echo 'onDayCreate: function(dObj, dStr, fp, dayElem) {';
-            echo 'var now = new Date();';
-            echo 'var selectedDate = new Date(dStr);';
-            echo 'var diasLaborables = ' . json_encode($configuraciones[0]['dias_semana']) . ';';
-            echo 'var esDiaLaborable = diasLaborables.includes((selectedDate.getDay() + 6) % 7 + 1);';
-            echo 'if (selectedDate < now || !esDiaLaborable) {';
-            echo 'dayElem.classList.add("disabled");';
-            echo 'dayElem.title = esDiaLaborable ? "No se puede agendar una cita en una fecha anterior a la actual." : "Día no laborable.";';
-            echo '}';
-            echo 'if (!esDiaLaborable) {';
-            echo 'dayElem.classList.add("no-laborable");'; // Agrega un estilo CSS para días no laborables
-            echo '}';
-            echo '}';
-            echo '});';
-            echo '</script>';
 
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
@@ -152,29 +131,6 @@ class CitasController {
     
         require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
         
-        echo '<script>';
-            echo 'flatpickr("#fecha2", {';
-            echo 'enableTime: false,';
-            echo 'dateFormat: "Y-m-d",';
-            echo 'defaultDate: "today",';
-            echo 'minDate: "today",';
-            echo 'locale: "es",';
-            echo 'inline: true,';
-            echo 'onDayCreate: function(dObj, dStr, fp, dayElem) {';
-            echo 'var now = new Date();';
-            echo 'var selectedDate = new Date(dStr);';
-            echo 'var diasLaborables = ' . json_encode($configuraciones[0]['dias_semana']) . ';';
-            echo 'var esDiaLaborable = diasLaborables.includes((selectedDate.getDay() + 6) % 7 + 1);';
-            echo 'if (selectedDate < now || !esDiaLaborable) {';
-            echo 'dayElem.classList.add("disabled");';
-            echo 'dayElem.title = esDiaLaborable ? "No se puede agendar una cita en una fecha anterior a la actual." : "Día no laborable.";';
-            echo '}';
-            echo 'if (!esDiaLaborable) {';
-            echo 'dayElem.classList.add("no-laborable");'; // Agrega un estilo CSS para días no laborables
-            echo '}';
-            echo '}';
-            echo '});';
-            echo '</script>';
     }
     
     public function actualizarCitas() {
@@ -199,17 +155,50 @@ class CitasController {
             exit();
         }    
 
-            
 
     }
+    
     
 
     public function eliminarCitas($id_cita) {
         $citas = new CitasModel();
+        $correo = $citas->getCorreo($id_cita);
+    
+        // Verifica si $correo no es nulo antes de enviar el correo
+        if ($correo !== null) {
+            try {
+                $mail = new PHPMailer(true);
+                $mail->SMTPDebug = 0;
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'nutritrack02@gmail.com';
+                $mail->Password   = 'reaq znpz rqhr huac';
+                $mail->SMTPSecure = 'SSL';
+                $mail->Port       = 587;
+    
+                $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
+                $mail->addAddress($correo);
+    
+                $mail->isHTML(true);
+                $mail->Subject = 'Cita Cancelada';
+                $mail->Body    = 'Su cita ha sido cancelada, por favor agende su cita para otro día';
+    
+                $mail->send();
+                echo 'Correo enviado correctamente';
+            } catch (Exception $e) {
+                echo "No se pudo enviar el correo. Error del servidor de correo: {$mail->ErrorInfo}";
+            }
+        } else {
+            echo "No se pudo obtener la dirección de correo.";
+        }
+    
         $citas->eliminar_Citas($id_cita);
         $data["titulo"] = "citas";
         $this->verCitas();
     }
+    
+    
 
     public function ver_citas_paciente($ci_paciente) {
         $citasModel = new CitasModel();
