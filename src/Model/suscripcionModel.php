@@ -49,6 +49,30 @@ class SuscripcionModel{
         return $fila;
     }
 
+    public function getSuscripcionExistente($suscripcion) {
+        $sql = "SELECT * FROM suscripcion WHERE suscripcion = ?";
+        
+        try {
+            $stmt = $this->db->prepare($sql);
+    
+            if ($stmt) {
+                $stmt->bind_param("s", $suscripcion);
+                $stmt->execute();
+    
+                $result = $stmt->get_result();
+                $NombresSuscripcion = $result->fetch_all(MYSQLI_ASSOC);
+    
+                $stmt->close();
+    
+                return $NombresSuscripcion;
+            } else {
+                throw new Exception("Error en la preparación de la consulta: " . $this->db->error);
+            }
+        } catch (Exception $e) {
+            die("Error: " . $e->getMessage());
+        }
+    }
+    
 }
 
 ?>

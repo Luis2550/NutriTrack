@@ -85,16 +85,12 @@ class historialSuscripcionModel{
         
     public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
         $resultado = $this->db->query("INSERT INTO historial_suscripcion(id_suscripcion, ci_paciente, fecha_inicio, fecha_fin, estado) VALUES ('$id_suscripcion', '$ci_paciente', '$fecha_inicio', '$fecha_fin', '$estado')");
-    }
-    
-
-    
+    }  
     public function modificarHistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){
 			
         $resultado = $this->db->query("UPDATE historial_suscripcion
         SET id_suscripcion='$id_suscripcion', fecha_inicio='$fecha_inicio', fecha_fin='$fecha_fin', estado='$estado' WHERE ci_paciente='$ci_paciente'");			
     }
-
     public function get_HistorialSuscripcion($id)
     {
         $sql = "SELECT * FROM historial_suscripcion WHERE id_suscripcion='$id' LIMIT 1";
@@ -103,14 +99,10 @@ class historialSuscripcionModel{
 
         return $fila;
     }
-        
-
     public function eliminarHistorialSuscripcion($id){
 			
         $resultado = $this->db->query("DELETE FROM historial_suscripcion WHERE id_suscripcion = '$id'");
-        
     }
-
     public function getSuscripcionUsuarios($ci_paciente) {
         $sql = "SELECT * FROM historial_suscripcion WHERE ci_paciente = ?";
         $stmt = $this->db->prepare($sql);

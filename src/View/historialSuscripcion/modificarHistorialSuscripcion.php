@@ -21,7 +21,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <input type="text" id="ci_paciente" name="ci_paciente" readonly required value="<?php echo $data["historialsuscripciones"]["ci_paciente"]?>">
     
     <label for="id_suscripcion">ID Suscripcion:</label>
-    <select id="id_suscripcion" name="id_suscripcion" required>
+    <select id="id_suscripcion" name="id_suscripcion" required onchange="actualizarDatos()" required>
         <?php
         $usuarioSeleccionadoId = $data["historialsuscripciones"]["id_suscripcion"];
         $usuarioSeleccionadoSuscripcion = $data["historialsuscripciones"]["suscripcion"];
@@ -35,11 +35,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         // Ahora, muestra las opciones
         foreach ($opcionesSuscripcion as $suscripcion) {
         ?>
-            <option value="<?php echo $suscripcion['id_suscripcion']; ?>"><?php echo $suscripcion['suscripcion']; ?></option>
+            <option value="<?php echo $suscripcion['id_suscripcion']; ?>" data-duracion_dias="<?php echo $suscripcion['duracion_dias']; ?>"><?php echo $suscripcion['suscripcion']; ?></option>
         <?php } ?>
     </select>
+    <label for="duracion_dias">Duración Dias:</label>
+    <input type="text" readonly id="duracion_dias" name="duracion_dias" value="<?php echo $opcionesSuscripcion[0]['duracion_dias']; ?>">
 
-    
+
     <label for="fecha_inicio">Fecha Inicio:</label>
     <input type="date" id="fecha_inicio" name="fecha_inicio" required value="<?php echo $data["historialsuscripciones"]["fecha_inicio"]?>">
 
@@ -54,6 +56,64 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
 </form>
+<script>
+  function actualizarDatos() {
+    var selectSuscripcion = document.getElementById('id_suscripcion');
+    var duracionDiasInput = document.getElementById('duracion_dias');
+    var fechaInicioInput = document.getElementById('fecha_inicio');
+    var fechaFinInput = document.getElementById('fecha_fin');
+
+    var selectedOption = selectSuscripcion.options[selectSuscripcion.selectedIndex];
+    var duracionDias = selectedOption.getAttribute('data-duracion_dias');
+
+    // Actualizar la duración de días
+    duracionDiasInput.value = duracionDias;
+
+    // Calcular la nueva fecha fin solo si el usuario no ha cambiado la fecha inicio manualmente
+    if (!fechaInicioInput.getAttribute('data-user-changed')) {
+      calcularFechas(duracionDias);
+    }
+  }
+
+  function calcularFechas(duracionDias) {
+    var fechaInicioInput = document.getElementById("fecha_inicio");
+    var fechaFinInput = document.getElementById("fecha_fin");
+    var duracionDiasInput = document.getElementById("duracion_dias");
+
+    // Obtener la fecha de inicio
+    var fechaInicio = new Date(fechaInicioInput.value);
+
+    // Obtener la fecha actual
+    var fechaActual = new Date();
+    fechaActual.setHours(0, 0, 0, 0);  // Establecer las horas, minutos, segundos y milisegundos a cero para comparar solo las fechas
+
+    // Verificar que la fecha de inicio no sea menor a la fecha actual (permitiendo que sea el mismo día)
+    if (fechaInicio.getTime() < fechaActual.getTime()) {
+      alert("La fecha de inicio no puede ser menor al día actual.");
+      fechaInicioInput.valueAsDate = fechaActual;
+      fechaInicio = new Date(fechaActual);
+    }
+
+    // Calcular la fecha de fin sumando la duración en días a la fecha de inicio
+    var fecha_fin = new Date(fechaInicio);
+    fecha_fin.setDate(fechaInicio.getDate() + parseInt(duracionDiasInput.value));
+
+    // Actualizar los campos en el formulario
+    fechaFinInput.valueAsDate = fecha_fin;
+}
+
+  document.getElementById("fecha_inicio").addEventListener("change", function () {
+    var selectSuscripcion = document.getElementById('id_suscripcion');
+    var selectedOption = selectSuscripcion.options[selectSuscripcion.selectedIndex];
+    var duracionDias = selectedOption.getAttribute('data-duracion_dias');
+
+    // Marcar que el usuario ha cambiado la fecha inicio manualmente
+    document.getElementById('fecha_inicio').setAttribute('data-user-changed', 'true');
+
+    calcularFechas(duracionDias);
+  });
+</script>
+
 </main>
 
 <?php include("./src/View/templates/footer_administrador.php")?>

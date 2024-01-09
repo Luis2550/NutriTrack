@@ -1,5 +1,5 @@
 <?php
-
+require_once 'UsuariosModel.php';
 class UsuariosModel{
     private $db;
     private $usuarios;
@@ -8,6 +8,9 @@ class UsuariosModel{
     public function __construct(){
         $this->db = Conectar::conexion();
         $this->usuarios = array();
+    }
+    public function getConexion() {
+        return $this->db = Conectar::conexion();
     }
 
     public function get_Usuarios(){
@@ -95,7 +98,47 @@ class UsuariosModel{
 
         return $fila;
     }
+
+    //funciones de validacion 
+    function esNulo(array $parametros) {
+        foreach ($parametros as $parametro) {
+            if (strlen(trim($parametro)) < 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function EmailExiste($email) {
+        $sql = "SELECT u.*, r.rol as rol FROM usuario u JOIN rol r ON u.id_rol = r.id_rol where u.correo = '$email' LIMIT 1";
+        $resultado = $this->db->query($sql);
+        $fila = $resultado->fetch_assoc();
+
+        return $fila;
+    }
+    //correo electronico 
+    public function activarCuenta($correo, $hash) {
+            $stmt = $this->getConexion()->prepare("SELECT correo, hash, activo FROM usuario WHERE correo=? AND hash=? AND activo='0' LIMIT 1");
+            $stmt->bind_param("ss", $email, $hash);
+            $stmt->execute();
+            $stmt->store_result();
+            $match = $stmt->num_rows;
+
+            if ($match > 0) {
+                // Hay una coincidencia, activar la cuenta
+                $updateStmt = $this->getConexion()->prepare("UPDATE usuario SET activo='1', hash=? WHERE correo=? AND hash=? AND activo='0'");
+                $updateStmt->bind_param("sss", $hash, $email, $hash);
+                $updateStmt->execute();
+
+                return true;
+            } else {
+                // No hay coincidencias
+                return false;
+            }
+    }
+    
     
 }
+
 
 ?>
