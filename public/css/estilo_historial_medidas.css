@@ -1,0 +1,91 @@
+/* Estilos generales para main_historialMed */
+.main_historialMed {
+    padding: 20px;
+}
+
+/* Estilos específicos para la tabla */
+.main_historialMed table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.main_historialMed th, .main_historialMed td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.main_historialMed th {
+    background-color: #77ea5a;
+}
+
+/* Estilos para los enlaces de Editar y Eliminar */
+.main_historialMed a {
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.btn-eliminar{
+    background-color: rgb(239, 111, 111);
+}
+
+.celda-acciones{
+    display: flex;
+}
+
+/* Estilos generales para el contenedor main_historialMed */
+.main_historialMed {
+    padding: 20px;
+    background-color: #f4f4f4; /* Color de fondo */
+}
+
+/* Estilos para el título dentro de main_historialMed */
+.main_historialMed .title {
+    color: #333; /* Color del texto */
+    font-size: 24px; /* Tamaño del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilos para el formulario dentro de main_historialMed */
+.main_historialMed form {
+    background-color: #fff; /* Color de fondo del formulario */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilos para las etiquetas de los campos de formulario */
+.main_historialMed form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555; /* Color del texto de la etiqueta */
+}
+
+/* Estilos para los campos de formulario */
+.main_historialMed form input,
+.main_historialMed form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 4px;
+}
+
+/* Estilos para el botón de submit del formulario */
+.main_historialMed form button {
+    background-color: #4caf50; /* Color de fondo del botón (verde) */
+    color: #fff; /* Color del texto del botón */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Estilos para el botón de submit al pasar el ratón */
+.main_historialMed form button:hover {
+    background-color: #45a049; /* Color de fondo más oscuro al pasar el ratón */
+}

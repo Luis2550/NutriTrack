@@ -12,7 +12,18 @@ class historialClinicoModel{
     }
 
     public function get_HistoriasClinicas(){
-        $sql = "SELECT * FROM historial_clinico";
+        $sql = "SELECT 
+        hc.*,
+        u.nombres,
+        u.apellidos,
+        u.edad,
+        u.correo,
+        u.sexo
+    FROM 
+        historial_clinico hc
+    JOIN 
+        usuario u ON hc.ci_paciente = u.ci_usuario;
+    ";
         $resultado = $this->db->query($sql);
     
         // Obtén los datos como un array asociativo
@@ -88,7 +99,11 @@ class historialClinicoModel{
     {
         
 
-        $stmt = $this->db->prepare("SELECT * FROM historial_clinico WHERE id_historial_clinico = ?");
+        $stmt = $this->db->prepare("SELECT hc.*, u.nombres, u.apellidos, u.edad, u.correo, u.sexo
+        FROM historial_clinico hc
+        JOIN usuario u ON hc.ci_paciente = u.ci_usuario
+        WHERE hc.id_historial_clinico = ?;
+        ");
         
         // Verificar si la preparación de la consulta fue exitosa
         if ($stmt) {
@@ -113,7 +128,19 @@ class historialClinicoModel{
     }
 
     public function get_historialClinicoPaciente($ci_paciente) {
-        $stmt = $this->db->prepare("SELECT * FROM historial_clinico WHERE ci_paciente = ?");
+        $stmt = $this->db->prepare("SELECT 
+        hc.*,
+        u.nombres,
+        u.apellidos,
+        u.edad,
+        u.correo,
+        u.sexo
+    FROM 
+        historial_clinico hc
+    JOIN 
+        usuario u ON hc.ci_paciente = u.ci_usuario
+    WHERE 
+        hc.ci_paciente = ?");
         
         // Verificar si la preparación de la consulta fue exitosa
         if ($stmt) {

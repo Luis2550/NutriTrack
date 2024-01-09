@@ -26,6 +26,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <th>Apellidos</th>
         <th>Descripcion</th>
         <th>Fecha</th>
+        <th>Opcion</th>
     </tr>
 </thead>
 
@@ -41,6 +42,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         echo "<td>" . $dato['actividad'] . "</td>";
         echo "<td>" . $dato['descripcion'] . "</td>";
         echo "<td>" . $dato['fecha'] . "</td>";
+        echo "<td class='celda-acciones'>
+                            <a class='btn' href='http://localhost/nutritrack/index.php?c=Actividad&a=verActividadPaciente&id=" . $dato["id_actividad"] . "'>Ver Actividad</a>
+                        </td>";
         echo "</tr>";
     }
     ?>

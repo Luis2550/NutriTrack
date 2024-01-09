@@ -51,6 +51,15 @@ class actividadController{
         $data["titulo"] = "actividad";
         require_once(__DIR__ . '/../View/pacientes/actividades/modificarActividad.php');
     }
+
+    public function verActividadPaciente($id){
+			
+        $acti = new actividadModel();
+        $data["id_actividad"] = $id;
+        $data["actividad"] = $acti->get_actividad($id);
+        $data["titulo"] = "actividad";
+        require_once(__DIR__ . '/../View/nutriologa/actividades/verActividadPaciente.php');
+    }
     
     public function actualizarActividad(){
         $id = $_POST['id'];

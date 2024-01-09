@@ -12,15 +12,21 @@ class historialMedidasModel{
     }
 
     public function get_HistoriasMedidas(){
-
-        $sql = "SELECT * FROM historial_medidas";
+        $sql = "SELECT hm.*, u.ci_usuario, u.nombres, u.apellidos
+                FROM historial_medidas hm
+                JOIN historial_clinico hc ON hm.id_historial_clinico = hc.id_historial_clinico
+                JOIN usuario u ON hc.ci_paciente = u.ci_usuario
+                ORDER BY hm.id_historial_clinico";
+    
         $resultado = $this->db->query($sql);
-
+    
         while($fila = $resultado->fetch_assoc()){
             $this->historiaMedi[] = $fila;
         }
+    
         return $this->historiaMedi;
     }
+    
 
     public function insertar_historialMedidas($id_historial_clinico,$peso,$estatura,$presion_s,$presion_d,$fecha){
         $resultado = $this->db->query("INSERT INTO historial_medidas(id_historial_clinico,peso,estatura,presion_arterial_sistolica,presion_arterial_diastolica,fecha) VALUES ('$id_historial_clinico', '$peso', '$estatura', '$presion_s', '$presion_d', '$fecha')");
@@ -29,16 +35,19 @@ class historialMedidasModel{
 
     //aqui poner el get Ci historial clinico
     public function getCIHistoriaClinica() {
-        $sql = "SELECT id_historial_clinico FROM historial_clinico";
+        $sql = "SELECT id_historial_clinico, CONCAT(nombres, ' ', apellidos) AS nombre_completo FROM historial_clinico";
         $resultado = $this->db->query($sql);
         $ciHistoriaClinica = array();
-
+    
         while ($fila = $resultado->fetch_assoc()) {
-            $ciHistoriaClinica[] = $fila['id_historial_clinico'];
+            $ciHistoriaClinica[] = $fila;
         }
-
+    
         return $ciHistoriaClinica;
     }
+    
+
+
     public function modificar_historialMedidas($id,$id_historial_clinico,$peso,$estatura,$presion_s,$presion_d,$fecha){
 			
         $resultado = $this->db->query("UPDATE historial_medidas
@@ -79,6 +88,36 @@ class historialMedidasModel{
             // Manejo del error en la preparación de la
      }
     }
+
+    public function get_historialMedidasPaciente($ci_paciente) {
+        $stmt = $this->db->prepare("SELECT 
+            hm.*
+        FROM 
+            historial_medidas hm
+        JOIN 
+            historial_clinico hc ON hm.id_historial_clinico = hc.id_historial_clinico
+        JOIN 
+            usuario u ON hc.ci_paciente = u.ci_usuario
+        WHERE 
+            hc.ci_paciente = ?");
+        
+        // Verificar si la preparación de la consulta fue exitosa
+        if ($stmt) {
+            $stmt->bind_param("s", $ci_paciente);
+            $stmt->execute();
+            
+            $resultado = $stmt->get_result();
+            $filas = $resultado->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+    
+            return $filas;
+        } else {
+            // Manejo del error en la preparación de la consulta
+            return null;
+        }
+    }
+    
+    
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
     $urlBase = "http://localhost/nutritrack/src/View/administrador/";
-
+    date_default_timezone_set('America/Guayaquil'); // Establecer la zona horaria a Ecuador
+    $fecha_actual = (new DateTime())->format('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +36,7 @@
                 <li><a href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional"><i class="fa-brands fa-nutritionix"></i> Plan Nutricional</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad"><i class="fa-solid fa-user-plus"></i> Seguimiento Pacientes</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico"><i class="fa-solid fa-book-medical"></i> Historial Clínico</a></li>
+                <li><a href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas"><i class="fa-solid fa-weight-scale"></i> Historial Medidas</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas"><i class="far fa-calendar-check"></i> Ver Citas Agendadas</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Configuracion&a=verConfiguracion"><i class="fa-solid fa-gear"></i> Configuracion citas</a></li>
                 <li><a href="http://localhost/Nutritrack/index.php?c=Usuarios&a=verUsuarios"><i class="fa-solid fa-hospital-user"></i> Pacientes</a></li>

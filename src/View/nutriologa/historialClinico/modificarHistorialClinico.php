@@ -32,16 +32,16 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <form action="index.php?c=historialClinico&a=actualizarHistorialClinico" method="post">
         
-      <input type="text" id = "id_historial_clinico" name="id_historial_clinico" value= "<?php echo $data['historial_clinico']['id_historial_clinico']?>">
+      <input type="hidden" id = "id_historial_clinico" name="id_historial_clinico" value= "<?php echo $data['historial_clinico']['id_historial_clinico']?>">
     
       <label for="fecha_creacion">Fecha Creacion*</label>
-        <input type="date" id="fecha_creacion" name="fecha_creacion" value="<?php echo $data['historial_clinico']['fecha_creacion']?>">
+        <input type="date" id="fecha_creacion" name="fecha_creacion" readonly required value="<?php echo $fecha_actual ?>">
         
         <label for="nombres">NOMBRES COMPLETOS DEL PACIENTE*</label>
-        <input type="text" value="<?php echo $data['historial_clinico']['nombres'] ?>" id="nombres" name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
+        <input type="text" value="<?php echo $data['historial_clinico']['nombres'] ?>" id="nombres" readonly name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
 
         <label for="apellidos">APELLIDOS COMPLETOS DEL PACIENTE*</label>
-        <input type="text" value="<?php echo $data['historial_clinico']['apellidos'] ?>" id="nombres" name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
+        <input type="text" value="<?php echo $data['historial_clinico']['apellidos'] ?>" id="nombres" readonly name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
 
         <label for="cedula">NUMERO DE IDENTIFICACION (CÉDULA)*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['ci_paciente'] ?>" readonly id="cedula" name="cedula">
@@ -66,31 +66,42 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     </div>
 </div>
       
-        <label for="fechaNacimiento">FECHA NACIMIENTO*</label>
-        <input type="date" value="<?php echo $data['historial_clinico']['fechaNacimiento'] ?>" readonly id="fechaNacimiento" name="fechaNacimiento" required max="">
 
-        <label for="edad">EDAD*</label>
-        <input type="text" value="<?php echo $data['historial_clinico']['edad'] ?>" readonly id="cedula" name="cedula">
+<label for="edad">EDAD*</label>
+<input type="text" readonly id="edad" name="edad" value="<?php echo $data['historial_clinico']['edad'] ?>">
 
-        <label for="peso">PESO (KG)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['peso'] ?>"  id="peso" name="peso" required>
-
-        <label for="porcentajeGrasa">% DE GRASA (opcional)</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['porcentajeGrasa'] ?>" id="porcentajeGrasa" name="porcentajeGrasa">
-
-        <label for="talla">TALLA (CM)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['talla'] ?>" id="talla" name="talla" required>
 
         <label for="correo">CORREO ELECTRÓNICO*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['correo'] ?>" readonly id="cedula" name="cedula">
 
         <label for="ocupacion">OCUPACIÓN</label>
-        <input type="text" value="<?php echo $data['historial_clinico']['ocupacion'] ?>" id="ocupacion" name="ocupacion">
+        <input type="text" value="<?php echo $data['historial_clinico']['ocupacion'] ?>" id="ocupacion" name="ocupacion" required>
 
         <label for="celular">NUMERO DE CELULAR*</label>
-        <input type="tel" value="<?php echo $data['historial_clinico']['celular'] ?>" id="celular" name="celular" pattern="\d{10}" required>
+<input type="tel" value="<?php echo $data['historial_clinico']['celular'] ?>" id="celular" name="celular" pattern="\d{10}" required>
 
-        <label for="direccion">Dirección*</label>
+<div id="celularError" style="color: red;"></div>
+
+<script>
+  function validarCelular() {
+    var celularInput = document.getElementById('celular');
+    var celularError = document.getElementById('celularError');
+
+    var celular = celularInput.value;
+
+    if (!/^\d{10}$/.test(celular)) {
+      celularError.innerHTML = 'Por favor, ingrese un número de celular válido de 10 dígitos.';
+    } else {
+      celularError.innerHTML = '';
+    }
+  }
+
+  // Asigna la función de validación al evento oninput del campo de celular
+  document.getElementById('celular').addEventListener('input', validarCelular);
+</script>
+
+
+        <label for="direccion">DIRECCIÓN*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['direccion'] ?>" id="direccion" name="direccion" required>
 
         <label for="enfermedades">ANTECEDENTES MEDICOS PERSONALES: (marque únicamente la opción que aplique)</label>
@@ -163,9 +174,14 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             </tbody>
         </table>
         
-
+<br>
         <label for="motivoConsulta">¿Cuál es el principal motivo de su consulta Nutricional? *</label>
-        <input type="text" id = "motivoConsulta" name = "motivoConsulta" value = "<?php echo $data['historial_clinico']['motivoConsulta']?>">
+        <select id="motivoConsulta" name="motivoConsulta">
+            <option value="perdida_peso" <?php echo ($data['historial_clinico']['motivoConsulta'] === 'perdida_peso') ? 'selected' : ''; ?>>Pérdida de Peso</option>
+            <option value="mejora_alimentacion" <?php echo ($data['historial_clinico']['motivoConsulta'] === 'mejora_alimentacion') ? 'selected' : ''; ?>>Mejora de Alimentación</option>
+            <option value="condicion_medica" <?php echo ($data['historial_clinico']['motivoConsulta'] === 'condicion_medica') ? 'selected' : ''; ?>>Condición Médica Específica</option>
+        </select>
+
 
         <div class="question-container">
         <label for="discapacidad">¿TIENE USTED ALGÚNA DISCAPACIDAD?*</label>
@@ -211,7 +227,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     ?>
 </div>
 
-
+<br>
         <div class="question-container">
             <label for="alcohol">ALCOHOL: ¿Toma usted alcohol?*</label>
             <div class="check-container">
@@ -248,6 +264,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <label for="observaciones">¿QUÉ MEDICAMENTOS TOMA USTED DE FORMA HABITUAL?</label>
         <input type="text" id="observaciones" value="<?php echo $data['historial_clinico']['observacionesSalud'] ?>"  name="observaciones">
         
+        <br>
         <label for="observaciones-g">ALGUNA OBSERVACION AL MOMENTO SOBRE SU SALUD</label>
         <input type="text" id="observaciones-g" value="<?php echo $data['historial_clinico']['observacionesGenerales'] ?>"  name="observaciones-g">
 

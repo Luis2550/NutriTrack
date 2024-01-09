@@ -65,22 +65,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 </div>
 
 
-               
-        <label for="fechaNacimiento">FECHA NACIMIENTO*</label>
-        <input type="date" value="<?php echo $data['historial_clinico']['fechaNacimiento'] ?>" readonly id="fechaNacimiento" name="fechaNacimiento" required max="">
-
         <label for="edad">EDAD*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['edad'] ?>" readonly id="cedula" name="cedula">
-
-        <label for="peso">PESO (KG)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['peso'] ?>" readonly id="peso" name="peso" required>
-
-        <label for="porcentajeGrasa">% DE GRASA (opcional)</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['porcentajeGrasa'] ?>" readonly id="porcentajeGrasa" name="porcentajeGrasa">
-
-        <label for="talla">TALLA (CM)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['talla'] ?>" readonly id="talla" name="talla" required>
-
+        
         <label for="correo">CORREO ELECTRÓNICO*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['correo'] ?>" readonly id="cedula" name="cedula">
 

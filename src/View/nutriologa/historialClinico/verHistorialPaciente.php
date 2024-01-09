@@ -13,7 +13,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <main class="main main_historialCli"> 
    
-    <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
+    <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];
+    
+    ?> </h2>
 
 <h1>Historial Clínico</h1>
 
@@ -32,14 +34,15 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <form action="#" method="post">
 
-        <label for="fecha_creacion">Fecha Creacion*</label>
-        <input type="text" id="fecha_creacion" name="fecha_creacion" readonly value="<?php echo $data['historial_clinico']['fecha_creacion']?>">
-        
+   
+        <label for="fecha_creacion">Fecha Creación*</label>
+        <input type="text" id="fecha_creacion" name="fecha_creacion" readonly value="<?php echo $data['historial_clinico']['fecha_creacion'] ?>">
+
         <label for="nombres">NOMBRES COMPLETOS DEL PACIENTE*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['nombres'] ?>" id="nombres" name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
 
         <label for="apellidos">APELLIDOS COMPLETOS DEL PACIENTE*</label>
-        <input type="text" value="<?php echo $data['historial_clinico']['apellidos'] ?>" id="nombres" name="nombres" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
+        <input type="text" value="<?php echo $data['historial_clinico']['apellidos'] ?>" id="apellidos" name="apellidos" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$" title="Solo se permiten letras y espacios" required>
 
         <label for="cedula">NUMERO DE IDENTIFICACION (CÉDULA)*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['ci_paciente'] ?>" readonly id="cedula" name="cedula">
@@ -48,38 +51,22 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <div class="question-container_m">
     <label for="sexo">GÉNERO: ¿CON QUÉ GÉNERO SE IDENTIFICA?*</label>
     <div class="radio-container">
-    <?php
-    $sexo = $data['historial_clinico']['sexo'];
-    
-    $opciones = ["FEMENINO", "MASCULINO"];
-    
-    foreach ($opciones as $opcion) {
-        if ($sexo == $opcion) {
-            echo "<input type='radio' id='check$opcion' name='sexo' value='$opcion' checked disabled>";
-            echo "<label for='check$opcion'>$opcion</label>";
-            break; // Detener el bucle después de encontrar y mostrar la opción seleccionada
+        <?php
+        $sexo = $data['historial_clinico']['sexo'];
+        $opciones = ["FEMENINO", "MASCULINO"];
+
+        foreach ($opciones as $opcion) {
+            if ($sexo == $opcion) {
+                echo "<div class='selected-option'>$opcion</div>";
+            }
         }
-    }
-    ?>
+        ?>
+    </div>
 </div>
-</div>
 
-
-               
-        <label for="fechaNacimiento">FECHA NACIMIENTO*</label>
-        <input type="date" value="<?php echo $data['historial_clinico']['fechaNacimiento'] ?>" readonly id="fechaNacimiento" name="fechaNacimiento" required max="">
-
+    
         <label for="edad">EDAD*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['edad'] ?>" readonly id="cedula" name="cedula">
-
-        <label for="peso">PESO (KG)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['peso'] ?>" readonly id="peso" name="peso" required>
-
-        <label for="porcentajeGrasa">% DE GRASA (opcional)</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['porcentajeGrasa'] ?>" readonly id="porcentajeGrasa" name="porcentajeGrasa">
-
-        <label for="talla">TALLA (CM)*</label>
-        <input type="number" value="<?php echo $data['historial_clinico']['talla'] ?>" readonly id="talla" name="talla" required>
 
         <label for="correo">CORREO ELECTRÓNICO*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['correo'] ?>" readonly id="cedula" name="cedula">

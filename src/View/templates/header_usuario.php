@@ -46,6 +46,8 @@
 
                 
                 <li><a href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-file-medical"></i> Ver Historial Clínico</a></li>
+                <li><a href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidasPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-weight-scale"></i> Ver Medidas</a></li>
+
                 <li><a href="#"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a></li>
                 <li><a href="#"><i class="fas fa-user"></i> Cuenta</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a></li>
