@@ -14,14 +14,14 @@ if ($urlTieneDatos) {
     $cuentaActivada = $usuariosModel->activarCuenta($email, $hash);
 
     if ($cuentaActivada) {
-        $activacionExitosa = false;
+        $activacionExitosa = true;
         $mensaje = '<div class="statusmsg">Error al activar la cuenta.</div>';
     } else {
-        $activacionExitosa = true;
+        $activacionExitosa = false;
         $mensaje = '<div class="statusmsg">Tu cuenta ha sido activada, ya puedes iniciar sesión.</div>';
     }
 } else {
-    $activacionExitosa = false;
+    $activacionExitosa = true;
     $mensaje = '<div class="statusmsg">URL incompleta. Verifica tu correo electrónico antes de iniciar sesión.</div>';
 }
 ?>
@@ -58,9 +58,10 @@ if ($urlTieneDatos) {
         <?php
         // Mostrar o no el botón de entrada según la activación exitosa
         if ($activacionExitosa) {
-            echo '<button type="submit">Entrar</button>';
-        } else {
             echo '<div class="statusmsg">Tu cuenta aún no ha sido activada. Verifica tu correo electrónico antes de iniciar sesión.</div>';
+        } else {
+            
+            echo '<button type="submit">Entrar</button>';
         }
         ?>
     </form>

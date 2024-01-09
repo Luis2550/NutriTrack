@@ -100,8 +100,8 @@
         <input type="text" id="apellidos" name="apellidos" requireda>
       </div>
       <div>
-        <label for="edad">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" requirea>
+      <label for="edad">Fecha de Nacimiento:</label>
+      <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required max="<?php echo date('Y-m-d'); ?>">
       </div>
       <div>
         <label for="correo">Correo:</label>

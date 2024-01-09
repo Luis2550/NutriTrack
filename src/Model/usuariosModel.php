@@ -117,25 +117,61 @@ class UsuariosModel{
         return $fila;
     }
     //correo electronico 
-    public function activarCuenta($correo, $hash) {
-            $stmt = $this->getConexion()->prepare("SELECT correo, hash, activo FROM usuario WHERE correo=? AND hash=? AND activo='0' LIMIT 1");
-            $stmt->bind_param("ss", $email, $hash);
-            $stmt->execute();
-            $stmt->store_result();
-            $match = $stmt->num_rows;
-
-            if ($match > 0) {
-                // Hay una coincidencia, activar la cuenta
-                $updateStmt = $this->getConexion()->prepare("UPDATE usuario SET activo='1', hash=? WHERE correo=? AND hash=? AND activo='0'");
-                $updateStmt->bind_param("sss", $hash, $email, $hash);
-                $updateStmt->execute();
-
-                return true;
-            } else {
-                // No hay coincidencias
+    /*public function activarCuenta($email, $hash) {
+        // Consulta SELECT
+        $sqlSelect = "SELECT correo, activo FROM usuario WHERE correo=? AND (activo IS NULL OR activo=0) LIMIT 1";
+        $stmtSelect = $this->db->prepare($sqlSelect);
+        $stmtSelect->bind_param("s", $email);
+        $stmtSelect->execute();
+        $stmtSelect->store_result();
+    
+        if ($stmtSelect->num_rows > 0) {
+            // Hay una coincidencia, activar la cuenta
+            $sqlUpdate = "UPDATE usuario SET activo=1, hash=? WHERE correo=? AND (activo IS NULL OR activo=0)";
+            $stmtUpdate = $this->db->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("ss", $hash, $email);
+            $stmtUpdate->execute();
+    
+            return true;
+        } else {
+            // No hay coincidencias
+            return false;
+        }
+    }*/
+    public function activarCuenta($email, $hash) {
+        // Consulta SELECT
+        $sqlSelect = "SELECT correo, activo FROM usuario WHERE correo=? AND (activo IS NULL OR activo=0) LIMIT 1";
+        $stmtSelect = $this->db->prepare($sqlSelect);
+        $stmtSelect->bind_param("s", $email);
+        $stmtSelect->execute();
+        $stmtSelect->store_result();
+    
+        if ($stmtSelect->num_rows > 0) {
+            // Hay una coincidencia, verifica si la cuenta ya está activa
+            $stmtSelect->bind_result($correo, $activo);
+            $stmtSelect->fetch();
+    
+            if ($activo == 1) {
+                // La cuenta ya está activa, retorna true sin hacer ninguna actualización
                 return false;
             }
+    
+            // La cuenta no está activa, realiza la actualización
+            $sqlUpdate = "UPDATE usuario SET activo=1, hash=? WHERE correo=? AND (activo IS NULL OR activo=0)";
+            $stmtUpdate = $this->db->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("ss", $hash, $email);
+            $stmtUpdate->execute();
+    
+            return true;
+        } else {
+            // No hay coincidencias
+            return false;
+        }
     }
+    
+    
+    
+    
     
 }
 
