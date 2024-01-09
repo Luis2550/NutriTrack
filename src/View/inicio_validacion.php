@@ -33,7 +33,7 @@ if ($urlTieneDatos) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Login</title>
-    <link rel="stylesheet" href="./public/css/login.css">
+    <link rel="stylesheet" href="./public/css/login1.css">
 </head>
 <body>
 <div class="login-container">

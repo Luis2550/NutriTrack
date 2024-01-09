@@ -13,7 +13,12 @@ class CitasModel{
 
     public function get_Citas(){
 
-        $sql = "SELECT * FROM cita WHERE DATE(fecha) = CURDATE() AND estado = 'Reservado' ORDER BY fecha";
+        $sql = "SELECT cita.*, usuario.nombres, usuario.apellidos
+        FROM cita
+        JOIN usuario ON cita.ci_paciente = usuario.ci_usuario
+        WHERE DATE(cita.fecha) = CURDATE() AND cita.estado = 'Reservado'
+        ORDER BY cita.fecha;
+        ";
         $resultado = $this->db->query($sql);
     
         while($fila = $resultado->fetch_assoc()){
