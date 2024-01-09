@@ -54,6 +54,7 @@ class ConfiguracionController{
         
         // Recuperar los datos existentes antes de la actualización
         $configuraciones = new configuracionModel();
+        $citas = new configuracionModel();
         $datos_existente = $configuraciones->get_Configuracion($id_configuracion);
     
         // Almacenar los datos existentes en un array
@@ -124,9 +125,10 @@ class ConfiguracionController{
                 }
             }
     
+            
             // Realizar la actualización de configuraciones
             $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita);
-    
+            $citas->cancelar_citas_pacientes();
             echo "<script>alert('Se realizaron cambios');</script>";
         }
     

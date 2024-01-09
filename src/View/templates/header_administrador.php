@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="./public/css/estilos_historialSuscripcion.css">
     <link rel="stylesheet" href="./public/css/estilo_actividades3.css">
     <link rel="stylesheet" href="./public/css/estilo_historialCli2.css">
+    <link rel="stylesheet" href="./public/css/estilo_historial_medidas1.css">
+    
     
 
     

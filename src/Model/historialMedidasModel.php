@@ -35,7 +35,14 @@ class historialMedidasModel{
 
     //aqui poner el get Ci historial clinico
     public function getCIHistoriaClinica() {
-        $sql = "SELECT id_historial_clinico, CONCAT(nombres, ' ', apellidos) AS nombre_completo FROM historial_clinico";
+        $sql = "SELECT
+        hc.id_historial_clinico,
+        CONCAT(u.nombres, ' ', u.apellidos) AS nombre_completo
+    FROM
+        historial_clinico hc
+    JOIN
+        usuario u ON hc.ci_paciente = u.ci_usuario;
+    ";
         $resultado = $this->db->query($sql);
         $ciHistoriaClinica = array();
     

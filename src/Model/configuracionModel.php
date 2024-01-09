@@ -88,6 +88,25 @@ class configuracionModel{
         }
     }
 
+    public function cancelar_citas_pacientes(){
+        date_default_timezone_set('America/Guayaquil'); // Establecer la zona horaria a Ecuador
+        $fecha_actual = (new DateTime())->format('Y-m-d');
+    
+        $sql = "DELETE FROM cita WHERE fecha >= '$fecha_actual'";
+        $resultado = $this->db->query($sql);
+    
+        if ($resultado) {
+            return true; // Devuelve true si la eliminación fue exitosa
+        } else {
+            // Puedes manejar el error de otra manera si lo prefieres
+            // Por ejemplo, puedes lanzar una excepción o devolver false
+            die("Error al cancelar citas: " . $this->db->error);
+        }
+    }
+    
+    
+    
+
 }
 
 ?>

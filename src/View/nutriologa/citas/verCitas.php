@@ -22,7 +22,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
             <thead>
                 <tr>
-                    <th>Cedula Paciente</th>
+                    <!-- <th>Cedula Paciente</th> -->
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Fecha</th>
@@ -36,7 +36,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <?php
                     foreach($data['citas'] as $dato ){
                         echo "<tr>";
-                        echo "<td>".$dato['ci_paciente']."</td>";
+                        // echo "<td>".$dato['ci_paciente']."</td>";
                         echo "<td>".$dato['nombres']."</td>";
                         echo "<td>".$dato['apellidos']."</td>";
                         echo "<td>".$dato['fecha']."</td>";
