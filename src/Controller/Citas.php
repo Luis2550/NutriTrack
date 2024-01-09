@@ -153,19 +153,19 @@ class CitasController {
     
         $citas = new CitasModel();
     
-        try {
+    
             // Intentar actualizar la cita
             $citas->modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles);
             $data["titulo"] = "citas";
 
             // Redirigir a la acción correspondiente
             $this->ver_citas_paciente($ci_paciente);
-        } catch (mysqli_sql_exception $e) {
-            // Manejar la excepción específica de MySQLi
-            $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
-            header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
-            exit();
-        }    
+        //catch (mysqli_sql_exception $e) {
+        //     // Manejar la excepción específica de MySQLi
+        //     $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
+        //     header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
+        //     exit();
+        // }    
 
     }
     

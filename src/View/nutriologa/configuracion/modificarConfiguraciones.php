@@ -21,16 +21,105 @@ include("./src/View/templates/header_administrador.php")
             <input type="text" id="ci_nutriologa" name="ci_nutriologa" value="<?php echo $data["configuraciones"]['ci_nutriologa']; ?>"><br>
 
             <label for="hora_inicio_manana">Hora de inicio (mañana):</label>
-            <input type="time" id="hora_inicio_manana"  name="hora_inicio_manana" value="<?php echo $data["configuraciones"]['hora_inicio_manana']; ?>"  required><br>
+            <select id="hora_inicio_manana" name="hora_inicio_manana" required>
+                <?php
+                // Define la hora de inicio y fin
+                $hora_inicio = strtotime('07:00:00');
+                $hora_fin = strtotime('13:00:00');
+
+                // Genera opciones para cada hora en intervalos de 15 minutos
+                while ($hora_inicio <= $hora_fin) {
+                    $hora_actual = date('H:i:s', $hora_inicio);
+                    echo "<option value=\"$hora_actual\"";
+                    
+                    // Marca la opción como seleccionada si coincide con el valor almacenado
+                    if ($data["configuraciones"]['hora_inicio_manana'] == $hora_actual) {
+                        echo " selected";
+                    }
+
+                    echo ">$hora_actual</option>";
+
+                    // Aumenta la hora en 15 minutos
+                    $hora_inicio = strtotime('+1 hour', $hora_inicio);
+                }
+                ?>
+            </select>
+            <br><br>
 
             <label for="hora_fin_manana">Hora de fin (mañana):</label>
-            <input type="time" id="hora_fin_manana"  name="hora_fin_manana" value="<?php echo $data["configuraciones"]['hora_fin_manana']; ?>" required><br>
+            <select id="hora_fin_manana" name="hora_fin_manana" required>
+                <?php
+                // Define la hora de inicio y fin
+                $hora_inicio = strtotime('07:00');
+                $hora_fin = strtotime('13:00');
+
+                // Genera opciones para cada hora en intervalos de 1 hora
+                while ($hora_inicio <= $hora_fin) {
+                    $hora_actual = date('H:i:s', $hora_inicio);
+                    echo "<option value=\"$hora_actual\"";
+                    
+                    // Marca la opción como seleccionada si coincide con el valor almacenado
+                    if ($data["configuraciones"]['hora_fin_manana'] == $hora_actual) {
+                        echo " selected";
+                    }
+
+                    echo ">$hora_actual</option>";
+
+                    // Aumenta la hora en 1 hora
+                    $hora_inicio = strtotime('+1 hour', $hora_inicio);
+                }
+                ?>
+            </select><br><br>
 
             <label for="hora_inicio_tarde">Hora de inicio (tarde):</label>
-            <input type="time" id="hora_inicio_tarde"  name="hora_inicio_tarde" value="<?php echo $data["configuraciones"]['hora_inicio_tarde']; ?>" required><br>
+            <select id="hora_inicio_tarde" name="hora_inicio_tarde" required>
+                <?php
+                // Define la hora de inicio y fin para la tarde
+                $hora_inicio_tarde = strtotime('15:00:00');
+                $hora_fin_tarde = strtotime('22:00:00');
+
+                // Genera opciones para cada hora en intervalos de 1 hora
+                while ($hora_inicio_tarde <= $hora_fin_tarde) {
+                    $hora_actual_tarde = date('H:i:s', $hora_inicio_tarde);
+                    echo "<option value=\"$hora_actual_tarde\"";
+                    
+                    // Marca la opción como seleccionada si coincide con el valor almacenado
+                    if ($data["configuraciones"]['hora_inicio_tarde'] == $hora_actual_tarde) {
+                        echo " selected";
+                    }
+
+                    echo ">$hora_actual_tarde</option>";
+
+                    // Aumenta la hora en 1 hora
+                    $hora_inicio_tarde = strtotime('+1 hour', $hora_inicio_tarde);
+                }
+                ?>
+            </select><br><br>
 
             <label for="hora_fin_tarde">Hora de fin (tarde):</label>
-            <input type="time" id="hora_fin_tarde"  name="hora_fin_tarde" value="<?php echo $data["configuraciones"]['hora_fin_tarde']; ?>"required><br>
+            <select id="hora_fin_tarde" name="hora_fin_tarde" required>
+                <?php
+                // Define la hora de inicio y fin para la tarde
+                $hora_inicio_tarde = strtotime('15:00:00');
+                $hora_fin_tarde = strtotime('22:00:00');
+
+                // Genera opciones para cada hora en intervalos de 1 hora
+                while ($hora_inicio_tarde <= $hora_fin_tarde) {
+                    $hora_actual_tarde = date('H:i:s', $hora_inicio_tarde);
+                    echo "<option value=\"$hora_actual_tarde\"";
+                    
+                    // Marca la opción como seleccionada si coincide con el valor almacenado
+                    if ($data["configuraciones"]['hora_fin_tarde'] == $hora_actual_tarde) {
+                        echo " selected";
+                    }
+
+                    echo ">$hora_actual_tarde</option>";
+
+                    // Aumenta la hora en 1 hora
+                    $hora_inicio_tarde = strtotime('+1 hour', $hora_inicio_tarde);
+                }
+                ?>
+            </select><br><br>
 
             <label for="dias_semana">Días de la semana:</label>
             <!-- <input type="text" id="dias_semana"  name="dias_semana" value="<?php echo $data["configuraciones"]['dias_semana']; ?>" placeholder="Ejemplo: Lunes,Martes,Miercoles,Viernes" required><br> -->

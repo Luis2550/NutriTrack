@@ -180,3 +180,52 @@
   .main_configuracion #duracion_cita + br {
     margin-bottom: 15px;
   }
+
+
+  .main_configuracion .select-container {
+    position: relative;
+    width: 200px;
+    margin-bottom: 15px; /* Ajusta el margen inferior según tus preferencias */
+}
+
+/* Estilo para el select */
+.main_configuracion select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    height: 40px; /* Ajusta la altura según tus preferencias */
+}
+
+/* Estilo para la flecha desplegable */
+.main_configuracion .select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Aplica estilos específicos para el select de duración de la cita */
+.main_configuracion label[for="duracion_cita"] {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Estilo para el select de duración de la cita */
+.main_configuracion #duracion_cita {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Estilo para el salto de línea después del select de duración de la cita */
+.main_configuracion #duracion_cita + br {
+    margin-bottom: 15px;
+}

@@ -129,7 +129,12 @@ class CitasModel{
 
     public function eliminar_Citas($id_cita){
         // Eliminar la cita después de haber eliminado los registros relacionados
-        $resultado = $this->db->query("DELETE FROM cita WHERE id_cita = '$id_cita'");
+        // $resultado = $this->db->query("DELETE FROM cita WHERE id_cita = '$id_cita'");
+
+        $sql = "UPDATE cita SET estado = 'Cancelada' WHERE id_cita = $id_cita";
+        $resultado = $this->db->query($sql);
+    
+        return $resultado; 
     }
     
     
