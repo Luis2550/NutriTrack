@@ -66,7 +66,7 @@
 }
 
 .scrollable-cell {
-  max-width: 270px; /* Establece el ancho máximo */
+  max-width: 340px; /* Establece el ancho máximo */
   overflow-x: auto; /* Añade una barra de desplazamiento horizontal si es necesario */
 }
 
@@ -146,6 +146,7 @@
   font-size: 16px;
   border: 1px solid #cccccc;
   border-radius: 5px;
+  height: 170px;
 }
 
 /* Estilo para la flecha desplegable */
@@ -156,3 +157,26 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+
+.main_configuracion label[for="duracion_cita"] {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Estilo para el select de duración de la cita */
+  .main_configuracion #duracion_cita {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para el salto de línea después del select de duración de la cita */
+  .main_configuracion #duracion_cita + br {
+    margin-bottom: 15px;
+  }

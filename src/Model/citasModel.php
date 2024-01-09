@@ -13,19 +13,34 @@ class CitasModel{
 
     public function get_Citas(){
 
-    $sql = "SELECT * FROM cita WHERE DATE(fecha) = CURDATE() ORDER BY fecha";
-    $resultado = $this->db->query($sql);
-
-    while($fila = $resultado->fetch_assoc()){
-        $this->citas[] = $fila;
+        $sql = "SELECT * FROM cita WHERE DATE(fecha) = CURDATE() AND estado = 'Reservado' ORDER BY fecha";
+        $resultado = $this->db->query($sql);
+    
+        while($fila = $resultado->fetch_assoc()){
+            $this->citas[] = $fila;
+        }
+        return $this->citas;
     }
-    return $this->citas;
-    }
+    
 
     public function insertar_Citas($ci_paciente, $fecha, $horas_disponibles, $nutriologa){
         $resultado = $this->db->query("INSERT INTO cita (ci_paciente, ci_nutriologa, fecha, horas_disponibles, estado)
         VALUES ('$ci_paciente','$nutriologa','$fecha','$horas_disponibles','Reservado')");
     }
+
+    public function marcar_Cita_Asistida($id_cita) {
+        $sql = "UPDATE cita SET estado = 'Asistido' WHERE id_cita = $id_cita";
+        $resultado = $this->db->query($sql);
+    
+        return $resultado; // Devuelve true si la actualización fue exitosa, o false si hubo un error.
+    }    
+
+    public function marcar_Cita_No_Asistida($id_cita) {
+        $sql = "UPDATE cita SET estado = 'No Asistido' WHERE id_cita = $id_cita";
+        $resultado = $this->db->query($sql);
+    
+        return $resultado; // Devuelve true si la actualización fue exitosa, o false si hubo un error.
+    }    
 
     public function getCIPacientes() {
         $sql = "SELECT ci_paciente FROM paciente";
@@ -104,7 +119,7 @@ class CitasModel{
     public function modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles){
 			
         $resultado = $this->db->query("UPDATE cita 
-        SET ci_paciente='$ci_paciente', fecha='$fecha', horas_disponibles='$horas_disponibles', estado='Reservado' WHERE id_cita = '$id_cita'");			
+        SET ci_paciente='$ci_paciente', fecha='$fecha', horas_disponibles='$horas_disponibles' WHERE id_cita = '$id_cita'");			
     }
 
     public function eliminar_Citas($id_cita){

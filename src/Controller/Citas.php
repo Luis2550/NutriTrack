@@ -47,11 +47,6 @@ class CitasController {
         }
     }
 
-// ...
-
-    
-    //funcion para calcular las horas segun la tabla configuracion
-
     private function calcularHorasDisponibles($configuraciones) {
         $horasDisponibles = array();
     
@@ -59,28 +54,29 @@ class CitasController {
             // Mañana
             $horaInicioManana = new DateTime($configuracion['hora_inicio_manana']);
             $horaFinManana = new DateTime($configuracion['hora_fin_manana']);
-            $duracionCita = 'PT' . intval($configuracion['duracion_cita']) . 'H';
+            $duracionCitaManana = ($configuracion['duracion_cita'] === '00:30:00') ? 'PT30M' : 'PT1H';
     
             while ($horaInicioManana < $horaFinManana) {
-                $horaFinCita = clone $horaInicioManana;
-                $horaFinCita->add(new DateInterval($duracionCita));
+                $horaFinCitaManana = clone $horaInicioManana;
+                $horaFinCitaManana->add(new DateInterval($duracionCitaManana));
     
-                if ($horaFinCita > $horaFinManana) {
-                    $horaFinCita = $horaFinManana;
+                if ($horaFinCitaManana > $horaFinManana) {
+                    $horaFinCitaManana = $horaFinManana;
                 }
     
-                $horasDisponibles[] = $horaInicioManana->format('H:i:s') . ' - ' . $horaFinCita->format('H:i:s');
+                $horasDisponibles[] = $horaInicioManana->format('H:i:s') . ' - ' . $horaFinCitaManana->format('H:i:s');
     
-                $horaInicioManana->add(new DateInterval($duracionCita));
+                $horaInicioManana->add(new DateInterval($duracionCitaManana));
             }
     
             // Tarde
             $horaInicioTarde = new DateTime($configuracion['hora_inicio_tarde']);
             $horaFinTarde = new DateTime($configuracion['hora_fin_tarde']);
+            $duracionCitaTarde = (isset($configuracion['duracion_cita']) && $configuracion['duracion_cita'] === '00:30:00') ? 'PT30M' : 'PT1H';
     
             while ($horaInicioTarde < $horaFinTarde) {
                 $horaFinCitaTarde = clone $horaInicioTarde;
-                $horaFinCitaTarde->add(new DateInterval($duracionCita));
+                $horaFinCitaTarde->add(new DateInterval($duracionCitaTarde));
     
                 if ($horaFinCitaTarde > $horaFinTarde) {
                     $horaFinCitaTarde = $horaFinTarde;
@@ -88,13 +84,15 @@ class CitasController {
     
                 $horasDisponibles[] = $horaInicioTarde->format('H:i:s') . ' - ' . $horaFinCitaTarde->format('H:i:s');
     
-                $horaInicioTarde->add(new DateInterval($duracionCita));
+                $horaInicioTarde->add(new DateInterval($duracionCitaTarde));
             }
         }
     
         return $horasDisponibles;
     }
     
+    
+
     public function guardarCitas() {
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha2'];
@@ -132,6 +130,20 @@ class CitasController {
         require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
         
     }
+
+    public function marcarAsistenciaCita($id_cita) {
+        $citas = new CitasModel();
+        $data["id_cita"] = $id_cita;
+        $cita = $citas->marcar_Cita_Asistida($id_cita);
+        $this->verCitas();
+    }
+
+    public function marcarNoAsistenciaCita($id_cita) {
+        $citas = new CitasModel();
+        $data["id_cita"] = $id_cita;
+        $cita = $citas->marcar_Cita_No_Asistida($id_cita);
+        $this->verCitas();
+    }
     
     public function actualizarCitas() {
         $id_cita = $_POST['id_cita'];
@@ -154,7 +166,6 @@ class CitasController {
             header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
             exit();
         }    
-
 
     }
     

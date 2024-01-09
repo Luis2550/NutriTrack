@@ -1,5 +1,10 @@
 <?php
 
+require __DIR__ . '/../../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class ConfiguracionController{
 
     public function __construct(){
@@ -46,6 +51,23 @@ class ConfiguracionController{
     
     public function actualizarConfiguraciones(){
         $id_configuracion = $_POST['id_configuracion'];
+        
+        // Recuperar los datos existentes antes de la actualización
+        $configuraciones = new configuracionModel();
+        $datos_existente = $configuraciones->get_Configuracion($id_configuracion);
+    
+        // Almacenar los datos existentes en un array
+        $datos_antiguos = array(
+            'ci_nutriologa' => $datos_existente['ci_nutriologa'],
+            'hora_inicio_manana' => $datos_existente['hora_inicio_manana'],
+            'hora_fin_manana' => $datos_existente['hora_fin_manana'],
+            'hora_inicio_tarde' => $datos_existente['hora_inicio_tarde'],
+            'hora_fin_tarde' => $datos_existente['hora_fin_tarde'],
+            'dias_semana' => $datos_existente['dias_semana'],
+            'duracion_cita' => $datos_existente['duracion_cita']
+        );
+    
+        // Recuperar los datos de la solicitud de actualización
         $ci_nutriologa = $_POST['ci_nutriologa'];
         $hora_inicio_manana = $_POST['hora_inicio_manana'];
         $hora_fin_manana = $_POST['hora_fin_manana'];
@@ -57,11 +79,66 @@ class ConfiguracionController{
         // Convertir el array de días a una cadena separada por comas
         $dias_semana = implode(',', $dias_semana_array);
     
-        $configuraciones = new configuracionModel();
-        $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita);
+        // Verificar si se realizaron cambios
+        if ($datos_antiguos === array(
+            'ci_nutriologa' => $ci_nutriologa,
+            'hora_inicio_manana' => $hora_inicio_manana,
+            'hora_fin_manana' => $hora_fin_manana,
+            'hora_inicio_tarde' => $hora_inicio_tarde,
+            'hora_fin_tarde' => $hora_fin_tarde,
+            'dias_semana' => $dias_semana,
+            'duracion_cita' => $duracion_cita
+        )) {
+            // No se realizaron cambios
+            echo "<script>alert('No se han realizado cambios');</script>";
+        } else {
+            // Se realizaron cambios
+    
+            // Obtener los correos de los usuarios con rol 1
+            $usuariosRol1 = $configuraciones->getCorreosUsuariosRol1();
+    
+            // Enviar correo a cada usuario con rol 1
+            foreach ($usuariosRol1 as $correo) {
+                try {
+                    $mail = new PHPMailer(true);
+                    $mail->SMTPDebug = 0;
+                    $mail->isSMTP();
+                    $mail->Host       = 'smtp.gmail.com';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'nutritrack02@gmail.com';
+                    $mail->Password   = 'reaq znpz rqhr huac';
+                    $mail->SMTPSecure = 'SSL';
+                    $mail->Port       = 587;
+    
+                    $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
+                    $mail->addAddress($correo);
+    
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Cambios en el horario citas';
+                    $mail->Body    = 'Se han realizado cambios en la configuración. Por favor, agende su cita nuevamente.';
+    
+                    $mail->send();
+                    echo 'Correo enviado correctamente a ' . $correo . '<br>';
+                } catch (Exception $e) {
+                    echo "No se pudo enviar el correo a " . $correo . ". Error del servidor de correo: {$mail->ErrorInfo}<br>";
+                }
+            }
+    
+            // Realizar la actualización de configuraciones
+            $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita);
+    
+            echo "<script>alert('Se realizaron cambios');</script>";
+        }
+    
+        // Imprimir los datos antiguos (puedes quitar esto después de verificar)
+        echo "Datos Antiguos:<pre>";
+        print_r($datos_antiguos);
+        echo "</pre>";
+    
         $data["titulo"] = "Configuraciones";
         $this->verConfiguracion();
     }
+    
     
     public function eliminarConfiguraciones($id){
         

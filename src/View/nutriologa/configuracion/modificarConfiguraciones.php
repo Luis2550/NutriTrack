@@ -38,6 +38,9 @@ include("./src/View/templates/header_administrador.php")
             <?php
             // Supongamos que $data["configuraciones"]['dias_semana'] es un string con los días seleccionados, separados por comas
             $diasSeleccionados = $data["configuraciones"]['dias_semana'] ? explode(',', $data["configuraciones"]['dias_semana']) : [];
+
+            // Supongamos que $data["configuraciones"]['duracion_cita'] es la duración seleccionada
+            $duracionCita = $data["configuraciones"]['duracion_cita'];
             ?>
 
             <select id="dias_semana" name="dias_semana[]" multiple>
@@ -50,9 +53,13 @@ include("./src/View/templates/header_administrador.php")
                 <option value="Domingo" <?php echo in_array('Domingo', $diasSeleccionados) ? 'selected' : ''; ?>>Domingo</option>
             </select>
             
+            <br><br>
+            <label for="duracion_cita">Duración de la cita:</label>
+            <select name="duracion_cita" id="duracion_cita" required>
+                <option value="00:30:00" <?php echo ($duracionCita === '00:30:00') ? 'selected' : ''; ?>>30 min</option>
+                <option value="01:00:00" <?php echo ($duracionCita === '01:00:00') ? 'selected' : ''; ?>>1 hora</option>
+            </select><br>
 
-            <br><br><label for="duracion_cita">Duración de la cita:</label>
-            <input type="time" id="duracion_cita"  name="duracion_cita" value="<?php echo $data["configuraciones"]['duracion_cita']; ?>"  required><br>
 
             <input type="hidden" name="id_configuracion" value="<?php echo $data["configuraciones"]['id_configuracion']; ?>">
 

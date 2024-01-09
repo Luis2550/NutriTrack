@@ -48,7 +48,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         echo"<td>".$dato['horas_laborales']."</td>";
                         echo "<td class='acciones'>
                             <a href='index.php?c=Configuracion&a=modificarConfiguraciones&id=".$dato["id_configuracion"]."' class='btn'>Modificar</a>
-                            <a href='index.php?c=Configuracion&a=eliminarConfiguraciones&id=".$dato["id_configuracion"]."' class='btn-eliminar'>Eliminar</a>
 
                         </td>";
 

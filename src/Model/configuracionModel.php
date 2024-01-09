@@ -67,6 +67,27 @@ class configuracionModel{
         
     }
 
+    public function getCorreosUsuariosRol1() {
+        $sql = "SELECT correo FROM usuario WHERE id_rol = 1";
+    
+        $resultado = $this->db->query($sql);
+    
+        if ($resultado && $resultado->num_rows > 0) {
+            // Obtener todos los correos en un array
+            $correos = [];
+            while ($fila = $resultado->fetch_assoc()) {
+                $correos[] = $fila['correo'];
+            }
+    
+            $resultado->free();
+    
+            return $correos;
+        } else {
+            // Devolver un array vacío en lugar de null si no se encuentran correos
+            return [];
+        }
+    }
+
 }
 
 ?>
