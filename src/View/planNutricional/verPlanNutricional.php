@@ -3,6 +3,10 @@
 
 <br>
 <main>
+    <script>
+
+    </script>
+    
     <link rel="stylesheet" href="./public/css/plan_nutricional_ver_pacientes.css">
     <h2 class="titulo">Lista Planes Nutricionales</h2>
     <a class="btnNuevo" href='http://localhost/nutritrack/index.php?c=PlanNutricional&a=nuevoPlanNutricional'>Nuevo Plan Nutricional</a>
@@ -36,9 +40,9 @@
                         echo"<td>".$dato['fecha_inicio']."</td>";
                         echo"<td>".$dato['fecha_fin']."</td>";
                         echo"<td>".$dato['duracion_dias']."</td>";
-                        echo "<td><a class='btnAcciones' href='index.php?c=DetalleComida&a=traerDetalleComidas&id=".$dato["id_plan_nutricional"]."'>Añadir Comidas</a>";
+                        echo "<td><a class='btnAcciones' href='index.php?c=DetalleComida&a=insertar_or_verDetalleComidas&id=".$dato["id_plan_nutricional"]."'>Añadir Comidas</a>";
                         echo "<a class='btnAcciones' href='index.php?c=planNutricional&a=modificarPlanNutricional&id=".$dato["id_plan_nutricional"]."'>Modificar</a>";
-						echo "<a class='btnAcciones' href='index.php?c=planNutricional&a=eliminarPlanNutricional&id=".$dato["id_plan_nutricional"]."'>Eliminar</a></td>";
+                        echo "<a onclick=\"return confirm('¿Estás seguro de que deseas eliminar este plan nutricional?');\" class='btnAcciones' href='index.php?c=planNutricional&a=eliminarPlanNutricional&id=".$dato["id_plan_nutricional"]."'>Eliminar</a></td>";
                     echo"</tr>";
                 }
             ?>

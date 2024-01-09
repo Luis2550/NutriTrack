@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario Moderno</title>
+  <title>Formulario de Modificación</title>
+  <link rel="stylesheet" href="./public/css/nuevoPlanNutricional.css">
+  <script src="public/js/nuevoPlanNutricional.js"></script>
+
   <style>
     body {
       display: flex;
@@ -55,27 +58,43 @@
 </head>
 <body>
 
-  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=planNutricional&a=actualizarPlanNutricional" autocomplete="off">
-    <h2>Editar<?php echo $data['titulo'];?></h2>
+  <form id="modificar" name="modificar" method="POST" action="index.php?c=planNutricional&a=actualizarPlanNutricional" autocomplete="off">
+    <h2>Editar <?php echo $data['titulo'];?></h2>
 
-    <input type="hidden" id="id" name="id" value="<?php echo $data["id_plan_nutricional"]; ?>" />
+    <input type="hidden" id="id" name="id" value="<?php echo $data["plan_nutricional"][0]['id_plan_nutricional']; ?>" >
 
-    <label for="ci_nutriologas">Ci Nutriologa:</label>
-    <input type="text" id="ci_nutriologa" name="ci_nutriologa" required value="<?php echo $data["plan_nutricional"]["ci_nutriologa"]?>">
+    <input type="hidden" id="ci_nutriologa" name="ci_nutriologa" required value="<?php echo $data["plan_nutricional"][0]["ci_nutriologa"]?>">
 
-    <label for="ci_pacientes">Ci Paciente:</label>
-    <input type="text" id="ci_paciente" name="ci_paciente" required value="<?php echo $data["plan_nutricional"]["ci_paciente"]?>">
+    <h3>Datos Paciente</h3>
+    <label for="ci_pacientes">Cédula:</label>
+    <input type="text" id="ci_paciente" name="ci_paciente" required readonly value="<?php echo $data["plan_nutricional"][0]["ci_usuario"]?>">
 
-    <label for="fecha_ini">fecha inicio:</label>
-    <input type="date" id="fecha_inicio" name="fecha_inicio" required value="<?php echo $data["plan_nutricional"]["fecha_inicio"]?>">
+    <label for="nombres">Nombres:</label>
+    <input type="text" readonly id="nombres" name="nombres" value="<?php echo $data["plan_nutricional"][0]["nombres"]?>">
 
-    <label for="fecha_fins">fecha fin:</label>
-    <input type="date" id="fecha_fin" name="fecha_fin" required value="<?php echo $data["plan_nutricional"]["fecha_fin"]?>">
-   
-    <label for="duracionDiass">Duración dias:</label>
-    <input type="text" id="duracionDias" name="duracionDias" required value="<?php echo $data["plan_nutricional"]["duracion_dias"]?>">
-    
-    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" readonly id="apellidos" name="apellidos" value="<?php echo $data["plan_nutricional"][0]["apellidos"]?>">
+
+    <label for="fechaFinSuscripcion">Fecha Fin Suscripción:</label>
+    <input type="date" readonly id="fechaFinSuscripcion" timezone="UTC" name="fechaFinSuscripcion" value="<?php echo $data["plan_nutricional"][0]["fin_suscripcion"]?>" onchange="" readonly required>
+
+    <label for="estado">Estado Suscripción:</label>
+    <input type="text" readonly id="estado" value="<?php echo $data['plan_nutricional'][0]['estado']; ?>" name="estado" required>
+
+    <label for="fechaIni">Fecha Inicio:</label>
+    <input type="date"  id="fecha_ini" timezone="UTC" name="fecha_ini" onchange="calcularFechas()" required value="<?php echo $data["plan_nutricional"][0]["fecha_inicio"]?>">
+
+    <div id="error-message" class="error-message"><?php echo isset($data['error_message']) ? $data['error_message'] : ""; ?></div>
+
+    <label for="fechaFin">Fecha Fin:</label>
+    <input type="date" readonly id="fecha_fin" timezone="UTC" name="fecha_fin" value="<?php echo $data["plan_nutricional"][0]["fecha_fin"]?>" required>
+
+    <label for="duracionDias">Duración en Dias:</label>
+    <input type="text" readonly id="duracionDias" name="duracionDias" required value="<?php echo $data["plan_nutricional"][0]["duracion_dias"]?>">
+
+  
+    <button id="guardar" name="guardar" type="submit" class="button">Guardar</button>
+    <button id="cancelar" onclick="confirmarCancelar()" name="cancelar" type="submit" class="cancelar">Cancelar</button>
   </form>
 
 </body>

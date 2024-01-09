@@ -1,0 +1,169 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background-color: #f7f7f7;
+    color: #333;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    color: #004080;
+}
+
+/* Estilos para la tabla en la pantalla modal */
+#myModalContent table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; /* Espacio superior para separar la tabla del contenido anterior */
+}
+
+#myModalContent th, #myModalContent td {
+    border: 1px solid #ddd; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno de las celdas */
+    text-align: left; /* Alineación del texto a la izquierda */
+}
+
+#myModalContent th {
+    background-color: #f2f2f2; /* Fondo de las celdas de encabezado */
+}
+
+.elegir-comida{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #008000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.btnSeleccionarComida{
+    outline: none;
+    cursor: pointer;
+    color: #008000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.plan-nutricional {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dia-columna {
+    flex: 1;
+    margin-right: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modulo {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+}
+
+.tipo-comida {
+    margin-top: 10px;
+}
+
+.titulo-modal{
+    text-align: center;
+}
+
+h4 {
+    color: #0066cc;
+}
+
+.acciones a {
+    color: #008000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.acciones a:hover {
+    color: #004080;
+}
+
+.semana-info {
+    text-align: center;
+    color: #888;
+}
+
+.rango-semana{
+    color: #000000;
+    font-weight: bold;
+}
+
+.dia-columna{
+    text-align: center;
+}
+
+.tipo-comida{
+    text-align: left;
+}
+
+.acciones{
+    text-align: center;
+}
+
+/* Estilo para la ventana modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15vh;
+    margin: 0;
+}
+
+.btnGuardar, .btnCancelar {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #0066cc; /* Color de fondo azul */
+    color: white; /* Color de texto blanco */
+    border: none;
+    border-radius: 5px;
+}
+
+.btnCancelar {
+    background-color: #f44336; /* Color de fondo rojo para el botón Cancelar */
+}

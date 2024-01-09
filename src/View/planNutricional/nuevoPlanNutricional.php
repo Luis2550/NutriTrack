@@ -22,10 +22,10 @@
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=planNutricional&a=guardarPlanNutricional" autocomplete="off">
     <h2>Registro<?php echo $data['titulo'];?></h2>
     
-    <h3>Datos Nutriolog@</h3>
+    <!-- <h3>Datos Nutriolog@</h3>
 
-    <label for="ci_nutriologa">Cédula:</label>
-    <select id="ci_nutriologa" onchange="cambiarCINutriologa()" name="ci_nutriologa" required>
+    <label for="ci_nutriologa">Cédula:</label>!-->
+    <select hidden id="ci_nutriologa" onchange="cambiarCINutriologa()" name="ci_nutriologa" required>
          
     <?php
         foreach ($data['opciones_nutriologa'] as $ci) {
@@ -40,7 +40,12 @@
     <select id="ci_paciente" name="ci_paciente" required onchange="actualizarDatos()">
        <?php
         foreach ($data['opciones_paciente'] as $ci) {
-          echo "<option value='{$ci['ci_paciente']}' data-nombres='{$ci['nombres']}' data-apellidos='{$ci['apellidos']}'>{$ci['ci_paciente']}</option>";
+          $nombre_completo = $ci['nombres'] . ' ' . $ci['apellidos'];
+          $ci_nombre_completo = $ci['ci_paciente'] . ' - ' . $nombre_completo;
+          $fecha_fin_suscripcion = $ci['fecha_fin'];
+          $estado = $ci['estado'];
+          
+          echo "<option value='{$ci['ci_paciente']}' data-nombres='{$ci['nombres']}' data-apellidos='{$ci['apellidos']}' data-fechaFinSuscripcion='{$ci['fecha_fin']}' data-estado='{$ci['estado']}'>{$ci_nombre_completo}</option>";
         }
       ?>
     </select>
@@ -50,6 +55,12 @@
 
     <label for="apellidos">Apellidos:</label>
     <input type="text" readonly id="apellidos" name="apellidos" value="<?php echo $data['opciones_paciente'][0]['apellidos']; ?>">
+
+    <label for="fechaFinSuscripcion">Fecha Fin Suscripción:</label>
+    <input type="date" id="fechaFinSuscripcion" timezone="UTC" name="fechaFinSuscripcion" value="<?php echo $data['opciones_paciente'][0]['fecha_fin']; ?>" onchange="" readonly required>
+
+    <label for="estado">Estado Suscripción:</label>
+    <input type="text" readonly id="estado" value="<?php echo $data['opciones_paciente'][0]['estado']; ?>" name="estado" required>
 
     <label for="fechaIni">Fecha Inicio:</label>
     <input type="date" id="fecha_ini" timezone="UTC" name="fecha_ini" onchange="calcularFechas()" required>

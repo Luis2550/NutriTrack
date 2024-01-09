@@ -2,16 +2,22 @@
 // nuevoPlanNutricional.js
 
 function calcularFechas() {
+    //alert("llegamos");
     document.getElementById("error-message").innerHTML = "";
 
     var fechaInicioInput = document.getElementById("fecha_ini");
     var fechaFinInput = document.getElementById("fecha_fin");
+    var fechaFinSuscripcionInput = document.getElementById("fechaFinSuscripcion");
     var duracionDiasInput = document.getElementById("duracionDias");
+    //alert(fechaFinSuscripcionInput);
 
     // Obtener la fecha de inicio
     var fechaInicioLocal = new Date(fechaInicioInput.value + "T00:00:00");
     var fechaInicio = new Date(fechaInicioLocal.toLocaleString("en-US", { timeZone: "America/Guayaquil" }));
-    
+    var fechaFinSus = new Date(fechaFinSuscripcionInput.value + "T00:00:00");
+    fechaFinSus.setDate(fechaFinSus.getDate() - 7);
+
+    //alert(fechaFinSus);
 
     // Verificar que la fecha de inicio sea mayor o igual a la fecha actual
     var fechaActual = new Date();
@@ -25,7 +31,13 @@ function calcularFechas() {
         fechaInicioInput.value = "";   // Limpiar la fecha inicio
         fechaFinInput.value = "";
         duracionDiasInput.value = "";
-    }else{
+    }else if(fechaInicio > fechaFinSus){
+        alert("La fecha de inicio debe ser menor o igual a la fecha final de la suscripción menos 7 días.");
+        fechaInicioInput.value = "";   // Limpiar la fecha inicio
+        fechaFinInput.value = "";
+        duracionDiasInput.value = "";
+    }
+    else{
         // Calcular la fecha de fin sumando 7 días a la fecha de inicio
         var fechaFin = new Date(fechaInicio);
         fechaFin.setDate(fechaInicio.getDate() + 7);
@@ -55,13 +67,18 @@ function actualizarDatos() {
     var selector = document.getElementById("ci_paciente");
     var nombresInput = document.getElementById("nombres");
     var apellidosInput = document.getElementById("apellidos");
-    var selectedOption = selector.options[selector.selectedIndex];
-    var nombres = selectedOption.getAttribute("data-nombres");
-    var apellidos = selectedOption.getAttribute("data-apellidos");
-    nombresInput.value = nombres;
-    apellidosInput.value = apellidos;
+    var fechaFinSuscripcionInput = document.getElementById("fechaFinSuscripcion");
+    var estadoInput = document.getElementById("estado");
 
-    //calcularFechas();
+    var selectedOption = selector.options[selector.selectedIndex];
+
+    nombresInput.value = selectedOption.getAttribute("data-nombres");
+    apellidosInput.value = selectedOption.getAttribute("data-apellidos");
+    fechaFinSuscripcionInput.value = selectedOption.getAttribute("data-fechafinsuscripcion");
+    estadoInput.value = selectedOption.getAttribute("data-estado");
+    calcularFechas();
+
+    // calcularFechas();
 }
 
 function cambiarCINutriologa(){
