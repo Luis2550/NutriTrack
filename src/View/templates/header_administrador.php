@@ -42,7 +42,7 @@
                 <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas"><i class="far fa-calendar-check"></i> Ver Citas Agendadas</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Configuracion&a=verConfiguracion"><i class="fa-solid fa-gear"></i> Configuracion citas</a></li>
                 <li><a href="http://localhost/Nutritrack/index.php?c=Usuarios&a=verUsuarios"><i class="fa-solid fa-hospital-user"></i> Pacientes</a></li>
-                <li><a href="http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcion"><i class="fa-solid fa-book"></i> Planes</a></li>
+                <li><a href="http://localhost/Nutritrack/index.php?c=Suscripcion&a=verSuscripcion"><i class="fa-solid fa-book"></i> Planes</a></li>
                 <li><a href="#"><i class="fas fa-user-md"></i> Cuenta</a></li>
                 <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a></li>
             </ul>
