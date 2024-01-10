@@ -195,6 +195,39 @@ class UsuariosController{
         }
     }
 
+    public function enviarContrasenaOlvidada($email, $nuevaContraseña) {
+        try {
+            $mail = new PHPMailer(true);
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'nutritrack02@gmail.com';
+            $mail->Password   = 'reaq znpz rqhr huac';
+            $mail->SMTPSecure = 'SSL';
+            $mail->Port       = 587;
+    
+            $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
+            $mail->addAddress($email);
+    
+            $mail->isHTML(true);
+            $mail->Subject = 'Recuperación de Contraseña';
+            $mail->Body    = "
+                Hemos recibido una solicitud para recuperar tu contraseña. Aquí está tu contraseña:
+    
+                Contraseña: $nuevaContraseña
+    
+    
+                ------------------------
+                Este es un mensaje automático, por favor no respondas a este correo.
+    
+            ";
+    
+            $mail->send();
+        } catch (Exception $e) {
+            echo "No se pudo enviar el correo de recuperación de contraseña. Error del servidor de correo: {$mail->ErrorInfo}";
+        }
+    }
     
     
 

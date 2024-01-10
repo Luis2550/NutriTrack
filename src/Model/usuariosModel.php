@@ -9,9 +9,7 @@ class UsuariosModel{
         $this->db = Conectar::conexion();
         $this->usuarios = array();
     }
-    public function getConexion() {
-        return $this->db = Conectar::conexion();
-    }
+    
 
     public function get_Usuarios(){
         $sql = "SELECT u.*, r.rol as rol FROM usuario u JOIN rol r ON u.id_rol = r.id_rol";
@@ -168,10 +166,31 @@ class UsuariosModel{
             return false;
         }
     }
+    public function get_claveRecuperacion($correo) {
+        $sql = "SELECT clave FROM usuario WHERE correo = ?";
+        $stmt = $this->db->prepare($sql);
     
+        if (!$stmt) {
+            // Imprime información sobre el error en la preparación de la consulta
+            print_r($this->db->error);
+            return null;
+        }
     
+        $stmt->bind_param('s', $correo);
     
+        if (!$stmt->execute()) {
+            // Imprime información sobre el error en la ejecución de la consulta
+            print_r($stmt->error);
+            return null;
+        }
     
+        // Obtener el resultado como un array asociativo
+        $stmt->bind_result($clave);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return isset($clave) ? $clave : null;
+    }
     
 }
 

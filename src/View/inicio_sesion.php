@@ -9,7 +9,7 @@
       
       <label for="password">Contraseña:</label>
       <input type="password" id="password" name="password" required>
-      
+      <div id="error-message"><?php echo isset($data["error_message"]) ? $data["error_message"] : ""; ?></div>
       <button type="submit">Entrar</button>
     </form>
   </div>

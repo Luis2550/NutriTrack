@@ -4,16 +4,37 @@ class SesionController {
 
     private $sesionModel;
     private $usuarios;
+    private $usuariosModel;
+    private $usuariosController;
 
     public function __construct() {
         require_once __DIR__ . "/../Model/sesionModel.php";
+        require_once __DIR__ . "/../Model/usuariosModel.php";
         require_once __DIR__ . "/Usuarios.php";
 
         $this->sesionModel = new sesionModel();
+        $this->usuariosModel = new usuariosModel();
         $this->UsuariosController = new usuariosController();
     }
 
     public function iniciarSesion($username, $password) {
+        // Inicia o reanuda la sesión
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Verifica si se han enviado datos del formulario
+        if (!isset($_POST['username']) || !isset($_POST['password'])) {
+            echo "Por favor, proporciona un nombre de usuario y una contraseña.";
+            
+            return;
+        }
+
+        // Verifica si existe la variable de sesión para el contador de intentos
+        if (!isset($_SESSION['intentos_fallidos'])) {
+            $_SESSION['intentos_fallidos'] = 0;
+        }
+
         // Realiza la validación del usuario y contraseña en la base de datos
         $usuario = $this->sesionModel->obtenerUsuarioPorCredenciales($username, $password);
 
@@ -24,7 +45,6 @@ class SesionController {
                 $rol = $this->sesionModel->obtenerRolUsuario($usuario['id_rol']);
 
                 // Inicia sesión y guarda los datos del usuario en la variable de sesión
-                session_start();
                 $_SESSION['usuario'] = [
                     'ci_usuario' => $usuario['ci_usuario'],
                     'nombres' => $usuario['nombres'],
@@ -36,6 +56,9 @@ class SesionController {
                     'rol' => $rol['rol'],
                     'activo' => $usuario['activo'],
                 ];
+
+                // Reinicia el contador de intentos fallidos
+                $_SESSION['intentos_fallidos'] = 0;
 
                 // Regenera el ID de sesión
                 session_regenerate_id(true);
@@ -58,6 +81,25 @@ class SesionController {
         } else {
             // Manejo de error, por ejemplo, mostrar un mensaje de error en la página de inicio de sesión.
             echo "Usuario o contraseña incorrectos";
+            $_SESSION['intentos_fallidos']++;
+
+            // Verifica si la cuenta debe ser bloqueada
+            if ($_SESSION['intentos_fallidos'] >= 3) {
+                // Muestra un mensaje y solicita revisar el correo para activar la cuenta nuevamente
+                echo "Has excedido el número máximo de intentos.";
+ 
+                    $clave = $this->usuariosModel->get_claveRecuperacion($username);
+                    // Verifica si la clave es válida
+                    if ($clave !== null) {
+                        // Envía la contraseña olvidada
+                        $this->UsuariosController->enviarContrasenaOlvidada($username, $clave);
+                        echo "Se ha enviado la contraseña olvidada al correo electrónico asociado a tu cuenta.";
+                    } else {
+                        echo "No se pudo recuperar la contraseña. Por favor, contacta al soporte técnico.";
+                    }
+                
+                
+            }
         }
     }
 
