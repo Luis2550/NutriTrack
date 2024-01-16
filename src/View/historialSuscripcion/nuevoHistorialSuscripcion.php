@@ -12,8 +12,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 
 <main class="main main_historial">
+
   <form id="nuevo" name="nuevo" method="POST" action="index.php?c=HistorialSuscripcion&a=guardarHistorialSuscripcion" autocomplete="off">
-    <h2>Registro <?php echo $data['titulo']; ?></h2>
+    
+  <h2>Registro <?php echo $data['titulo']; ?></h2>
 
     <label for="ci_usuario">Cédula del Usuario:</label>
     <input type="text" id="ci_usuario" name="ci_usuario" value="<?php echo htmlspecialchars($_GET['ci_usuario'] ?? ''); ?>" readonly>
