@@ -10,20 +10,41 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main class="main main_suscripcion" >
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off">
-    <h2>Registro<?php echo $data['titulo'];?></h2>
+<main class="main main_suscripcion container">
+    <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off" class="needs-validation" novalidate>
+        <h2 class="mt-4 mb-4">Registro <?php echo $data['titulo'];?></h2>
 
-    <label for="suscripcion">Suscripcion:</label>
-    <input type="text" id="suscripcion" name="suscripcion" required>
+        <div class="mb-3">
+            <label for="suscripcion" class="form-label">Suscripcion</label>
+            <input type="text" class="form-control" id="suscripcion" name="suscripcion" required>
+            <div class="valid-feedback">
+                ¡Se ve bien!
+            </div>
+            <div class="invalid-feedback">
+                Por favor, ingrese una suscripción válida.
+            </div>
+        </div>
 
-    <label for="duracion_dias">Duracion Dias:</label>
-    <input type="num" id="duracion_dias" name="duracion_dias" required>
-    
-    <button id="guardar" name="guardar" type="submit" class="button">Registrar</button>
-  </form>
+        <div class="mb-3">
+            <label for="duracion_dias" class="form-label">Duracion Dias</label>
+            <input type="number" class="form-control" id="duracion_dias" name="duracion_dias" required>
+            <div class="valid-feedback">
+                ¡Se ve bien!
+            </div>
+            <div class="invalid-feedback">
+                Por favor, ingrese una duración de días válida.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button id="guardar" name="guardar" type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </form>
 </main>
+
 <?php include("./src/View/templates/footer_administrador.php")?>
+
+
 
 
 
