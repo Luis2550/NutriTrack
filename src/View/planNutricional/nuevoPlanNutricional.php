@@ -1,4 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Nuevo Plan Nutricional</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+  </head>
+  
+  <body>
+
+<?php
+  session_start();
+
+  // Verifica si hay una sesión activa
+  if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa') {
+    header('Location: http://localhost/Nutritrack/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
+    exit();
+  }
+
+?>
+
 <?php include("./src/View/templates/header_administrador.php")?>
+
 
 <main class="container mt-5 d-flex justify-content-center">
 
@@ -6,9 +30,10 @@
   <script src="public/js/nuevoPlanNutricional.js"></script>
   <script src="/.public/js/formulariosR.js"></script>
 
+  
 
   <form class="formulario bg-light p-4 rounded" id="nuevo" name="nuevo" method="POST" action="index.php?c=planNutricional&a=guardarPlanNutricional" autocomplete="off">
-    <h2 class="titulo text-center">Registro<?php echo $data['titulo'];?></h2>
+    <h2 class="titulo text-center">Nuevo<?php echo $data['titulo'];?></h2>
     
     <!-- <h3>Datos Nutriolog@</h3>
 

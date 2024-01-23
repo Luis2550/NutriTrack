@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $data['titulo']; ?></title>
+    <title>Modificar Comidas Asignadas</title>
     <script>var comidaSeleccionada; // Variable para almacenar la comida seleccionada
 
     // Agrega una variable para almacenar la información de las comidas
@@ -434,24 +434,41 @@
         }
 
         .btn-eliminar {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f44336; /* Color de fondo azul */
-    color: white; /* Color de texto blanco */
-    border: none;
-    border-radius: 5px;
-}
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: rgba(90, 98, 104); /* Color de fondo azul */
+            color: white; /* Color de texto blanco */
+            border: none;
+            border-radius: 5px;
+        }
 
-.btnCancelar {
-    background-color: #f44336; /* Color de fondo rojo para el botón Cancelar */
-}
+        .btn-eliminar:hover {
+            background-color: rgba(90, 98, 104, 0.1); /* Color de fondo azul */
+            color: black; /* Color de texto blanco */
+        }
+
+        .btn-cancelar {
+            background-color: #f44336; /* Color de fondo rojo para el botón Cancelar */
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white; /* Color de texto blanco */
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn-cancelar:hover {
+            background-color: #d33338; /* Color de fondo azul */
+            color: white; /* Color de texto blanco */
+        }
     </style>
 </head>
 
 <body>
-    <h2>Detalle Comida</h2>
+    <h2>Modificar Comidas Asignadas</h2>
 
     <div class="semana-info">
         <p class="semana-info">Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>
@@ -525,8 +542,9 @@
             <?php endforeach; ?>
         </div>
     <?php endforeach; ?>
-    <button class="btn-eliminar" onclick="eliminarDetalleComida()">Eliminar Plan Nutricional</button>
-
+    <button class="btn-eliminar" onclick="eliminarDetalleComida()">Eliminar Comidas Asignadas</button>
+    <button id="btnCancelar" class="btn-cancelar" onclick="cancelar()">Cancelar</button>
+    
     <!-- Ventana Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">

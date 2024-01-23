@@ -45,7 +45,7 @@
     </style>
 </head>
 <body>
-    <h2>Detalle Comida</h2>
+    <h2>Modificar Comidas Asignadas</h2>
 
     <div class="semana-info">
         <p>Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>

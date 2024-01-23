@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $data['titulo']; ?></title>
+    <title>Asignar Comidas</title>
     <link rel="stylesheet" href="./public/css/insertar_detalle_comida.css">
     <style>
         /* Agrega estilos según tus necesidades */
@@ -318,7 +318,7 @@
 </head>
 
 <body>
-    <h2 class="titulo">Detalle Comida</h2>
+    <h2 class="titulo">Asignar Comidas</h2>
 
     <div class="semana-info">
         <p class="rango-semana" style="color: #444;">Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>
