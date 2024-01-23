@@ -51,6 +51,29 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             </tbody>
         </table>
     </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a
+            name=""
+            id=""
+            class="btn btn-primary"
+            href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas"
+            role="button"
+        >
+            Regresar
+        </a>
+
+        <a
+            name=""
+            id=""
+            class="btn btn-primary"
+            href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional"
+            role="button"
+        >
+            Siguiente
+        </a>
+    </div>
+
 </main>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
