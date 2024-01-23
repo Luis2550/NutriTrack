@@ -11,12 +11,12 @@
     <br>
     <table border="1" width="60%">
 
+
         <thead>
             <tr>
-                <th>ID Comida</th>
+                <th>ID</th>
                 <th>Comida</th>
-                <th>Número de Comidas</th>
-                <th>Día</th>
+                <th>Tipo Comida</th>
                 <th>Descripción</th>
                 <th>Cantidad de Proteína</th>
                 <th>Cantidad de Carbohidratos</th>
@@ -33,8 +33,7 @@
                     echo "<tr>";
                         echo "<td>".$dato['id_comida']."</td>";
                         echo "<td>".$dato['comida']."</td>";
-                        echo "<td>".$dato['numero_comidas']."</td>";
-                        echo "<td>".$dato['dia']."</td>";
+                        echo "<td>".$dato['tipo_comida']."</td>";
                         echo "<td>".$dato['descripcion']."</td>";
                         echo "<td>".$dato['cantidad_proteina']."</td>";
                         echo "<td>".$dato['cantidad_carbohidratos']."</td>";

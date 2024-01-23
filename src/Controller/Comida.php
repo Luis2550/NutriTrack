@@ -19,21 +19,22 @@ class ComidaController{
 
         $comida = new ComidaModel();
         $data['titulo'] = 'Nueva Comida';
+        $comida = new ComidaModel();
+        $data_comida['data_tipo_comida'] = $comida->get_tipos_comida();
         require_once(__DIR__ . '/../View/Comida/nuevaComida.php');
     } 
     
     public function guardarComida(){
         
         $com = $_POST['comida'];
-        $numero_comidas = $_POST['numero_comidas'];
-        $dia = $_POST['dia'];
+        $id_tipo_comida = $_POST['id_tipo_comida'];
         $descripcion = $_POST['descripcion'];
         $cantidad_proteina = $_POST['cantidad_proteina'];
         $cantidad_carbohidratos = $_POST['cantidad_carbohidratos'];
         $cantidad_grasas_saludables = $_POST['cantidad_grasas_saludables'];
         
         $comida = new ComidaModel();
-        $comida->insertar_comida($com, $numero_comidas, $dia, $descripcion, $cantidad_proteina,$cantidad_carbohidratos,$cantidad_grasas_saludables);
+        $comida->insertar_comida($com, $id_tipo_comida, $descripcion, $cantidad_proteina,$cantidad_carbohidratos,$cantidad_grasas_saludables);
         $data["titulo"] = "Nueva Comida";
         $this->verComida();
     }
@@ -45,6 +46,7 @@ class ComidaController{
         $data["id_comida"] = $id;
         $data["comida"] = $comida->get_comida_id($id);
         $data["titulo"] = "Comida por ID";
+        $data_tipos_comida['tipo_comida'] = $comida->get_tipos_comida();
         require_once(__DIR__ . '/../View/Comida/modificarComida.php');
     }
    
@@ -52,15 +54,14 @@ class ComidaController{
     public function actualizarComida(){
         $id_comida = $_POST['id_comida'];
         $comida = $_POST['comida'];
-        $numero_comidas = $_POST['numero_comidas'];
-        $dia = $_POST['dia'];
+        $id_tipo_comida = $_POST['id_tipo_comida'];
         $descripcion = $_POST['descripcion'];
         $cantidad_proteina = $_POST['cantidad_proteina'];
         $cantidad_carbohidratos = $_POST['cantidad_carbohidratos'];
         $cantidad_grasas_saludables = $_POST['cantidad_grasas_saludables'];
 
         $com = new ComidaModel();
-        $com->modificar_comida($id_comida,$comida,$numero_comidas,$dia, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables);
+        $com->modificar_comida($id_comida,$comida,$id_tipo_comida, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables);
         $data["titulo"] = "Comida";
         $this->verComida();
     }

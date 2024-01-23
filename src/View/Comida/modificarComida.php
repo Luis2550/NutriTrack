@@ -63,26 +63,20 @@
     <label for="comida">Comida:</label>
     <input type="text" id="comida" name="comida" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+" required value="<?php echo $data["comida"]["comida"]; ?>">
 
-    <label for="numero_comidas">Número de Comidas:</label>
-    <input type="number" id="numero_comidas" name="numero_comidas" min="3" max="10" required value="<?php echo $data["comida"]["numero_comidas"]; ?>">
-
-    <label for="dia">Día:</label>
+    <label for="id_tipo_comida">Tipo Comida:</label>
+    
     <?php
     // Supongamos que $diaDesdeBD contiene el valor almacenado en la base de datos
-    $diaDesdeBD = $data["comida"]["dia"];
+    $tipoComidaDB = $data["comida"]["id_tipo_comida"];
     ?>
-    <select id="dia" name="dia" required>
-        <option value="LUNES" <?php echo ($diaDesdeBD == 'LUNES') ? 'selected' : ''; ?>>LUNES</option>
-        <option value="MARTES" <?php echo ($diaDesdeBD == 'MARTES') ? 'selected' : ''; ?>>MARTES</option>
-        <option value="MIÉRCOLES" <?php echo ($diaDesdeBD == 'MIÉRCOLES') ? 'selected' : ''; ?>>MIÉRCOLES</option>
-        <option value="JUEVES" <?php echo ($diaDesdeBD == 'JUEVES') ? 'selected' : ''; ?>>JUEVES</option>
-        <option value="VIERNES" <?php echo ($diaDesdeBD == 'VIERNES') ? 'selected' : ''; ?>>VIERNES</option>
-        <option value="SÁBADO" <?php echo ($diaDesdeBD == 'SÁBADO') ? 'selected' : ''; ?>>SÁBADO</option>
-        <option value="DOMINGO" <?php echo ($diaDesdeBD == 'DOMINGO') ? 'selected' : ''; ?>>DOMINGO</option>
+    <select id="id_tipo_comida" name="id_tipo_comida" required>
+      <?php foreach ($data_tipos_comida['tipo_comida'] as $tipoComida) { ?>
+        <option value="<?php echo $tipoComida['id_tipo_comida'];?>" <?php echo ($tipoComidaDB == $tipoComida['id_tipo_comida']) ? 'selected' : ''; ?>><?php echo $tipoComida['tipo_comida']; ?></option>
+      <?php } ?>
     </select>
 
     <label for="descripcion">Descripción:</label>
-    <input type="text" id="descripcion" name="descripcion" required value="<?php echo $data["comida"]["descripcion"]; ?>">
+    <input type="text" id="descripcion" maxlength="300" name="descripcion" required value="<?php echo $data["comida"]["descripcion"]; ?>">
 
     <label for="cantidad_proteina">Cantidad de Proteína:</label>
     <input type="number" id="cantidad_proteina" name="cantidad_proteina" min="10" max="10000" required value="<?php echo $data["comida"]["cantidad_proteina"]; ?>">

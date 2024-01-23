@@ -11,7 +11,7 @@ class ComidaModel{
 
     public function get_comida(){
 
-        $sql = "SELECT * FROM comida";
+        $sql = "SELECT c.*, tp.tipo_comida FROM comida AS c JOIN tipo_comida AS tp ON c.id_tipo_comida = tp.id_tipo_comida";
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){
@@ -20,9 +20,20 @@ class ComidaModel{
         return $this->comida;
     }
 
-    public function insertar_comida($com, $numero_comidas, $dia, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables) {
-        $resultado = $this->db->query("INSERT INTO comida (id_comida, comida, numero_comidas, dia, descripcion, cantidad_proteina, cantidad_carbohidratos, cantidad_grasas_saludables)
-        VALUES ('', '$com', '$numero_comidas', '$dia', '$descripcion', '$cantidad_proteina', '$cantidad_carbohidratos', '$cantidad_grasas_saludables')");
+    public function get_tipos_comida(){
+
+        $sql = "SELECT * FROM tipo_comida";
+        $resultado = $this->db->query($sql);
+
+        while($fila = $resultado->fetch_assoc()){
+            $this->comida[] = $fila;
+        }
+        return $this->comida;
+    }
+
+    public function insertar_comida($com, $id_tipo_comida, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables) {
+        $resultado = $this->db->query("INSERT INTO comida (id_comida, comida, id_tipo_comida, descripcion, cantidad_proteina, cantidad_carbohidratos, cantidad_grasas_saludables)
+        VALUES ('', '$com', '$id_tipo_comida', '$descripcion', '$cantidad_proteina', '$cantidad_carbohidratos', '$cantidad_grasas_saludables')");
     }
 
     public function get_comida_id($id_comida) {
@@ -33,9 +44,9 @@ class ComidaModel{
         return $fila;
     }
 
-    public function modificar_comida($id_comida,$comida,$numero_comidas,$dia, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables) {
+    public function modificar_comida($id_comida,$comida,$id_tipo_comida, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables) {
         $resultado = $this->db->query("UPDATE comida 
-            SET comida='$comida', numero_comidas='$numero_comidas', dia='$dia', descripcion='$descripcion', cantidad_proteina='$cantidad_proteina', cantidad_carbohidratos='$cantidad_carbohidratos', cantidad_grasas_saludables='$cantidad_grasas_saludables'
+            SET comida='$comida', id_tipo_comida='$id_tipo_comida', descripcion='$descripcion', cantidad_proteina='$cantidad_proteina', cantidad_carbohidratos='$cantidad_carbohidratos', cantidad_grasas_saludables='$cantidad_grasas_saludables'
             WHERE id_comida = '$id_comida'");
     }
 

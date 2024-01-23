@@ -55,37 +55,31 @@
 </head>
 <body>
 
+
   <form id="nuevaComida" name="nuevaComida" method="POST" action="index.php?c=Comida&a=guardarComida" autocomplete="off">
     <h2>Nueva Comida</h2>
 
     <label for="comida">Comida:</label>
-    <input type="text" id="comida" name="comida" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+" required>
+    <input type="text" id="comida" name="comida" maxlength="30" pattern="[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+" required>
 
-    <label for="numero_comidas">Número de Comidas:</label>
-    <input type="number" id="numero_comidas" name="numero_comidas" min="3" max="10" required>
-
-    <label for="dia">Día:</label>
-    <select id="dia" name="dia" required>
-      <option value="LUNES">LUNES</option>
-      <option value="MARTES">MARTES</option>
-      <option value="MIÉRCOLES">MIÉRCOLES</option>
-      <option value="JUEVES">JUEVES</option>
-      <option value="VIERNES">VIERNES</option>
-      <option value="SÁBADO">SÁBADO</option>
-      <option value="DOMINGO">DOMINGO</option>
+    <label for="id_tipo_comida">Tipo Comida:</label>
+    <select id="id_tipo_comida" name="id_tipo_comida" required>
+      <?php foreach ($data_comida['data_tipo_comida'] as $tipoComida) { ?>
+        <option value="<?php echo $tipoComida['id_tipo_comida']; ?>"><?php echo $tipoComida['tipo_comida']; ?></option>
+      <?php } ?>
     </select>
 
     <label for="descripcion">Descripción:</label>
-    <input type="text" id="descripcion" name="descripcion" required>
+    <input type="text" id="descripcion" maxlength="300" name="descripcion" required>
 
     <label for="cantidad_proteina">Cantidad de Proteína:</label>
-    <input type="number" id="cantidad_proteina" name="cantidad_proteina" min="10" max="10000" required>
+    <input type="number" id="cantidad_proteina" value="1" name="cantidad_proteina" min="1" max="10000" required>
 
     <label for="cantidad_carbohidratos">Cantidad de Carbohidratos:</label>
-    <input type="number" id="cantidad_carbohidratos" name="cantidad_carbohidratos" min="10" max="10000" required>
+    <input type="number" id="cantidad_carbohidratos" value="1" name="cantidad_carbohidratos" min="1" max="10000" required>
 
     <label for="cantidad_grasas_saludables">Cantidad de Grasas Saludables:</label>
-    <input type="number" id="cantidad_grasas_saludables" name="cantidad_grasas_saludables" min="10" max="10000" required>
+    <input type="number" id="cantidad_grasas_saludables" value="1" name="cantidad_grasas_saludables" min="1" max="10000" required>
 
     <button id="guardarComida" name="guardarComida" type="submit" class="button">Registrar Comida</button>
   </form>
