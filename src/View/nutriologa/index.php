@@ -11,10 +11,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <?php include("./src/View/templates/header_administrador.php")?>
 
 
-<main class="main"> 
-   
+
     <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
     
-</main>
+
 
 <?php include("./src/View/templates/footer_administrador.php")?>
