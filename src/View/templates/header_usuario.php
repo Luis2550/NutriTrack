@@ -7,50 +7,102 @@
     
 ?>
 
+<!-- pppppppppppppppp -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="./public/css/estilo_usuario4.css">
-    <link rel="stylesheet" href="./public/css/estilo_citas9.css">
-    <link rel="stylesheet" href="./public/css/estilo_actividades3.css">
-    <link rel="stylesheet" href="./public/css/estilo_historialCli2.css">
-
+    <!-- Enlace al CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
+    <link rel="stylesheet" href="./public/css/estilo_formulario_configuracion.css">
+    <!-- Otros enlaces de estilos aquí -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
-<!-- Incluye Flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        
+        /* Personaliza la barra de navegación en dispositivos más grandes */
+        @media (min-width: 768px) {
+            .navbar {
+                height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+                background-color: #3d90f4; /* Color de fondo */
+                position: fixed; /* Fija la barra de navegación */
+                padding-top: 20px; /* Añade espacio en la parte superior para centrar los elementos verticalmente */
+                color: white;
+            }
 
-<!-- Incluye el archivo de idioma de español -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+            /* Centra verticalmente los elementos de la barra de navegación */
+            .navbar-nav {
+                flex-direction: column;
+                align-items: center;
+                margin-top: auto;
+                margin-bottom: auto;
 
+            }
 
+            /* Ajusta el contenido principal para tener margen a la izquierda */
+            .main-content {
+                margin-left: 240px; /* Ajusta el valor según el ancho de tu barra de navegación */
+            }
+
+   
+
+            a{
+                text-decoration: none;
+                color: white;
+                padding: 5px;
+            }
+
+            a:hover{
+                color: #c0dffd;
+            }
+        }
+    </style>
 </head>
 <body>
-    
-<div class="container">
-        <nav class="sidebar">
-            <ul>
-                <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p"><i class="fas fa-home"></i> Inicio</a></li>
-                
-                <li><a href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a></li>
 
-                <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a></li>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barra de navegación de Bootstrap -->
+        <nav class="navbar navbar-expand-lg  col-md-2">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="sidebar-sticky">
+                    <nav class="nav flex-column">
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p"><i class="fas fa-home"></i> Inicio</a>
+                        
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
 
-                <li><a href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a></li>
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agend ar Cita</a>
 
-                
-                <li><a href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-file-medical"></i> Ver Historial Clínico</a></li>
-                <li><a href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidasPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-weight-scale"></i> Ver Medidas</a></li>
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a>
+                    
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-file-medical"></i> Ver Historial Clínico</a>
 
-                <li><a href="http://localhost/nutritrack/index.php?c=pacientePlanNutricional&a=verPlanNutricional&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a></li>
 
-                <li><a href="#"><i class="fas fa-user"></i> Cuenta</a></li>
-                <li><a href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a></li>
-            </ul>
-        </nav> 
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidasPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-weight-scale"></i> Ver Medidas</a>
+
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=pacientePlanNutricional&a=verPlanNutricional&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a>
+
+                    <a class="nav-link active" href="#"><i class="fas fa-user"></i> Cuenta</a>
+
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
+                    
+                    </nav>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
+            <!-- Contenido de la página aquí -->
+ 

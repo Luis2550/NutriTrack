@@ -21,11 +21,12 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
     <style>
+        
         /* Personaliza la barra de navegación en dispositivos más grandes */
         @media (min-width: 768px) {
             .navbar {
                 height: 100vh; /* Ocupa el 100% de la altura de la ventana */
-                background-color: #9dfdd7; /* Color de fondo */
+                background-color: #4bdd86; /* Color de fondo */
                 position: fixed; /* Fija la barra de navegación */
                 padding-top: 20px; /* Añade espacio en la parte superior para centrar los elementos verticalmente */
             }
@@ -43,6 +44,16 @@
             .main-content {
                 margin-left: 240px; /* Ajusta el valor según el ancho de tu barra de navegación */
             }
+
+            a{
+                text-decoration: none;
+                color: white;
+                padding: 5px;
+            }
+
+            a:hover{
+                color: #f0fdf4;
+            }
         }
     </style>
 </head>
@@ -51,7 +62,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Barra de navegación de Bootstrap -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light col-md-2">
+        <nav class="navbar navbar-expand-lg  col-md-2">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

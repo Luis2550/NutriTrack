@@ -5,6 +5,8 @@
 
 .main_citas h2.titulo_citas {
     color: black;
+    text-decoration: none;
+    color: white;
 }
 
 .main_citas .vista_tabla {
