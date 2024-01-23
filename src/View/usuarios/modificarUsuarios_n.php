@@ -1,4 +1,4 @@
-<?php include("./src/View/templates/header_usuario.php")?>
+<?php include("./src/View/templates/header_administrador.php")?>
 
 <div class="card"> 
     <div class="card-body">
@@ -74,4 +74,4 @@
     </div>
 </div>
 
-<?php include("./src/View/templates/footer_usuario.php")?>
+<?php include("./src/View/templates/footer_administrador.php")?>

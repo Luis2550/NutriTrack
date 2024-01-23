@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
     <link rel="stylesheet" href="./public/css/estilo_formulario_configuracion.css">
+    <link rel="stylesheet" href="./public/css/citas.css">
+    
     <!-- Otros enlaces de estilos aquí -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
@@ -51,8 +53,6 @@
                 margin-left: 240px; /* Ajusta el valor según el ancho de tu barra de navegación */
             }
 
-   
-
             a{
                 text-decoration: none;
                 color: white;
@@ -82,7 +82,7 @@
                         
                     <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
 
-                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agend ar Cita</a>
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a>
 
                     <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a>
                     
@@ -93,7 +93,7 @@
 
                     <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=pacientePlanNutricional&a=verPlanNutricional&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a>
 
-                    <a class="nav-link active" href="#"><i class="fas fa-user"></i> Cuenta</a>
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-user"></i> Cuenta</a>
 
                     <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
                     

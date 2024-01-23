@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
     <link rel="stylesheet" href="./public/css/estilo_formulario_configuracion.css">
+    <link rel="stylesheet" href="./public/css/estilo_historial_medidas1.css">
     <!-- Otros enlaces de estilos aquí -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
@@ -80,11 +81,11 @@
                         <a class="nav-link" href="http://localhost/Nutritrack/index.php?c=Suscripcion&a=verSuscripcion">
                             <i class="fa-solid fa-book"></i> Planes
                         </a>
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user-md"></i> Cuenta
-                        </a>
                         <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Configuracion&a=verConfiguracion">
                             <i class="fas fa-cog"></i> Configuración Citas
+                        </a>
+                        <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios_n&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>">
+                            <i class="fas fa-user-md"></i> Cuenta
                         </a>
                         <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
