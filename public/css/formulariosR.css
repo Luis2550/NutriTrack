@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container.mt-5 {
+    max-width: 600px; /* Ajusta el valor según tus necesidades */
+    width: 100%;
+    margin-top: 5rem; /* Mantén el mismo valor de la clase mt-5 */
+}

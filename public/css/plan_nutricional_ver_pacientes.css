@@ -9,20 +9,22 @@
 
 /* Estilo para el botón de inserción */
 .btnNuevo {
-    background-color: #4CAF50; /* Color de fondo verde */
+    background-color: #47a84a; /* Color de fondo verde */
     color: #fff; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     font-size: 16px; /* Tamaño del texto */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor al pasar el ratón */
-    margin: 30px;
+    margin: 2px;
     text-decoration: none; /* Quita el subrayado */
 }
 
 /* Cambio de estilo al pasar el ratón sobre el botón */
 .btnNuevo:hover {
-    background-color: #45a049; /* Color de fondo más oscuro al pasar el ratón */
+    background-color: #2c6a2f; /* Color de fondo más oscuro al pasar el ratón */
+    color: #fff;
+    text-decoration: none;
 }
 
 .btnAcciones{
@@ -34,10 +36,10 @@
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor al pasar el ratón */
-    margin: 5px;
+    margin: 0px;
     text-decoration: none; /* Quita el subrayado */
 }
 
 .btnAcciones:hover {
-    background-color: #45a049; /* Color de fondo más oscuro al pasar el ratón */
+    background-color: #2c6a2f; /* Color de fondo más oscuro al pasar el ratón */
 }
