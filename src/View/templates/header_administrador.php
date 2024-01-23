@@ -57,7 +57,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="sidebar-sticky">
                     <nav class="nav flex-column">
-                        <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_n">
+                        <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas">
                             <i class="fas fa-home"></i> Inicio
                         </a>
                         <a class="nav-link" href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional">

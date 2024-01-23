@@ -92,7 +92,24 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     calcularFechas(duracionDias);
   });
   </script>
+
+<div class="d-flex justify-content-between mt-4">
+        <a>
+        </a>
+
+        
+        <a
+          name=""
+          id=""
+          class="btn btn-primary"
+          href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico"
+          role="button"
+          >Siguiente</a
+        >
+
+    </div>
 </main>
+
 
 
 <?php include("./src/View/templates/footer_administrador.php")?>

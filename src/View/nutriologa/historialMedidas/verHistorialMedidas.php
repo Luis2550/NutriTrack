@@ -62,6 +62,28 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <div style="width: 80%; margin: auto;">
         <canvas id="pesoChart"></canvas>
     </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a
+            name=""
+            id=""
+            class="btn btn-primary"
+            href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico"
+            role="button"
+        >
+            Regresar
+        </a>
+
+        <a
+            name=""
+            id=""
+            class="btn btn-primary"
+            href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad"
+            role="button"
+        >
+            Siguiente
+        </a>
+    </div>
 </main>
 
 <!-- Estilos CSS para la Pizarra con Notitas -->
