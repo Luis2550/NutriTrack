@@ -194,8 +194,10 @@ class CitasController {
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Cita Cancelada';
-                $mail->Body    = 'Su cita ha sido cancelada, por favor agende su cita para otro día';
-    
+                $mail->Body = '';
+                $mail->addAttachment('./public/assets/images/Cita-Cancelada.png', 'imagen_cita_cancelada.png', 'base64', 'image/png');
+
+
                 $mail->send();
                 echo 'Correo enviado correctamente';
             } catch (Exception $e) {

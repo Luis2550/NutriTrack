@@ -64,6 +64,9 @@
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
+                        
+                        <img width="100" src="./public/assets/fotos_usuarios/<?php echo $data["usuarios"]["foto"]?>" class="img-fluid rounded" alt="">
+                        <br><br>
                         <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
                     </div>
                 </div>
