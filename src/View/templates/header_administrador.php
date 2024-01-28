@@ -77,6 +77,9 @@
                         <a class="nav-link" href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional">
                             <i class="fa-brands fa-nutritionix"></i> Agregar Comida
                         </a>
+                        <a class="nav-link" href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico">
+                        <i class="fa-solid fa-suitcase-medical"></i> Historial Clinico
+                        </a>
                         <!-- Agrega otros elementos del menú aquí -->
                         <a class="nav-link" href="http://localhost/Nutritrack/index.php?c=Suscripcion&a=verSuscripcion">
                             <i class="fa-solid fa-book"></i> Planes

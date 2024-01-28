@@ -32,10 +32,15 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <br>
 
     <div class="historial-container">
-        <?php
-        if (isset($data['historial_medidas']) && is_array($data['historial_medidas'])) {
-            echo "<div class='pizarra'>";
-            foreach ($data['historial_medidas'] as $dato) {
+    <?php
+    if (isset($data['historial_medidas']) && is_array($data['historial_medidas'])) {
+        echo "<div class='pizarra'>";
+        // Arrays para almacenar datos del peso y la fecha
+        $pesosArray = [];
+        $fechasArray = [];
+        foreach ($data['historial_medidas'] as $dato) {
+            // Mostrar la carta solo cuando $dato['ci_usuario'] sea igual a $data['ci_usuario']
+            if ($dato['ci_usuario'] == $data['ci_usuario']) {
                 echo "<div class='notita'>";
                 echo "<p><strong>Cédula:</strong> " . $dato['ci_usuario'] . "</p>";
                 echo "<p><strong>Nombres:</strong> " . $dato['nombres'] . "</p>"; // Agregado
@@ -50,14 +55,20 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         <a class='btn btn-eliminar' href='index.php?c=historialMedidas&a=eliminarHistorialMedidas&id=".$dato["id_historial_medidas"]."'>Eliminar</a>
                       </div>";
                 echo "</div>";
+
+                // Almacenar datos del peso y la fecha que cumplen con la condición
+                $pesosArray[] = $dato['peso'];
+                $fechasArray[] = $dato['fecha'];
             }
-            echo "</div>";
-        } else {
-            // No hay historial de medidas para mostrar
-            echo "<p>No hay historial de medidas disponibles.</p>";
         }
-        ?>
-    </div>
+        echo "</div>";
+    } else {
+        // No hay historial de medidas para mostrar
+        echo "<p>No hay historial de medidas disponibles.</p>";
+    }
+    ?>
+</div>
+
 
     <!-- Gráfica de Historial de Pesos -->
     <div style="width: 80%; margin: auto;">
@@ -69,7 +80,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico"
+            href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoSecuencial&ci_usuario=<?php echo $data['ci_usuario']; ?>"
             role="button"
         >
             Regresar
@@ -79,7 +90,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad"
+            href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad&ci_usuario=<?php echo $data['ci_usuario']; ?>"
             role="button"
         >
             Siguiente
@@ -136,9 +147,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <!-- JavaScript para la Gráfica de Historial de Pesos -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Datos del historial de pesos (ejemplo)
-    var fechas = <?php echo json_encode(array_column($data['historial_medidas'], 'fecha')); ?>;
-    var pesos = <?php echo json_encode(array_column($data['historial_medidas'], 'peso')); ?>;
+    // Datos del historial de pesos
+    var fechas = <?php echo json_encode($fechasArray); ?>;
+    var pesos = <?php echo json_encode($pesosArray); ?>;
 
     // Configurar datos para el gráfico
     var ctx = document.getElementById('pesoChart').getContext('2d');
@@ -165,5 +176,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         }
     });
 </script>
+
 
 <?php include("./src/View/templates/footer_administrador.php")?>

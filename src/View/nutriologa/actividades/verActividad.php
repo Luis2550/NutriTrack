@@ -16,12 +16,13 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
     <h2>Ver Actividades</h2>
 
+    
+
     <div class="table-responsive">
         <table class="table table-bordered dataTable" id="tabla_id">
 
             <thead>
                 <tr>
-                    <th>Cedula Paciente</th>
                     <th>Actividad</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
@@ -32,24 +33,31 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             </thead>
 
             <tbody>
-                <?php
-                    // Cambia el bucle para usar las actividades obtenidas del controlador
-                    foreach ($data['actividad'] as $dato) {
+            <?php
+                // Cambia el bucle para usar las actividades obtenidas del controlador
+                foreach ($data['actividad'] as $dato) {
+                    if ($dato['ci_paciente'] == $data['ci_usuario']) {
                         echo "<tr>";
-                        echo "<td>" . $dato['ci_paciente'] . "</td>";
                         echo "<td>" . $dato['actividad'] . "</td>";
                         echo "<td>" . $dato['nombres'] . "</td>";
                         echo "<td>" . $dato['apellidos'] . "</td>";
-                        echo "<td>" . $dato['descripcion'] . "</td>";
+                
+                        // Mostrar solo los primeros 50 caracteres de la descripción seguidos de puntos suspensivos
+                        $descripcionCorta = strlen($dato['descripcion']) > 50 ? substr($dato['descripcion'], 0, 50) . '...' : $dato['descripcion'];
+                        echo "<td>" . $descripcionCorta . "</td>";
+                
                         echo "<td>" . $dato['fecha'] . "</td>";
                         echo "<td class='celda-acciones'>
                                 <a class='btn btn-info' href='http://localhost/nutritrack/index.php?c=Actividad&a=verActividadPaciente&id=" . $dato["id_actividad"] . "'>Ver Actividad</a>
-                            </td>";
+                              </td>";
                         echo "</tr>";
                     }
+                }
                 ?>
+
             </tbody>
         </table>
+
     </div>
 
     <div class="d-flex justify-content-between mt-4">
@@ -57,7 +65,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas"
+            href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas&ci_usuario=<?php echo $data['ci_usuario']; ?>"
             role="button"
         >
             Regresar
@@ -67,10 +75,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional"
+            href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional$ci_usuario=<?php echo $data['ci_usuario']; ?>"
             role="button"
         >
-            Siguiente
+            Ultimo
         </a>
     </div>
 

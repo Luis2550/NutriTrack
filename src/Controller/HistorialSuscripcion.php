@@ -18,6 +18,11 @@ class HistorialSuscripcionController{
         $historialsuscripciones = new historialSuscripcionModel();
         $data['usuarios'] = $historialsuscripciones->getCiPaciente();
         $data['opciones_suscripcion'] = $historialsuscripciones->getSuscripcion();
+
+        // Obtener el valor de 'ci_usuario' de la URL
+        $ci_usuario = isset($_GET['ci_usuario']) ? $_GET['ci_usuario'] : null;
+        $data['ci_usuario'] = $ci_usuario;
+
         $data['titulo'] = ' Historial Suscripcion';
         require_once(__DIR__ . '/../View/historialSuscripcion/nuevoHistorialSuscripcion.php');
     }

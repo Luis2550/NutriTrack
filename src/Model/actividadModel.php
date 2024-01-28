@@ -11,16 +11,20 @@ class actividadModel{
         $this->acti = array();
     }
 
-    public function get_actividades(){
-
-        $sql = "SELECT * FROM actividad";
+    public function get_actividades() {
+        $sql = "SELECT ac.*, u.nombres, u.apellidos, u.edad, u.correo, u.sexo 
+                FROM actividad ac 
+                JOIN usuario u ON ac.ci_paciente = u.ci_usuario";
+    
         $resultado = $this->db->query($sql);
-
-        while($fila = $resultado->fetch_assoc()){
+    
+        while ($fila = $resultado->fetch_assoc()) {
             $this->acti[] = $fila;
         }
+    
         return $this->acti;
     }
+    
 
     public function insertar_actividad($ci_paciente,$actividad,$descripcion,$fecha){
         $resultado = $this->db->query("INSERT INTO actividad(ci_paciente,actividad,descripcion,fecha) VALUES ('$ci_paciente', '$actividad', '$descripcion', '$fecha')");

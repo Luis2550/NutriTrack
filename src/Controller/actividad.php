@@ -8,6 +8,9 @@ class actividadController{
 
     public function verActividad(){
 
+        $ci_usuario = isset($_GET['ci_usuario']) ? $_GET['ci_usuario'] : null;
+        $data['ci_usuario'] = $ci_usuario;
+
         $acti = new actividadModel();
         $data['titulo'] = 'actividad';
         $data['actividad'] = $acti->get_actividades();

@@ -101,9 +101,6 @@
         height: 200px;
     }
 
-    .descrip{
-        background-color: #0a4881;
-    }
 
     /* Establece un ancho máximo para la columna de descripción */
 .main_actividades table td:nth-child(3) {

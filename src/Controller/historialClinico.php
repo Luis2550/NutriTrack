@@ -16,6 +16,22 @@ class historialClinicoController{
     }
     
 
+    public function verHistorialClinicoSecuencial(){
+        // Obtén el valor de 'ci_usuario' de la URL
+        $ci_usuario = isset($_GET['ci_usuario']) ? $_GET['ci_usuario'] : null;
+    
+        $historiaClini = new historialClinicoModel();
+        $data['titulo'] = 'historial_clinico';
+        $data['historial_clinico'] = $historiaClini->get_HistoriasClinicas();
+    
+        // Pasa el valor de 'ci_usuario' a la vista
+        $data['ci_usuario'] = $ci_usuario;
+    
+        // Pasa los datos a la vista
+        require_once(__DIR__ . '/../View/nutriologa/historialClinico/verHistorialClinicoSecuencial.php');
+    }
+    
+
     public function verHistorialClinicoPaciente($ci_paciente) {
         $historiaClini = new historialClinicoModel();
         $data['titulo'] = 'historial_clinico';

@@ -7,9 +7,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     exit();
 }
 
-// Obtener la fecha actual
-$fecha_actual = date('Y-m-d');
+// Establecer la zona horaria de Ecuador
+date_default_timezone_set('America/Guayaquil');
 
+// Obtener la fecha y hora actual
+$fecha_actual = (new DateTime())->format('Y-m-d');
 // Separar las citas en dos arreglos: una para las citas de la fecha actual y otra para las fechas menores a la actual
 $citas_actuales = [];
 $citas_pasadas = [];

@@ -8,9 +8,13 @@ class historialMedidasController{
 
     public function verHistorialMedidas(){
 
+        $ci_usuario = isset($_GET['ci_usuario']) ? $_GET['ci_usuario'] : null;
+
         $historiaMedi = new historialMedidasModel();
         $data['titulo'] = 'historial_medidas';
         $data['historial_medidas'] = $historiaMedi->get_HistoriasMedidas();
+
+        $data['ci_usuario'] = $ci_usuario;
     
         require_once(__DIR__ . '/../View/nutriologa/historialMedidas/verHistorialMedidas.php');
     }
@@ -74,6 +78,7 @@ class historialMedidasController{
         $historiaMedi->eliminar_historialMedidas($id);
         $data["titulo"] = "historial_medidas";
         $this->verHistorialMedidas();
+
     }
 
     public function verHistorialMedidasPaciente($ci_paciente) {
