@@ -29,16 +29,17 @@ class SesionController {
             
             return;
         }
+
+        // Verifica si existe la variable de sesión para el contador de intentos
+        if (!isset($_SESSION['intentos_fallidos'])) {
+            $_SESSION['intentos_fallidos'] = 0;
+        }
+
         // Realiza la validación del usuario y contraseña en la base de datos
-        $usuario = $this->sesionModel->obtenerUsuarioPorCredenciales($username);
-        $intentos = $this->usuariosModel->get_intentos_usuario($username);
-        echo $intentos; 
+        $usuario = $this->sesionModel->obtenerUsuarioPorCredenciales($username, $password);
 
         if ($usuario) {
-
-            if ($usuario['correo'] == $username && $usuario['clave'] == $password)
-            {
-                // Verifica si la cuenta está activada
+            // Verifica si la cuenta está activada
             if ($usuario['activo'] == 1) {
                 // Obtiene el rol del usuario
                 $rol = $this->sesionModel->obtenerRolUsuario($usuario['id_rol']);
@@ -55,9 +56,11 @@ class SesionController {
                     'rol' => $rol['rol'],
                     'activo' => $usuario['activo'],
                 ];
-                $numeroIntentos=$this->usuariosModel->regresaNumero_intentos();
-                echo $numeroIntentos;
-                $this->usuariosModel->reanudar_intentos($username, $numeroIntentos);// Regenera el ID de sesión
+
+                // Reinicia el contador de intentos fallidos
+                $_SESSION['intentos_fallidos'] = 0;
+
+                // Regenera el ID de sesión
                 session_regenerate_id(true);
 
                 // Redirige según el rol
@@ -65,7 +68,7 @@ class SesionController {
                     header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p');
                     exit(); // Agregado: evita que el script siga ejecutándose después de la redirección
                 } elseif ($rol['rol'] === 'Nutriologa') {
-                    header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_n');
+                    header('Location: http://localhost/nutritrack/index.php?c=Citas&a=verCitas');
                     exit(); // Agregado: evita que el script siga ejecutándose después de la redirección
                 }
             } else {
@@ -75,35 +78,28 @@ class SesionController {
                 $hash = md5(rand(0, 1000));
                 $this->UsuariosController->enviarCorreoActivacion($usuario['correo'], $hash);
             }
-
-            }else
-            {
-                if ($intentos <0){
-                    echo "Revise su correo electronico";
-                }else{
-                        $this->usuariosModel->bajar_intentos($username);
-                        // Verifica si la cuenta debe ser bloqueada
-                        if ( $intentos == 0) {
-                            // Muestra un mensaje y solicita revisar el correo para activar la cuenta nuevamente
-                            echo "Has excedido el número máximo de intentos.";
-             
-                                $clave = $this->usuariosModel->get_claveRecuperacion($username);
-                                // Verifica si la clave es válida 
-                                if ($clave !== null) {
-                                    // Envía la contraseña olvidada
-                                    $this->UsuariosController->enviarContrasenaOlvidada($username, $clave);
-                                    echo "Se ha enviado la contraseña olvidada al correo electrónico asociado a tu cuenta.";
-                                } else {
-                                    echo "No se pudo recuperar la contraseña. Por favor, contacta al soporte técnico.";
-                                }
-                        }
-                        echo "Usuario o contraseña incorrectos";
-                    }
-            }
-            
         } else {
-            
-          echo "usuario no registrado";  
+            // Manejo de error, por ejemplo, mostrar un mensaje de error en la página de inicio de sesión.
+            echo "Usuario o contraseña incorrectos";
+            $_SESSION['intentos_fallidos']++;
+
+            // Verifica si la cuenta debe ser bloqueada
+            if ($_SESSION['intentos_fallidos'] >= 3) {
+                // Muestra un mensaje y solicita revisar el correo para activar la cuenta nuevamente
+                echo "Has excedido el número máximo de intentos.";
+ 
+                    $clave = $this->usuariosModel->get_claveRecuperacion($username);
+                    // Verifica si la clave es válida
+                    if ($clave !== null) {
+                        // Envía la contraseña olvidada
+                        $this->UsuariosController->enviarContrasenaOlvidada($username, $clave);
+                        echo "Se ha enviado la contraseña olvidada al correo electrónico asociado a tu cuenta.";
+                    } else {
+                        echo "No se pudo recuperar la contraseña. Por favor, contacta al soporte técnico.";
+                    }
+                
+                
+            }
         }
     }
 

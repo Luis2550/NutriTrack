@@ -241,6 +241,16 @@ class UsuariosController{
         $data["titulo"] = "Usuarios";
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
     }
+
+    public function modificarUsuarios_n($id){
+			
+        $usuarios = new UsuariosModel();
+        
+        $data["ci_usuario"] = $id;
+        $data["usuarios"] = $usuarios->get_Usuario($id);
+        $data["titulo"] = "Usuarios";
+        require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
+    }
     
     public function actualizarUsuarios(){
         $id = $_POST['id'];

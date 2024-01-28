@@ -20,10 +20,15 @@ class UsuariosModel{
         return $this->usuarios;
     }
 
-    public function insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto,$intentos){
-        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo, foto, intentos)
-        VALUES ('$ci_usuario','$id_rol','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero','$foto','$intentos')");
+    public function insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto){
+        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo, foto)
+        VALUES ('$ci_usuario','$id_rol','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero','$foto')");
 
+        // Verificar si la inserción fue exitosa
+        //if ($resultado) {
+            // La inserción fue exitosa, ahora ejecutar el trigger
+          //  $this->db->query("CALL tr_insertar_usuario");
+        //}
     }
     
     public function get_clave_usuario($ci_usuario){
@@ -31,76 +36,6 @@ class UsuariosModel{
         $resultado = $this->db->query($sql);
         return $resultado;
     }
-    public function get_intentos_usuario($email){
-        $sql = "SELECT intentos FROM usuario WHERE correo='$email' LIMIT 1";
-        $resultado = $this->db->query($sql);
-    
-        if ($resultado) {
-            // Verifica si la consulta se ejecutó correctamente
-            $fila = $resultado->fetch_assoc(); // Obtén la fila como un array asociativo
-    
-            if ($fila) {
-                // Verifica si se obtuvo una fila
-                return $fila['intentos']; // Devuelve el valor de la columna 'intentos'
-            } else {
-                return false; // No se encontraron resultados
-            }
-        } else {
-            return false; // Hubo un error en la consulta
-        }
-    }
-    public function bajar_intentos($email)
-    {
-        $sql = "UPDATE usuario SET intentos = intentos - 1 WHERE correo = '$email'";
-        $resultado = $this->db->query($sql);
-    }
-    public function reanudar_intentos($email, $nuevoIntentos)
-    {
-        $sql = "UPDATE usuario SET intentos = '$nuevoIntentos' WHERE correo = '$email'";
-        $resultado = $this->db->query($sql);
-    }
-
-    public function regresaNumero_intentos()
-    {
-        $sql = "SELECT intentos FROM intentos_inicio WHERE id_intentos = '1' LIMIT 1";
-        
-        // Ejecutar la consulta en la base de datos
-        $resultado = $this->db->query($sql);
-
-        // Verificar si la consulta fue exitosa
-        if ($resultado) {
-            // Obtener el primer y único registro (si existe)
-            $fila = $resultado->fetch_assoc();
-
-            // Verificar si se encontró un resultado
-            if ($fila) {
-                // Devolver el valor de 'intentos'
-                return $fila['intentos'];
-            } else {
-                // No se encontraron resultados
-                return null; // o algún valor predeterminado según tu lógica de negocio
-            }
-        } else {
-            // La consulta no fue exitosa, manejar el error según tu necesidad
-            return null; // o lanzar una excepción, dependiendo de tus requerimientos
-        }
-    }
-
-    
-    public function get_ci_usuario($email){
-        $sql = "SELECT ci_usuario FROM usuario WHERE correo='$email' LIMIT 1";
-        $resultado = $this->db->query($sql);
-    
-        if ($resultado->num_rows > 0) {
-            // Si hay al menos un resultado, extraer y retornar el valor de la columna ci_usuario
-            $fila = $resultado->fetch_assoc();
-            return $fila['ci_usuario'];
-        } else {
-            // Si no hay resultados, puedes devolver null o algún otro valor predeterminado
-            return null;
-        }
-    }
-    
 
     public function comprobar_clave_usuario($ci_usuario, $clave){
         $clave_en_data_base = UsuariosModel::get_clave_usuario($ci_usuario);
