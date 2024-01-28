@@ -141,6 +141,85 @@ include("./src/View/templates/header_administrador.php")
                 <option value="Sábado" <?php echo in_array('Sábado', $diasSeleccionados) ? 'selected' : ''; ?>>Sábado</option>
                 <option value="Domingo" <?php echo in_array('Domingo', $diasSeleccionados) ? 'selected' : ''; ?>>Domingo</option>
             </select>
+
+            <br><br>
+
+            <h2>Calendario de Fechas</h2>
+
+<div id="calendario"></div>
+<div id="fechasSeleccionadas"></div>
+
+<script>
+    $(function() {
+        var fechasSeleccionadas = obtenerFechasSeleccionadas();
+
+        // Configura el calendario
+        $("#calendario").datepicker({
+            beforeShowDay: function(date) {
+                // Marca los días seleccionados con un color diferente
+                var dateString = $.datepicker.formatDate("yy-mm-dd", date);
+                return [fechasSeleccionadas.indexOf(dateString) === -1];
+            },
+            onSelect: function(dateText, inst) {
+                // Al seleccionar una fecha, la agrega o la quita de la lista de fechas seleccionadas
+                var index = fechasSeleccionadas.indexOf(dateText);
+                if (index === -1) {
+                    fechasSeleccionadas.push(dateText);
+                } else {
+                    fechasSeleccionadas.splice(index, 1);
+                }
+
+                // Actualiza la lista de fechas seleccionadas
+                actualizarListaFechas();
+                guardarFechasSeleccionadas();
+            }
+        });
+
+        // Maneja el clic en el botón "Guardar Fechas"
+        $("#guardarFechas").click(function() {
+            // Oculta el calendario
+            $("#calendario").hide();
+        });
+
+        function actualizarListaFechas() {
+            // Muestra la lista de fechas seleccionadas
+            $("#fechasSeleccionadas").html("");
+            fechasSeleccionadas.forEach(function(fecha) {
+                var $fechaDiv = $("<div>" + fecha + " <button class='borrarFecha' data-fecha='" + fecha + "'>Borrar</button></div>");
+                $("#fechasSeleccionadas").append($fechaDiv);
+            });
+
+            // Agrega el evento de clic para borrar fechas
+            $(".borrarFecha").on("click", function() {
+                var fechaBorrar = $(this).data("fecha");
+                var index = fechasSeleccionadas.indexOf(fechaBorrar);
+                if (index !== -1) {
+                    fechasSeleccionadas.splice(index, 1);
+                    // Actualiza la lista y guarda los cambios
+                    actualizarListaFechas();
+                    guardarFechasSeleccionadas();
+                }
+            });
+
+            // Actualiza el calendario
+            $("#calendario").datepicker("refresh");
+        }
+
+        function guardarFechasSeleccionadas() {
+            // Guarda las fechas seleccionadas en el almacenamiento local
+            localStorage.setItem("fechasSeleccionadas", JSON.stringify(fechasSeleccionadas));
+        }
+
+        function obtenerFechasSeleccionadas() {
+            // Obtiene las fechas seleccionadas del almacenamiento local
+            var storedFechas = localStorage.getItem("fechasSeleccionadas");
+            return storedFechas ? JSON.parse(storedFechas) : [];
+        }
+
+        // Marca las fechas seleccionadas al cargar la página
+        actualizarListaFechas();
+    });
+</script>
             
             <br><br>
             <label for="duracion_cita">Duración de la cita:</label>

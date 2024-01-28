@@ -18,45 +18,35 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
 <?php include("./src/View/templates/header_administrador.php")?>
 
 
-<main>
-
     <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
     <h2>Ver Usuarios</h2>
     <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button>
-    <table border="1" width="40%" id="tabla_id">
+    
+<div class="container mt-5">
+    <div class="row">
+        <?php foreach ($data['historialsuscripciones'] as $dato): ?>
+            <div class="col-md-4 mb-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $dato['ci_paciente']; ?></h5>
+                        <p class="card-text">Fecha Inicio: <?php echo $dato['fecha_inicio']; ?></p>
+                        <p class="card-text">Fecha Fin: <?php echo $dato['fecha_fin']; ?></p>
+                        <p class="card-text">Estado: <?php echo $dato['estado']; ?></p>
+                        <a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-primary">Modificar</a>
+                        <a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
-        <thead>
-            <tr>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Estado</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
+    <?php if (isset($_GET['error_message'])): ?>
+        <div class="alert alert-danger mt-4" role="alert">
+            <?php echo htmlspecialchars($_GET['error_message']); ?>
+        </div>
+    <?php endif; ?>
+</div>
 
-        <tbody>
 
-            <?php
-                foreach($data['historialsuscripciones'] as $dato){
-                    echo"<tr>";
-                        echo"<td>".$dato['fecha_inicio']."</td>";
-                        echo"<td>".$dato['fecha_fin']."</td>";
-                        echo"<td>".$dato['estado']."</td>";
-                        echo "<td><a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=".$dato["id_suscripcion"]."'>Modificar</a></td>";
-						echo "<td><a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=".$dato["id_suscripcion"]."'>Eliminar</a></td>";
-                    echo"</tr>";
-                }
-            ?>
-        </tbody>
-        <?php if (isset($_GET['error_message'])): ?>
-        <p style="color: red;"><?php echo htmlspecialchars($_GET['error_message']); ?></p>
-        <?php endif; ?>
-
-</main>
-
-    </table>
-
-</main>
 
 <?php include("./src/View/templates/footer_administrador.php")?>

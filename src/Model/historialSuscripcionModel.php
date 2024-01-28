@@ -14,7 +14,17 @@ class historialSuscripcionModel{
 
     public function get_HistorialSuscripciones(){
 
-        $sql = "SELECT * FROM historial_suscripcion";
+        $sql = "SELECT 
+        hc.*,
+        u.nombres,
+        u.apellidos,
+        u.edad,
+        u.correo,
+        u.sexo
+    FROM 
+        historial_suscripcion hc
+    JOIN 
+        usuario u ON hc.ci_paciente = u.ci_usuario";
         $resultado = $this->db->query($sql);
 
         while($fila = $resultado->fetch_assoc()){

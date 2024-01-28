@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     </div>
 
     <div class="d-flex justify-content-between mt-4">
-        <a name="" id="" class="btn btn-primary" href="http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=<?php echo $data['ci_usuario']; ?>" role="button">Regresar</a>
+        <a name="" id="" class="btn btn-primary" href="http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcionSecuencial&ci_usuario=<?php echo $data['ci_usuario']; ?>" role="button">Regresar</a>
         <a name="" id="" class="btn btn-primary" href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas&ci_usuario=<?php echo $data['ci_usuario']; ?>" role="button">Siguiente</a>
     </div>
 </main>
