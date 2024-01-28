@@ -6,6 +6,7 @@
     <title>Planes Suscripción</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-oG1JUpLhKoFY83KstwNU+J4dX25F1q5sOFJ31qK4vgoiSQe8ZQFqAtvjM2SLZXuJ" crossorigin="anonymous">
 </head>
 <body>
 
@@ -29,11 +30,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <div class="col-12">
             <h2 class="title mb-4"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2>Planes Suscripcion</h2>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#agregarModal">
-                    <i class="fas fa-plus"></i> 
-                </button>
+            <div class="d-flex justify-content-end mb-3">
+                <a href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=nuevoSuscripcion' class='btn btn-success'>
+                    <i class='fas fa-plus-circle'></i> Agregar Plan
+                </a>
             </div>
 
             <?php if(isset($data['mensaje'])): ?>
@@ -54,85 +54,33 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     <tbody>
                         <?php
                             foreach($data['suscripcion'] as $dato){
-                                echo"<tr>";
-                                    echo"<td>".$dato['suscripcion']."</td>";
-                                    echo"<td>".$dato['duracion_dias']."</td>";
-                                    echo "<td>
-                                            <button type='button' class='btn btn-warning' data-toggle='modal' data-target='#editarModal_".$dato["id_suscripcion"]."'>
-                                                <i class='fas fa-edit'></i> 
-                                            </button>
-                                        </td>";
-                                    echo "<td>
-                                            <a href='#' data-toggle='modal' data-target='#eliminarModal_".$dato["id_suscripcion"]."'>
-                                                <i class='fas fa-trash-alt'></i>
-                                            </a>
-                                        </td>";
-                                    // Agregamos el modal de confirmación para eliminar
+                                echo "<tr>";
+                                    echo "<td>".$dato['suscripcion']."</td>";
+                                    echo "<td>".$dato['duracion_dias']."</td>";
+                                    echo "<td><a href='index.php?c=Suscripcion&a=modificarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-outline-success btn-sm'><i class='fas fa-edit'></i></a></td>
+                                    <td><button type='button' class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#eliminarModal_".$dato["id_suscripcion"]."'><i class='fas fa-trash-alt border-0'></i></button></td>";
+                                   
                                     echo "<div class='modal fade' id='eliminarModal_".$dato["id_suscripcion"]."' tabindex='-1' role='dialog' aria-labelledby='eliminarModalLabel_".$dato["id_suscripcion"]."' aria-hidden='true'>
-                                            <div class='modal-dialog' role='document'>
-                                                <div class='modal-content'>
-                                                    <div class='modal-header'>
-                                                        <h5 class='modal-title' id='eliminarModalLabel_".$dato["id_suscripcion"]."'>Eliminar Plan de Suscripción</h5>
-                                                        <button type='button' class='close' data-dismiss='modal' aria-label='Cerrar'>
-                                                            <span aria-hidden='true'>&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class='modal-body'>
-                                                        ¿Estás seguro de que deseas eliminar este plan de suscripción?
-                                                    </div>
-                                                    <div class='modal-footer'>
-                                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                                        <a class='btn btn-danger' href='index.php?c=Suscripcion&a=eliminarSuscripcion&id=".$dato["id_suscripcion"]."'>Eliminar</a>
-                                                    </div>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h5 class='modal-title' id='eliminarModalLabel_".$dato["id_suscripcion"]."'>Confirmar Eliminación</h5>
+                                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                                        <span aria-hidden='true'>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class='modal-body'>
+                                                    ¿Estás seguro de que deseas eliminar este dato?
+                                                </div>
+                                                <div class='modal-footer'>
+                                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                                                    <a href='index.php?c=Suscripcion&a=eliminarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-danger'>Eliminar</a>
                                                 </div>
                                             </div>
-                                        </div>";
-
-                                    // Agregamos el modal de edición
-                                    echo "<div class='modal fade' id='editarModal_".$dato["id_suscripcion"]."' tabindex='-1' role='dialog' aria-labelledby='editarModalLabel_".$dato["id_suscripcion"]."' aria-hidden='true'>
-                                            <div class='modal-dialog'>
-                                                <div class='modal-content'>
-                                                    <div class='modal-header'>
-                                                        <h5 class='modal-title' id='editarModalLabel_".$dato["id_suscripcion"]."'>Actualizar ".$data['titulo']."</h5>
-                                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                                            <span aria-hidden='true'>&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class='modal-body'>
-                                                        <!-- Formulario de edición -->
-                                                        <form id='editarForm_".$dato["id_suscripcion"]."' method='POST' action='index.php?c=Suscripcion&a=actualizarSuscripcion' autocomplete='off' class='needs-validation' novalidate>
-                                                            <div class='mb-3'>
-                                                                <label for='suscripcion' class='form-label'>Suscripcion</label>
-                                                                <input type='text' class='form-control' id='suscripcion' name='suscripcion' required value='".$dato["suscripcion"]."'>
-                                                                <div class='valid-feedback'>
-                                                                    ¡Se ve bien!
-                                                                </div>
-                                                                <div class='invalid-feedback'>
-                                                                    Por favor, ingrese una suscripción válida.
-                                                                </div>
-                                                            </div>
-
-                                                            <div class='mb-3'>
-                                                                <label for='duracion_dias' class='form-label'>Duracion Dias</label>
-                                                                <input type='number' class='form-control' id='duracion_dias' name='duracion_dias' required value='".$dato["duracion_dias"]."'>
-                                                                <div class='valid-feedback'>
-                                                                    ¡Se ve bien!
-                                                                </div>
-                                                                <div class='invalid-feedback'>
-                                                                    Por favor, ingrese una duración de días válida.
-                                                                </div>
-                                                            </div>
-
-                                                            <div class='mb-3'>
-                                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                                                <button type='submit' class='btn btn-primary'>Actualizar</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>";
-                                echo"</tr>";
+                                        </div>
+                                    </div>";
+                                
+                                echo "</tr>";
                             }
                         ?>
                     </tbody>
@@ -141,53 +89,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </div>
     </div>
 </main>
+<!-- Modal para Agregar Suscripción -->
 
-<!-- Modal para Agregar Plan -->
-<div class='modal fade' id='agregarModal' tabindex='-1' role='dialog' aria-labelledby='agregarModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <h5 class='modal-title' id='agregarModalLabel'>Agregar Nuevo Plan de Suscripción</h5>
-                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                    <span aria-hidden='true'>&times;</span>
-                </button>
-            </div>
-            <div class='modal-body'>
-                <!-- Formulario de Agregar Plan -->
-                <form id='nuevo' name='nuevo' method='POST' action='index.php?c=Suscripcion&a=guardarSuscripcion' autocomplete='off' class='needs-validation' novalidate>
-                    <h2 class='mt-4 mb-4'>Registro <?php echo $data['titulo'];?></h2>
-
-                    <div class='mb-3'>
-                        <label for='suscripcion' class='form-label'>Suscripcion</label>
-                        <input type='text' class='form-control' id='suscripcion' name='suscripcion' required>
-                        <div class='valid-feedback'>
-                            ¡Se ve bien!
-                        </div>
-                        <div class='invalid-feedback'>
-                            Por favor, ingrese una suscripción válida.
-                        </div>
-                    </div>
-
-                    <div class='mb-3'>
-                        <label for='duracion_dias' class='form-label'>Duracion Dias</label>
-                        <input type='number' class='form-control' id='duracion_dias' name='duracion_dias' required>
-                        <div class='valid-feedback'>
-                            ¡Se ve bien!
-                        </div>
-                        <div class='invalid-feedback'>
-                            Por favor, ingrese una duración de días válida.
-                        </div>
-                    </div>
-
-                    <div class='mb-3'>
-                        <button id='guardar' name='guardar' type='submit' class='btn btn-primary'>Registrar</button>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php include("./src/View/templates/footer_administrador.php")?>
 
@@ -202,6 +105,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     $(document).ready(function () {
         $('#tabla_id').DataTable();
     });
+    
 </script>
 
 </body>

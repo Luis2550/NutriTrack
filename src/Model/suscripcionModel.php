@@ -49,7 +49,7 @@ class SuscripcionModel{
         return $fila;
     }
 
-    public function getSuscripcionExistente($suscripcion) {
+    public function getSuscripcionExiste($suscripcion) {
         $sql = "SELECT * FROM suscripcion WHERE suscripcion = ?";
         
         try {
@@ -64,7 +64,8 @@ class SuscripcionModel{
     
                 $stmt->close();
     
-                return $NombresSuscripcion;
+                // Devolver true si hay resultados (la suscripción existe), false si no hay resultados (la suscripción no existe)
+                return !empty($NombresSuscripcion);
             } else {
                 throw new Exception("Error en la preparación de la consulta: " . $this->db->error);
             }
@@ -72,6 +73,7 @@ class SuscripcionModel{
             die("Error: " . $e->getMessage());
         }
     }
+    
     
 }
 

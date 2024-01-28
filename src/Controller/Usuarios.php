@@ -16,7 +16,7 @@ class UsuariosController{
         if (preg_match('/[0-9!@#$%^&*(),.?":{}|<>]/', $nombres)) {
             // Devolver false si se encuentran números o caracteres especiales 
             return false;
-        }elseif(count($nombrePalabras) !== 2) {
+        }elseif(count($nombrePalabras) < 1) {
             // Devolver false si la validación falla
             return false;
         }else{
@@ -32,7 +32,7 @@ class UsuariosController{
         if (preg_match('/[0-9!@#$%^&*(),.?":{}|<>]/', $apellidos)) {
             // Devolver false si se encuentran números o caracteres especiales 
             return false;
-        }elseif(count($apellidoPalabras) !== 2) {
+        }elseif(count($apellidoPalabras) < 1) {
             // Devolver false si la validación falla
             return false;
         }else{
@@ -105,7 +105,7 @@ class UsuariosController{
 
     public function guardarUsuarios() {
         $ci_usuario = mb_strtoupper($_POST['cedula'], 'UTF-8');
-        $id_rol = $_POST['id_rol'];
+        $id_rol = 1;
         $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
         $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
@@ -116,6 +116,7 @@ class UsuariosController{
         $contrasenia = $_POST['clave'];
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
         $foto = $_POST['foto'];
+        $intentos=3;
 
         $usuarios = new UsuariosModel();
         $vacioCampos = $usuarios->esNulo([$ci_usuario, $nombres, $apellidos, $fecha_nacimiento, $correo, $contrasenia, $genero, $foto]);
@@ -139,7 +140,7 @@ class UsuariosController{
             } elseif (UsuariosController::validarCedula($ci_usuario)) {
                 if (UsuariosController::validarNombre($nombres) && UsuariosController::validarApellido($apellidos)) {
                     
-                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto);
+                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto,$intentos);
 
                     // Agregar envío de correo de activación
                     $hash = md5(rand(0, 1000));
@@ -239,16 +240,6 @@ class UsuariosController{
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "Usuarios";
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
-    }
-
-    public function modificarUsuarios_n($id){
-			
-        $usuarios = new UsuariosModel();
-        
-        $data["ci_usuario"] = $id;
-        $data["usuarios"] = $usuarios->get_Usuario($id);
-        $data["titulo"] = "Usuarios";
-        require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
     }
     
     public function actualizarUsuarios(){

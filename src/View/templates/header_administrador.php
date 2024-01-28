@@ -84,6 +84,9 @@
                         <a class="nav-link" href="http://localhost/Nutritrack/index.php?c=Suscripcion&a=verSuscripcion">
                             <i class="fa-solid fa-book"></i> Planes
                         </a>
+                        <a class="nav-link" href="http://localhost/Nutritrack/index.php?c=Usuarios&a=verUsuarios">
+                            <i class="fa-solid fa-book"></i> Pacientes
+                        </a>
                         <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Configuracion&a=verConfiguracion">
                             <i class="fas fa-cog"></i> Configuración Citas
                         </a>

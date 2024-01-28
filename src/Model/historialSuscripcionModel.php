@@ -81,6 +81,23 @@ class historialSuscripcionModel{
         return $suscripcion;
     }
 
+    public function get_suscripcion_historialSuscrito($ci){
+        $sql = "SELECT s.suscripcion, s.fecha_inicio, s.fecha_fin
+        FROM historial_suscripcion AS s
+        INNER JOIN usuario AS u ON s.ci_paciente = u.ci_usuario
+        WHERE u.ci_usuario = 'ci'
+        LIMIT 1";
+
+        $result = $this->db->query($sql);
+        $suscripcion = array();
+    
+        while ($fila = $result->fetch_assoc()) {
+            $suscripcion[] = $fila;
+        }
+
+        return $suscripcion;
+    }
+
     
         
     public function insertar_HistorialSuscripcion($id_suscripcion, $ci_paciente, $fecha_inicio, $fecha_fin, $estado){

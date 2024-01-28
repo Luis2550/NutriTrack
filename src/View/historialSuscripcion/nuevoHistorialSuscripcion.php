@@ -23,10 +23,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <main class="main main_historial container-fluid mt-4">
     <div class="row justify-content-center align-items-center">
         <div class="col-md-6">
-            <form id="nuevo" name="nuevo" method="POST" action="index.php?c=HistorialSuscripcion&a=guardarHistorialSuscripcion" autocomplete="off" class="needs-validation" novalidate>
+        <form id="formHistorial" name="nuevo" method="POST" action="index.php?c=HistorialSuscripcion&a=guardarHistorialSuscripcion" autocomplete="off" class="needs-validation" novalidate>
+
 
                 <h2 class="text-center">Registro <?php echo $data['titulo']; ?></h2>
-
+                <input type="text" id="ci_usuario" name="ci_usuario" value="<?php echo htmlspecialchars($_GET['ci_usuario'] ?? ''); ?>">
                 <div class="form-group">
                     <label for="id_suscripcion">Suscripción:</label>
                     <select class="form-control" id="id_suscripcion" name="id_suscripcion" required onchange="actualizarDatos()">
@@ -98,9 +99,23 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             alert("Registro cancelado");
         }
 
+        document.getElementById("formHistorial").addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+        // Aquí puedes agregar lógica adicional si es necesario
+        this.submit(); // Envía el formulario manualmente
+        });
+
         function mostrarVentanaModal() {
-            $('#confirmacionModal').modal('show');
+        // Antes de mostrar la ventana modal, muestra los datos que se enviarán
+        console.log("Cédula de usuario: " + document.getElementById("ci_usuario").value);
+        console.log("Suscripción: " + document.getElementById("id_suscripcion").value);
+        console.log("Fecha de inicio: " + document.getElementById("fecha_inicio").value);
+
+        // Muestra la ventana modal
+        $('#confirmacionModal').modal('show');
         }
+
+
 
         function calcularFechas(duracionDias) {
             var fechaInicioInput = document.getElementById("fecha_inicio");
@@ -146,7 +161,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href='http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoSecuencial&ci_usuario=<?php echo $data['ci_usuario']; ?>'
+            href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico"
             role="button"
         >
             Siguiente
