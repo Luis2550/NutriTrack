@@ -194,7 +194,7 @@ class CitasController {
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Cita Cancelada';
-                $mail->Body = '';
+                $mail->Body = 'Cita cancelada';
                 $mail->addAttachment('./public/assets/images/Cita-Cancelada.png', 'imagen_cita_cancelada.png', 'base64', 'image/png');
 
 
