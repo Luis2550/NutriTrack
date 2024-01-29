@@ -13,11 +13,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
-    <h2 class="titulo_citas">Ver Citas</h2>
+    <h2 class="titulo_h2">Ver Citas</h2>
 
     <div class="vista_tabla">
         
-        <table id="tabla_id" class="table table-bordered dataTable" style="width:100%">
+        <table id="tabla_id" class="table-responsive table-bordered dataTable" style="width:100%">
 
             <thead>
                 <tr>

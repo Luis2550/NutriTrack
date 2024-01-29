@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <main class="main main_historialCli"> 
     <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-    <h2>Ver Historial Clinico</h2>
+    <h2 class="titulo_h2">Ver Historial Clinico</h2>
 
     <div class="row">
     <?php foreach ($data['historial_clinico'] as $historia): ?>

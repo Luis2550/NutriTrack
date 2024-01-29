@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
    
     <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
-    <h2>Ver Historial Medidas</h2>
+    <h2 class="titulo_h2">Ver Historial Medidas</h2>
 
     <?php 
         foreach ($histClinico['datos'] as $dato) {
@@ -85,8 +85,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 
     <!-- Gráfica de Historial de Pesos -->
-    <div style="width: 80%; margin: auto;">
-        <canvas id="pesoChart"></canvas>
+    <div class="grafica" style="width: 80%; margin: auto;">
+        <canvas class="grafica-2" id="pesoChart"></canvas>
     </div>
 
     <div class="d-flex justify-content-between mt-4">

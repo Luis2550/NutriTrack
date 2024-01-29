@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     
     ?> </h2>
 
-<h1>Historial Clínico</h1>
+<h2 class="titulo_h2">Historial Clínico</h2>
 
     <div class="formulario-intro-container">
         <div class="formulario-intro">
@@ -32,7 +32,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </p>
     </div>
 
-    <form action="#" method="post">
+    <form action="#" method="post" class="form-responsive">
 
    
         <label for="fecha_creacion">Fecha Creación*</label>
@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <input type="text" value="<?php echo $data['historial_clinico']['direccion'] ?>" readonly id="direccion" name="direccion" required>
 
         <label for="enfermedades">ANTECEDENTES MEDICOS PERSONALES: (marque únicamente la opción que aplique)</label>
-        <table id="enfermedadesTable">
+        <table class="table-responsive" id="enfermedadesTable">
             <thead>
                 <tr>
                     <th>ENFERMEDADES/ CIRUGIAS</th>

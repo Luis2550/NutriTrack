@@ -21,6 +21,9 @@
     
     <!-- Otros enlaces de estilos aquí -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyTq1iUJl5E9l7Ixn0bPbIq9tlRyP1iR6L" crossorigin="anonymous"></script>
+
+    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -66,6 +69,84 @@
                 color: #f0fdf4;
             }
         }
+
+        @media (max-width: 767px) {
+            .navbar {
+                width: 100%;
+                background-color: #4bdd86; 
+                
+            }
+
+            .navbar a{
+                color: white;
+            }
+
+            .main .title{
+                font-size: 22px;
+                margin-top: 15px;
+            }
+
+            .main .titulo_h2{
+                text-align: center;
+                font-size: 18px;
+                margin: 40px 0;
+            }
+
+            .card-body .card-title{
+                font-size: 18px;
+            }
+            
+            .btn{
+                padding: 5px 8px;
+            }
+
+            .main_historialCli{
+                all: unset;
+            }
+
+            .main_historialCli .formulario-intro-container{
+                padding: 0;
+                all: unset;
+                width: 100%
+            }
+
+            .main_historialCli .formulario-intro{
+                padding: 0;
+            }
+
+            .main_historialCli .form-responsive{
+                padding: 0;
+                width:100%;
+            }
+            
+
+            .main_historialMed .pizarra{
+                all: unset;
+                width: 100%;
+                background-color: red;
+            }
+
+            .main_historialMed .notita{
+                width: 100%;
+                font-size: 14px;
+                margin-bottom: ;
+               
+            }
+
+            .main_historialMed .grafica{
+                width:100%;
+            }
+
+            .main_historialMed .grafica{
+                width:100%;
+            }
+
+            .main_historialMed #pesoChart{
+                height: 300px;
+            }
+            
+
+        }
     </style>
 </head>
 <body>
@@ -75,7 +156,7 @@
         <!-- Barra de navegación de Bootstrap -->
         <nav class="navbar navbar-expand-lg  col-md-2">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"><i class="bi bi-list"></i></span>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
