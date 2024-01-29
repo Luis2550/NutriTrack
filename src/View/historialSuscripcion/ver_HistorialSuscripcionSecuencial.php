@@ -20,7 +20,7 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
 
     <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
     <h2>Ver Usuarios</h2>
-    <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button>
+    <!-- <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button> -->
     
 <div class="container mt-5">
     <div class="row">
@@ -30,12 +30,18 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
             <div class="card custom-card" style="width: 300px;">
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $dato['nombres']." ". $dato['apellidos']?></h5>
+                    <p class="card-text">Plan Contratado: <?php echo $dato['suscripcion']; ?></p>
                     <p class="card-text">Fecha Inicio: <?php echo $dato['fecha_inicio']; ?></p>
                     <p class="card-text">Fecha Fin: <?php echo $dato['fecha_fin']; ?></p>
                     <p class="card-text">Estado: <?php echo $dato['estado']; ?></p>
-                    <a href='index.php?c=HistorialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=<?php echo $dato["ci_paciente"]; ?>' class="btn btn-primary">Asignar</a>
-                    <a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-primary">Modificar</a>
-                    <a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-danger">Eliminar</a>
+                    <?php if ($dato['estado'] === 'SIN SUSCRIPCIÓN'): ?>
+                        <a href='index.php?c=HistorialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=<?php echo $dato["ci_paciente"]; ?>' class="btn btn-primary">Asignar</a>
+                    <?php else: ?>
+                        <p>Ya tiene una suscripción. Solo puede editar.</p>
+                        <a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-warning">Modificar</a>
+                        <a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-danger">Eliminar</a>
+                    <?php endif; ?>
+                    
                 </div>
             </div>
         </div>

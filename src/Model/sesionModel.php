@@ -7,10 +7,10 @@ class sesionModel {
         $this->db = Conectar::conexion();
     }
 
-    public function obtenerUsuarioPorCredenciales($username) {
-        $consulta = "SELECT * FROM usuario WHERE correo = ?";
+    public function obtenerUsuarioPorCredenciales($username, $password) {
+        $consulta = "SELECT * FROM usuario WHERE correo = ? AND clave = ?";
         $stmt = $this->db->prepare($consulta);
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
         $usuario = $result->fetch_assoc();

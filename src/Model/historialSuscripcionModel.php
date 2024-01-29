@@ -127,7 +127,7 @@ class historialSuscripcionModel{
         return $fila;
     }
     public function eliminarHistorialSuscripcion($id){
-			
+			//update con los datos por defecto 
         $resultado = $this->db->query("DELETE FROM historial_suscripcion WHERE id_suscripcion = '$id'");
     }
     public function getSuscripcionUsuarios($ci_paciente) {
