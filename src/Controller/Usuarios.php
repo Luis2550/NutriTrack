@@ -242,6 +242,7 @@ class UsuariosController{
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
     }
 
+
     public function modificarUsuarios_n($id){
 			
         $usuarios = new UsuariosModel();

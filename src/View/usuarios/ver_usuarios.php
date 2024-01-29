@@ -33,7 +33,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                             echo"<td>".$dato['apellidos']."</td>";
                             echo"<td>".$dato['edad']."</td>";
                             echo"<td>".$dato['correo']."</td>";
-                            echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios&id=".$dato["ci_usuario"]."' class='btn btn-outline-success btn-sm'><i class='fas fa-edit'></i></a></td>";
+                            echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios_n&id=".$dato["ci_usuario"]."' class='btn btn-outline-success btn-sm'><i class='fas fa-edit'></i></a></td>";
                             echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["ci_usuario"]."' class='btn btn-outline-danger btn-sm'><i class='fas fa-trash-alt'></i></a></td>";
                             echo "<td><a href='index.php?c=historialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=".$dato["ci_usuario"]."' class='btn btn-link'><i class='fas fa-plus'></i> Asignar Plan</a></td>";
                         echo"</tr>";

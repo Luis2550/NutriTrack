@@ -62,7 +62,7 @@ class SesionController {
                     header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p');
                     exit(); // Agregado: evita que el script siga ejecutándose después de la redirección
                 } elseif ($rol['rol'] === 'Nutriologa') {
-                    header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_n');
+                    header('Location: http://localhost/nutritrack/index.php?c=Citas&a=verCitas');
                     exit(); // Agregado: evita que el script siga ejecutándose después de la redirección
                 }
             } else {
