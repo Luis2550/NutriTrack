@@ -10,8 +10,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 include("./src/View/templates/header_administrador.php")
 ?>
 
-<main class="main main_configuracion">
-    <div class="vista_configuracion">
+
+    <div class="main_configuracion vista_configuracion">
+
         <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
         <form id="modificar" name="modificar" method="POST" action="index.php?c=Configuracion&a=actualizarConfiguraciones">
@@ -144,84 +145,15 @@ include("./src/View/templates/header_administrador.php")
 
             <br><br>
 
-            <h2>Calendario de Fechas</h2>
+            <h2>Dias de feriado:</h2>
+            <input type="text" id="dias_Feriados" name="dias_Feriados" value="<?php echo $data["configuraciones"]['dias_Feriados'];?>" readonly>
+            <button type="button" class="btn-fecha" id="guardarFechas">Guardar Fechas</button>
 
-<div id="calendario"></div>
-<div id="fechasSeleccionadas"></div>
+            <div id="fechasGuardadas">
+                <?php echo $data["configuraciones"]['dias_Feriados'];?>
+            </div>
 
-<script>
-    $(function() {
-        var fechasSeleccionadas = obtenerFechasSeleccionadas();
-
-        // Configura el calendario
-        $("#calendario").datepicker({
-            beforeShowDay: function(date) {
-                // Marca los días seleccionados con un color diferente
-                var dateString = $.datepicker.formatDate("yy-mm-dd", date);
-                return [fechasSeleccionadas.indexOf(dateString) === -1];
-            },
-            onSelect: function(dateText, inst) {
-                // Al seleccionar una fecha, la agrega o la quita de la lista de fechas seleccionadas
-                var index = fechasSeleccionadas.indexOf(dateText);
-                if (index === -1) {
-                    fechasSeleccionadas.push(dateText);
-                } else {
-                    fechasSeleccionadas.splice(index, 1);
-                }
-
-                // Actualiza la lista de fechas seleccionadas
-                actualizarListaFechas();
-                guardarFechasSeleccionadas();
-            }
-        });
-
-        // Maneja el clic en el botón "Guardar Fechas"
-        $("#guardarFechas").click(function() {
-            // Oculta el calendario
-            $("#calendario").hide();
-        });
-
-        function actualizarListaFechas() {
-            // Muestra la lista de fechas seleccionadas
-            $("#fechasSeleccionadas").html("");
-            fechasSeleccionadas.forEach(function(fecha) {
-                var $fechaDiv = $("<div>" + fecha + " <button class='borrarFecha' data-fecha='" + fecha + "'>Borrar</button></div>");
-                $("#fechasSeleccionadas").append($fechaDiv);
-            });
-
-            // Agrega el evento de clic para borrar fechas
-            $(".borrarFecha").on("click", function() {
-                var fechaBorrar = $(this).data("fecha");
-                var index = fechasSeleccionadas.indexOf(fechaBorrar);
-                if (index !== -1) {
-                    fechasSeleccionadas.splice(index, 1);
-                    // Actualiza la lista y guarda los cambios
-                    actualizarListaFechas();
-                    guardarFechasSeleccionadas();
-                }
-            });
-
-            // Actualiza el calendario
-            $("#calendario").datepicker("refresh");
-        }
-
-        function guardarFechasSeleccionadas() {
-            // Guarda las fechas seleccionadas en el almacenamiento local
-            localStorage.setItem("fechasSeleccionadas", JSON.stringify(fechasSeleccionadas));
-        }
-
-        function obtenerFechasSeleccionadas() {
-            // Obtiene las fechas seleccionadas del almacenamiento local
-            var storedFechas = localStorage.getItem("fechasSeleccionadas");
-            return storedFechas ? JSON.parse(storedFechas) : [];
-        }
-
-        // Marca las fechas seleccionadas al cargar la página
-        actualizarListaFechas();
-    });
-</script>
-            
-            <br><br>
+            <br>
             <label for="duracion_cita">Duración de la cita:</label>
             <select name="duracion_cita" id="duracion_cita" required>
                 <option value="00:30:00" <?php echo ($duracionCita === '00:30:00') ? 'selected' : ''; ?>>30 min</option>
@@ -234,6 +166,65 @@ include("./src/View/templates/header_administrador.php")
             <button id="guardar" name="guardar" type="submit">Guardar</button>
         </form>
     </div>
-</main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    $(document).ready(function() {
+        // Inicializa flatpickr para seleccionar múltiples fechas
+        var fechaPicker = flatpickr("#dias_Feriados", {
+            enableTime: false,
+            dateFormat: "Y-m-d",
+            mode: "multiple",
+        });
+
+        // Array para almacenar las fechas seleccionadas
+        var fechasSeleccionadas = [];
+
+        // Maneja el evento del botón "Guardar Fechas"
+        $("#guardarFechas").on("click", function() {
+            // Obtiene las fechas seleccionadas
+            var selectedDates = fechaPicker.selectedDates;
+
+            // Agrega las fechas seleccionadas al array
+            fechasSeleccionadas = fechasSeleccionadas.concat(selectedDates);
+
+            // Muestra todas las fechas almacenadas debajo del formulario
+            mostrarFechas(fechasSeleccionadas);
+            
+            // Actualiza el campo oculto con las fechas seleccionadas
+            actualizarCampoOculto(fechasSeleccionadas);
+        });
+
+        // Función para mostrar todas las fechas almacenadas debajo del formulario
+        function mostrarFechas(fechas) {
+            // Contenedor donde se mostrarán todas las fechas
+            var fechasGuardadasContainer = $("#fechasGuardadas");
+
+            // Crea un elemento de lista para cada fecha
+            var listaFechas = "<ul>";
+            fechas.forEach(function(fecha) {
+                listaFechas += "<li>" + fecha.toLocaleDateString() + "</li>";
+            });
+            listaFechas += "</ul>";
+
+            // Agrega la lista de fechas al contenedor
+            fechasGuardadasContainer.html(listaFechas);
+        }
+
+        // Función para actualizar el campo oculto con las fechas seleccionadas
+        function actualizarCampoOculto(fechas) {
+            // Convierte las fechas a formato de texto antes de enviarlas al servidor
+            var fechasTexto = fechas.map(function(fecha) {
+                return fecha.toISOString().split('T')[0];
+            });
+
+            // Actualiza el valor del campo oculto con las fechas seleccionadas
+            $("#dias_Feriados").val(fechasTexto.join(','));
+        }
+    });
+</script>
+
 
 <?php include("./src/View/templates/footer_administrador.php")?>

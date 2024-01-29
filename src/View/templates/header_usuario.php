@@ -3,7 +3,7 @@
     $urlBase = "http://localhost/nutritrack/";
     date_default_timezone_set('America/Guayaquil'); // Establecer la zona horaria a Ecuador
     $fecha_actual = (new DateTime())->format('Y-m-d');
-    $fecha_maxima = date("Y-m-d", strtotime($fecha_actual . " + 9 days"));
+    // $fecha_maxima = date("Y-m-d", strtotime($fecha_actual . " + 9 days"));
     
 ?>
 

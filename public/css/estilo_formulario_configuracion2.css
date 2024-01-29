@@ -276,11 +276,19 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 30px;
   }
   
   .main_configuracion button:hover {
     background-color: #45a049;
   }
+
+  
+  .main_configuracion .btn-fecha{
+        padding: 5px 10px;
+        background-color: #0763db;
+        margin-bottom: 10px;
+    }
   
   /* Estilo para el contenedor del select */
   .main_configuracion  .select-container {
@@ -378,6 +386,5 @@
   .main_configuracion #duracion_cita + br {
       margin-bottom: 15px;
   }
-
 
   

@@ -243,4 +243,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
   </main>
 
+  <div class="d-flex justify-content-between mt-4">
+        <a name="" id="" class="btn btn-primary" href="http://localhost/Nutritrack/index.php?c=historialClinico&a=verHistorialClinicoSecuencial&ci_usuario=<?php echo $data['historial_clinico']['ci_paciente'] ?>" role="button">Regresar</a>
+    </div>
+
 <?php include("./src/View/templates/footer_administrador.php")?>

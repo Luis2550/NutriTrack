@@ -24,6 +24,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     echo "<p><strong>Hora inicio tarde:</strong> ".$dato['hora_inicio_tarde']."</p>";
                     echo "<p><strong>Hora fin tarde:</strong> ".$dato['hora_fin_tarde']."</p>";
                     echo "<p><strong>Días Laborales:</strong> ".$dato['dias_semana']."</p>";
+                    echo "<p><strong>Feriados:</strong> ".$dato['dias_Feriados']."</p>";
                     echo "<p><strong>Duración cita:</strong> ".$dato['duracion_cita']."</p>";
                     echo "<p><strong>Horas totales:</strong> ".$dato['horas_laborales']."</p>";
                     echo "<p class='acciones'>

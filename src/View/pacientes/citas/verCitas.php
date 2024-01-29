@@ -17,7 +17,7 @@ $citas_actuales = [];
 $citas_pasadas = [];
 
 foreach ($data['citas'] as $cita) {
-    if ($cita['fecha'] == $fecha_actual) {
+    if ($cita['fecha'] >= $fecha_actual) {
         $citas_actuales[] = $cita;
     } elseif ($cita['fecha'] < $fecha_actual) {
         $citas_pasadas[] = $cita;
@@ -28,10 +28,10 @@ foreach ($data['citas'] as $cita) {
 <?php include("./src/View/templates/header_usuario.php")?>
 <br>
 <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-<h1>Citas del Paciente</h1>
+<h3>Citas del Paciente (Por verse)</h3>
 
 <?php if (!empty($citas_actuales)): ?>
-    <h2>Cita de hoy</h2>
+    
     <div class="table-responsive">
         <table class="table table-bordered dataTable">
             <thead>
@@ -65,7 +65,7 @@ foreach ($data['citas'] as $cita) {
 <br>
 
 <?php if (!empty($citas_pasadas)): ?>
-    <h2>Citas pasadas</h2>
+    <h3>Citas Pasadas</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-sm dataTable" id="citas_pasadas">
             <thead>

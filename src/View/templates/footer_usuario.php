@@ -22,21 +22,28 @@
 <script>
     // Arreglo de días permitidos
     var diasPermitidos = <?php echo json_encode($diasPermitidos); ?>;
+    var diasFeriados = <?php echo json_encode($configuraciones[0]['dias_Feriados']); ?>;
     console.log(diasPermitidos);
+    console.log(diasFeriados);
 
-    // Función para deshabilitar fechas no permitidas
+    // Función para verificar si es feriado o no laboral
     document.getElementById('fecha2').addEventListener('input', function() {
         var seleccionada = new Date(this.value);
-        var diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado','Domingo'];
+        var diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
         var diaSeleccionado = diasSemana[seleccionada.getDay()];
 
-        if (!diasPermitidos.includes(diaSeleccionado)) {
+        // Formatear la fecha seleccionada al formato 'YYYY-MM-DD'
+        var fechaFormateada = seleccionada.toISOString().split('T')[0];
+
+        if (diasFeriados.includes(fechaFormateada)) {
+            alert('Este día es feriado');
+            this.value = ''; // Limpiar el valor
+        } else if (!diasPermitidos.includes(diaSeleccionado)) {
             alert('Este día no es laboral');
             this.value = ''; // Limpiar el valor
         }
     });
 </script>
-
 
 
 <!-- Scripts de Bootstrap y otros aquí -->

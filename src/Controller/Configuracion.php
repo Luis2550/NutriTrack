@@ -65,7 +65,8 @@ class ConfiguracionController{
             'hora_inicio_tarde' => $datos_existente['hora_inicio_tarde'],
             'hora_fin_tarde' => $datos_existente['hora_fin_tarde'],
             'dias_semana' => $datos_existente['dias_semana'],
-            'duracion_cita' => $datos_existente['duracion_cita']
+            'duracion_cita' => $datos_existente['duracion_cita'],
+            'dias_Feriados' => $datos_existente['dias_Feriados']
         );
     
         // Recuperar los datos de la solicitud de actualización
@@ -76,6 +77,8 @@ class ConfiguracionController{
         $hora_fin_tarde = $_POST['hora_fin_tarde'];
         $dias_semana_array = $_POST['dias_semana'];
         $duracion_cita = $_POST['duracion_cita'];
+        $dias_Feriados = $_POST['dias_Feriados'];
+
     
         // Convertir el array de días a una cadena separada por comas
         $dias_semana = implode(',', $dias_semana_array);
@@ -88,7 +91,8 @@ class ConfiguracionController{
             'hora_inicio_tarde' => $hora_inicio_tarde,
             'hora_fin_tarde' => $hora_fin_tarde,
             'dias_semana' => $dias_semana,
-            'duracion_cita' => $duracion_cita
+            'duracion_cita' => $duracion_cita,
+            'dias_Feriados' => $dias_Feriados,
         )) {
             // No se realizaron cambios
             echo "<script>alert('No se han realizado cambios');</script>";
@@ -127,7 +131,7 @@ class ConfiguracionController{
     
             
             // Realizar la actualización de configuraciones
-            $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita);
+            $configuraciones->modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita, $dias_Feriados);
             $citas->cancelar_citas_pacientes();
             echo "<script>alert('Se realizaron cambios');</script>";
         }

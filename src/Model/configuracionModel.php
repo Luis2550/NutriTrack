@@ -54,9 +54,9 @@ class configuracionModel{
         return $resultado->fetch_assoc();
     }
     
-    public function modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita){
+    public function modificar_Configuraciones($id_configuracion, $ci_nutriologa, $hora_inicio_manana, $hora_fin_manana, $hora_inicio_tarde, $hora_fin_tarde, $dias_semana, $duracion_cita,$dias_Feriados){
         $resultado = $this->db->query("UPDATE configuracion
-            SET ci_nutriologa='$ci_nutriologa', hora_inicio_manana='$hora_inicio_manana', hora_fin_manana='$hora_fin_manana', hora_inicio_tarde='$hora_inicio_tarde', hora_fin_tarde='$hora_fin_tarde', dias_semana='$dias_semana', duracion_cita='$duracion_cita'
+            SET ci_nutriologa='$ci_nutriologa', hora_inicio_manana='$hora_inicio_manana', hora_fin_manana='$hora_fin_manana', hora_inicio_tarde='$hora_inicio_tarde', hora_fin_tarde='$hora_fin_tarde', dias_semana='$dias_semana', duracion_cita='$duracion_cita',dias_Feriados='$dias_Feriados'
             WHERE id_configuracion = '$id_configuracion'");
     }
     
