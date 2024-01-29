@@ -9,15 +9,15 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main class="main main_citas">
+<main class="main main_citas"> 
 
     <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
     <h2 class="titulo_h2">Ver Citas</h2>
 
-    <div class="vista_tabla">
+    <div class="table-responsive">
         
-        <table id="tabla_id" class="table-responsive table-bordered dataTable" style="width:100%">
+    <table class="table table-bordered dataTable" id="tabla_id">
 
             <thead>
                 <tr>
@@ -54,7 +54,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </table>
     </div>
 
-</main>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

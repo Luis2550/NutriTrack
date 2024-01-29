@@ -144,6 +144,15 @@
             .main_historialMed #pesoChart{
                 height: 300px;
             }
+
+            .main_historialMed .notita{
+                margin-bottom: 20px;
+            }
+
+            /* .navbar .navbar-toggler-icon{
+                background-color: black;
+                color: red;
+            } */
             
 
         }
@@ -156,7 +165,7 @@
         <!-- Barra de navegación de Bootstrap -->
         <nav class="navbar navbar-expand-lg  col-md-2">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><i class="bi bi-list"></i></span>
+            <i class="fa-solid fa-bars"></i>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">

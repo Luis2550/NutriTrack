@@ -63,6 +63,31 @@
                 color: #c0dffd;
             }
         }
+
+        @media (max-width: 767px) {
+            .navbar {
+                width: 100%;
+                background-color: #3d90f4;
+                
+            }
+
+            .navbar a{
+                color: white;
+            }
+
+            .main .title{
+                font-size: 22px;
+                margin-top: 15px;
+            }
+
+            .main .titulo_h2{
+                text-align: center;
+                font-size: 18px;
+                margin: 40px 0;
+            }
+
+
+        }
     </style>
 </head>
 <body>
@@ -72,7 +97,7 @@
         <!-- Barra de navegación de Bootstrap -->
         <nav class="navbar navbar-expand-lg  col-md-2">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <i class="fa-solid fa-bars"></i>
             </button>
             
             <div class="collapse navbar-collapse" id="navbarNav">
