@@ -20,13 +20,14 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <h2>Registro</h2>
         
         <label for="id_historial_clinico">Id Historial Clinico:</label>
-        <select id="id_historial_clinico" name="id_historial_clinico" required>
-            <?php
-                foreach ($data['opciones_paciente'] as $paciente) {
-                    echo "<option value='{$paciente['id_historial_clinico']}'>{$paciente['id_historial_clinico']} - {$paciente['nombre_completo']}</option>";
+        
+        <input type="text" name="id_historial_clinico" id="id_historial_clinico" name="id_historial_clinico" readonly value="<?php
+            foreach ($data['opciones_paciente'] as $paciente) {
+                if ($id_clinico == $paciente['id_historial_clinico']) {
+                    echo "{$paciente['id_historial_clinico']}";
                 }
-            ?>
-        </select>
+            }
+        ?>">
 
 
         <!-- Agregamos las validaciones directamente en los campos -->

@@ -24,6 +24,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             </div>
         </div>
     </div>
+
+
+    <div class="d-flex justify-content-between mt-4">
+        <a name="" id="" class="btn btn-primary" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividad&ci_usuario=<?php echo $data["actividad"]['ci_paciente']; ?>" role="button">Regresar</a>
+    </div>
+
 </main>
 
 <?php include("./src/View/templates/footer_administrador.php")?>

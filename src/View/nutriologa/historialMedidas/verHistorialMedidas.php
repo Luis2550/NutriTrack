@@ -19,11 +19,25 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
     <h2>Ver Historial Medidas</h2>
 
+    <?php 
+        foreach ($histClinico['datos'] as $dato) {
+            // Mostrar la carta solo cuando $dato['ci_usuario'] sea igual a $data['ci_usuario']
+            if ($dato['ci_paciente'] == $data['ci_usuario']) {
+    
+                $cedula = $data['ci_usuario'];
+                $id_clinico = $dato['id_historial_clinico']; // Cambiado a 'id_historial_clinico'
+
+            }
+        }
+
+    ?>
+
+
     <a
         name=""
         id=""
         class="btn btn-primary"
-        href="http://localhost/nutritrack/index.php?c=historialMedidas&a=nuevoHistorialMedidas"
+        href="http://localhost/nutritrack/index.php?c=historialMedidas&a=nuevoHistorialMedidas&id=<?php echo $id_clinico; ?>"
         role="button"
         >Agregar</a
     >
@@ -52,7 +66,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 echo "<p><strong>Fecha:</strong> " . $dato['fecha'] . "</p>";
                 echo "<div class='celda-acciones'>
                         <a class='btn btn-modificar' href='index.php?c=historialMedidas&a=modificarHistorialMedidas&id=".$dato["id_historial_medidas"]."'>Modificar</a>
-                        <a class='btn btn-eliminar' href='index.php?c=historialMedidas&a=eliminarHistorialMedidas&id=".$dato["id_historial_medidas"]."'>Eliminar</a>
+                        <a class='btn btn-eliminar' href='index.php?c=historialMedidas&a=eliminarHistorialMedidas&id=".$dato["id_historial_medidas"]."&ci_usuario=".$cedula."'>Eliminar</a>
                       </div>";
                 echo "</div>";
 
