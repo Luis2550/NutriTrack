@@ -49,7 +49,8 @@ foreach ($data['citas'] as $cita) {
                             <td><?= $cita['estado'] ?></td>
                             <td>
                                 <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
-                                <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-danger">Cancelar</a>
+                                <a href="index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>" class="btn btn-danger" onclick="return confirmarCancelarCita();">Cancelar</a>
+
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -61,6 +62,14 @@ foreach ($data['citas'] as $cita) {
     <p>No hay citas registradas para la fecha actual o no hay citas con el estado "Reservado".</p>
 <?php endif; ?>
 <br>
+
+<script>
+function confirmarCancelarCita() {
+    var confirmacion = confirm("¿Está seguro de que desea cancelar la cita? Si cancela la cita, no podrá agendar otra para hoy.");
+    return confirmacion;
+}
+</script>
+
 
 <br>
 

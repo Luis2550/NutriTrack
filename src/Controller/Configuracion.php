@@ -123,7 +123,7 @@ class ConfiguracionController{
                     $mail->Body    = 'Se han realizado cambios en la configuración. Por favor, agende su cita nuevamente.';
     
                     $mail->send();
-                    echo 'Correo enviado correctamente a ' . $correo . '<br>';
+                    // echo 'Correo enviado correctamente a ' . $correo . '<br>';
                 } catch (Exception $e) {
                     echo "No se pudo enviar el correo a " . $correo . ". Error del servidor de correo: {$mail->ErrorInfo}<br>";
                 }
@@ -137,9 +137,9 @@ class ConfiguracionController{
         }
     
         // Imprimir los datos antiguos (puedes quitar esto después de verificar)
-        echo "Datos Antiguos:<pre>";
-        print_r($datos_antiguos);
-        echo "</pre>";
+        // echo "Datos Antiguos:<pre>";
+        // print_r($datos_antiguos);
+        // echo "</pre>";
     
         $data["titulo"] = "Configuraciones";
         $this->verConfiguracion();

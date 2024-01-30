@@ -76,7 +76,8 @@ class historialClinicoController{
     }
     
     public function actualizarHistorialClinico() {
-        
+
+       
         $id = $_POST['id_historial_clinico'];
         $fecha_creacion = date("Y-m-d");
 
@@ -117,9 +118,14 @@ class historialClinicoController{
             $cafe, $medicamentosHabituales, $observaciones, $observaciones_g
         );
 
+        $ci_usuario_model = new historialClinicoModel();
+        $ci_usuario = $ci_usuario_model->buscarUsuario($id);
+    
+
         // Redireccionar o realizar alguna acción adicional
         $data["titulo"] = "historial_clinico";
-        $this->verHistorialClinico();
+        header('Location: http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoSecuencial&ci_usuario='. $ci_usuario['ci_paciente']);
+        exit();
     }
 
 

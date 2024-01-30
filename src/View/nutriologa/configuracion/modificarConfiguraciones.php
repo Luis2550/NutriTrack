@@ -147,12 +147,10 @@ include("./src/View/templates/header_administrador.php")
 
             <h2>Dias de feriado:</h2>
             <input type="text" id="dias_Feriados" name="dias_Feriados" value="<?php echo $data["configuraciones"]['dias_Feriados'];?>" readonly>
-            <button type="button" class="btn-fecha" id="guardarFechas">Guardar Fechas</button>
+            <!-- <button type="button" class="btn-fecha" id="guardarFechas">Guardar Fechas</button>
 
-            <div id="fechasGuardadas">
-                <?php echo $data["configuraciones"]['dias_Feriados'];?>
-            </div>
-
+            <div id="fechasGuardadas">-->
+            
             <br>
             <label for="duracion_cita">Duración de la cita:</label>
             <select name="duracion_cita" id="duracion_cita" required>

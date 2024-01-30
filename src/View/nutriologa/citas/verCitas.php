@@ -41,7 +41,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         echo "<td>".$dato['nombres']."</td>";
                         echo "<td>".$dato['apellidos']."</td>";
                         echo "<td class='acciones'>
-                                <a href='index.php?c=Citas&a=marcarAsistenciaCita&id=".$dato["ci_paciente"]."' class='btn btn-info'>Asistió</a>
+                                <a href='index.php?c=Citas&a=marcarAsistenciaCita&id=".$dato["id_cita"]."&ci_usuario=".$dato["ci_paciente"]."' class='btn btn-info'>Asistió</a>
                                 <a href='index.php?c=Citas&a=marcarNoAsistenciaCita&id=".$dato["id_cita"]."' class='btn btn-warning'>No Asistió</a>
                                 <a href='index.php?c=Citas&a=eliminarCitas&id=".$dato["id_cita"]."' class='btn btn-danger'>Cancelar</a>
                         </td>";

@@ -131,13 +131,19 @@ class CitasController {
         
     }
 
-    public function marcarAsistenciaCita($ci_usuario) {
+    public function marcarAsistenciaCita() {
         $citas = new CitasModel();
+    
+        $id_cita = isset($_GET['id']) ? $_GET['id'] : null;
+        $ci_usuario = isset($_GET['ci_usuario']) ? $_GET['ci_usuario'] : null;
+    
         $data["id_cita"] = $id_cita;
-        // $cita = $citas->marcar_Cita_Asistida($id_cita);
+        $cita = $citas->marcar_Cita_Asistida($id_cita);
+        
         header('Location: http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcionSecuencial&ci_usuario='. $ci_usuario);
         exit();
     }
+    
 
     public function marcarNoAsistenciaCita($id_cita) {
         $citas = new CitasModel();

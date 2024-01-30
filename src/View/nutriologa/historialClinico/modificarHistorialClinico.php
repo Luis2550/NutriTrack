@@ -71,6 +71,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <input type="text" readonly id="edad" name="edad" value="<?php echo $data['historial_clinico']['edad'] ?>">
 
 
+
         <label for="correo">CORREO ELECTRÓNICO*</label>
         <input type="text" value="<?php echo $data['historial_clinico']['correo'] ?>" readonly id="cedula" name="cedula">
 
@@ -78,7 +79,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <input type="text" value="<?php echo $data['historial_clinico']['ocupacion'] ?>" id="ocupacion" name="ocupacion" required>
 
         <label for="celular">NUMERO DE CELULAR*</label>
-<input type="tel" value="<?php echo $data['historial_clinico']['celular'] ?>" id="celular" name="celular" pattern="\d{10}" required>
+        <input type="text" value="<?php echo $data['historial_clinico']['celular'] ?>" id="celular" name="celular" pattern="\d{10}" required>
 
 <div id="celularError" style="color: red;"></div>
 
