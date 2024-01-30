@@ -40,10 +40,10 @@ function calcularFechas() {
     else{
         // Calcular la fecha de fin sumando 7 días a la fecha de inicio
         var fechaFin = new Date(fechaInicio);
-        fechaFin.setDate(fechaInicio.getDate() + 7);
+        fechaFin.setDate(fechaInicio.getDate() + 6);  // Sumar 6 días en lugar de 7
 
         // Calcular la duración en días
-        var duracionDias = Math.ceil((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
+        var duracionDias = Math.ceil((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;  // Sumar 1 para incluir el día de inicio
 
         // Actualizar los campos en el formulario
         fechaFinInput.valueAsDate = fechaFin;

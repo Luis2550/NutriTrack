@@ -69,7 +69,7 @@ class DetalleComidaModel{
     
     public function get_DetalleComidasId($id_plan_nutri){
 
-        $sql = "SELECT * FROM detalle_comida AS dc 
+        $sql = "SELECT c.*, u.*, pn.*, dc.*, tc.id_tipo_comida, tc.tipo_comida FROM detalle_comida AS dc 
         JOIN plan_nutricional AS pn ON dc.id_plan_nutricional = pn.id_plan_nutricional 
         JOIN comida AS c on c.id_comida = dc.id_comida 
         JOIN tipo_comida AS tc ON tc.id_tipo_comida = c.id_tipo_comida

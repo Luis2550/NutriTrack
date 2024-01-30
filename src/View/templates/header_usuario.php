@@ -103,7 +103,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="sidebar-sticky">
                     <nav class="nav flex-column">
-                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p"><i class="fas fa-home"></i> Inicio</a>
+                    <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p&ci_usuario=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-home"></i> Inicio</a>
+
                         
                     <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
 

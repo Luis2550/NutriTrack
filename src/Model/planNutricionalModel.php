@@ -62,6 +62,23 @@ class planNutricionalModel{
         return $this->planNutri;
     }
 
+    public function get_comidasDiaPaciente($ci, $dia, $fecha){
+
+        $sql = "SELECT pn.*, u.*, dc.*, c.*, tc.id_tipo_comida, tc.tipo_comida
+        FROM plan_nutricional AS pn 
+        JOIN usuario AS u ON u.ci_usuario = pn.ci_paciente
+        JOIN detalle_comida AS dc ON dc.id_plan_nutricional = pn.id_plan_nutricional
+        JOIN comida AS c ON c.id_comida = dc.id_comida
+        JOIN tipo_comida AS tc ON tc.id_tipo_comida = c.id_tipo_comida
+        WHERE u.ci_usuario = '$ci' AND '$fecha' BETWEEN pn.fecha_inicio AND pn.fecha_fin AND dc.dia = '$dia';";
+        $resultado = $this->db->query($sql);
+
+        while($fila = $resultado->fetch_assoc()){
+            $this->planNutri[] = $fila;
+        }
+        return $this->planNutri;
+    }
+
     
 
     public function insertar_planNutricional($ci_nutriologa, $ci_paciente, $duracion_dias , $fecha_fin, $fecha_inicio){

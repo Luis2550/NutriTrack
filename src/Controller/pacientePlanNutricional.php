@@ -17,7 +17,7 @@ class pacientePlanNutricionalController{
             $planNutri = new planNutricionalModel();
             $data['titulo'] = ' Plan Nutricional';
             $data['plan_nutricional'] = $planNutri->get_PlanNutricionalesRolPaciente($ci_paciente);
-    
+            
             require_once(__DIR__ . '/../View/planNutricional/pacienteVerPlanNutricional.php');
             // Ahora puedes utilizar la variable $ci_paciente en tu código PHP
             //echo "Cédula del paciente: " . $ci_paciente;

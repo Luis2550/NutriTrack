@@ -7,18 +7,18 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     exit();
 }
 
-// Establecer la zona horaria de Ecuador
-date_default_timezone_set('America/Guayaquil');
+// Obtener la fecha actual
+$fecha_actual = date('Y-m-d');
 
-// Obtener la fecha y hora actual
-$fecha_actual = (new DateTime())->format('Y-m-d');
 // Separar las citas en dos arreglos: una para las citas de la fecha actual y otra para las fechas menores a la actual
 $citas_actuales = [];
 $citas_pasadas = [];
 
 foreach ($data['citas'] as $cita) {
-    if ($cita['fecha'] >= $fecha_actual) {
+    if ($cita['fecha'] == $fecha_actual) {
         $citas_actuales[] = $cita;
+    } elseif ($cita['fecha'] < $fecha_actual) {
+        $citas_pasadas[] = $cita;
     }
 }
 ?>
@@ -26,10 +26,10 @@ foreach ($data['citas'] as $cita) {
 <?php include("./src/View/templates/header_usuario.php")?>
 <br>
 <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-<h3>Cita de Hoy</h3>
+<h1>Citas del Paciente</h1>
 
-<?php if (!empty($citas_actuales) && array_filter($citas_actuales, function($cita) { return $cita['estado'] == 'Reservado'; })): ?>
-    
+<?php if (!empty($citas_actuales)): ?>
+    <h2>Cita de hoy</h2>
     <div class="table-responsive">
         <table class="table table-bordered dataTable">
             <thead>
@@ -43,30 +43,27 @@ foreach ($data['citas'] as $cita) {
             </thead>
             <tbody>
                 <?php foreach ($citas_actuales as $cita): ?>
-                   
-                        <tr>
-                            <td><?= $cita['id_cita'] ?></td>
-                            <td><?= $cita['fecha'] ?></td>
-                            <td><?= $cita['horas_disponibles'] ?></td>
-                            <td><?= $cita['estado'] ?></td>
-                            <td>
-                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
-                                <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-danger">Cancelar</a>
-                            </td>
-                        </tr>
-                   
+                    <tr>
+                        <td><?= $cita['id_cita'] ?></td>
+                        <td><?= $cita['fecha'] ?></td>
+                        <td><?= $cita['horas_disponibles'] ?></td>
+                        <td><?= $cita['estado'] ?></td>
+                        <td>
+                            <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
+                            <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-danger">Cancelar</a>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 <?php else: ?>
-    <p>No hay citas registradas para la fecha actual o no hay citas con el estado "Reservado".</p>
+    <p>No hay citas registradas para la fecha actual.</p>
 <?php endif; ?>
 <br>
 
-
-
-    <h3>Historial Citas</h3>
+<?php if (!empty($citas_pasadas)): ?>
+    <h2>Citas pasadas</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-sm dataTable" id="citas_pasadas">
             <thead>
@@ -78,21 +75,20 @@ foreach ($data['citas'] as $cita) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($data['citas']as $cita): ?>
-                    <?php if ($cita['estado'] != 'Reservado'): ?>
-                        <tr>
-                            <td><?= $cita['id_cita'] ?></td>
-                            <td><?= $cita['fecha'] ?></td>
-                            <td><?= $cita['horas_disponibles'] ?></td>
-                            <td><?= $cita['estado'] ?></td>
-                        </tr>
-                    <?php endif; ?>
+                <?php foreach ($citas_pasadas as $cita): ?>
+                    <tr>
+                        <td><?= $cita['id_cita'] ?></td>
+                        <td><?= $cita['fecha'] ?></td>
+                        <td><?= $cita['horas_disponibles'] ?></td>
+                        <td><?= $cita['estado'] ?></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-
-
+<?php else: ?>
+    <p>No hay citas pasadas registradas para este paciente.</p>
+<?php endif; ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -102,32 +98,7 @@ foreach ($data['citas'] as $cita) {
 
 <script>
     $(document).ready(function () {
-        $('#citas_pasadas').DataTable({
-            "language": {
-                "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
-                "sZeroRecords":    "No se encontraron resultados",
-                "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix":    "",
-                "sSearch":         "Buscar:",
-                "sUrl":            "",
-                "sInfoThousands":  ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst":    "Primero",
-                    "sLast":     "Último",
-                    "sNext":     "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            }
-        });
+        $('#citas_pasadas').DataTable();
     });
 </script>
 

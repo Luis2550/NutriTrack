@@ -42,8 +42,6 @@ sort($diasPermitidos);
             echo $configuracion['dias_semana'];
         }?></h2> 
 
-    <h2 class="diaslaborales">Dias Feriados: <?php echo $configuraciones[0]['dias_Feriados']?></h2> 
-
     <label for="ci_paciente">Paciente:</label>
     <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario'];?>">
 
@@ -70,6 +68,5 @@ sort($diasPermitidos);
     <button id="guardar" name="guardar" type="submit">Registrar</button>
 </form>
 </main>
-
 
 <?php include("./src/View/templates/footer_usuario.php")?>
