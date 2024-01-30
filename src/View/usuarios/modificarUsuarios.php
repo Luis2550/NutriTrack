@@ -2,7 +2,7 @@
 
 <div class="card"> 
     <div class="card-body">
-        <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off">
+        <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off" enctype="multipart/form-data">
             <h2 class="card-title">Editar Datos</h2>
 
             <div class="row">
@@ -64,6 +64,8 @@
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
+                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
+
                         <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
                     </div>
                 </div>

@@ -122,11 +122,21 @@ class UsuariosController{
         //$contrasenia = $_POST['clave'];
         $contrasenia = password_hash(htmlspecialchars($_POST['clave']), PASSWORD_DEFAULT);
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
-        $foto = $_POST['foto'];
+        $foto = $_FILES["foto"]["name"];
         $intentos=3;
 
+        // Procesar la foto
+        $fecha_ = new DateTime();
+        $nombreArchivoFoto = ($foto != '') ? $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"] : "";
+        $tmp_foto = $_FILES["foto"]["tmp_name"];
+
+        if ($tmp_foto != '') {
+            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
+        }
+
+
         $usuarios = new UsuariosModel();
-        $vacioCampos = $usuarios->esNulo([$ci_usuario, $nombres, $apellidos, $fecha_nacimiento, $correo, $contrasenia, $genero, $foto]);
+        $vacioCampos = $usuarios->esNulo([$ci_usuario, $nombres, $apellidos, $fecha_nacimiento, $correo, $contrasenia, $genero, $nombreArchivoFoto]);
 
         if ($vacioCampos) {
             $data["titulo"] = "Usuarios";
@@ -147,7 +157,7 @@ class UsuariosController{
             } elseif (UsuariosController::validarCedula($ci_usuario)) {
                 if (UsuariosController::validarNombre($nombres) && UsuariosController::validarApellido($apellidos)) {
                     
-                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto,$intentos);
+                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto,$intentos);
 
                     // Agregar envío de correo de activación
                     $hash = md5(rand(0, 1000));
@@ -260,21 +270,88 @@ class UsuariosController{
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
     }
     
-    public function actualizarUsuarios(){
+    public function actualizarUsuarios() {
         $id = $_POST['id'];
-        $nombres = $_POST['nombres'];
-        $apellidos = $_POST['apellidos'];
+        $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
+        $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
         $edad = $_POST['edad'];
-        $correo = $_POST['correo'];
+        $correo = strtolower($_POST['correo']);
         $contrasenia = $_POST['clave'];
-        $genero = $_POST['sexo'];
-        $foto = $_POST['foto'];
-
+        $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
+        $foto = $_FILES["foto"]["name"]; // Nueva foto que se está subiendo
+    
+        // Verificar si se está actualizando la foto
+        if ($_FILES["foto"]["tmp_name"] != '') {
+            // Procesar la nueva foto
+            $fecha_ = new DateTime();
+            $nombreArchivoFoto = $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"];
+            $tmp_foto = $_FILES["foto"]["tmp_name"];
+    
+            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
+    
+            // Borrar la foto anterior si existe
+            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
+    
+            if ($usuarioAnterior['foto'] != '') {
+                unlink("./uploads/" . $usuarioAnterior['foto']);
+            }
+        } else {
+            // Si no se actualiza la foto, mantener la foto actual
+            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
+            $nombreArchivoFoto = $usuarioAnterior['foto'];
+        }
+    
         $usuarios = new UsuariosModel();
-        $usuarios->modificar_Usuarios($id,$nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto);
+        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto);
         $data["titulo"] = "usuarios";
-        $this->verUsuarios();
+        
+        
+        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios&ci_paciente='.$id);
+        exit();
     }
+
+
+    public function actualizarUsuarios_n() {
+        $id = $_POST['id'];
+        $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
+        $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
+        $edad = $_POST['edad'];
+        $correo = strtolower($_POST['correo']);
+        $contrasenia = $_POST['clave'];
+        $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
+        $foto = $_FILES["foto"]["name"]; // Nueva foto que se está subiendo
+    
+        // Verificar si se está actualizando la foto
+        if ($_FILES["foto"]["tmp_name"] != '') {
+            // Procesar la nueva foto
+            $fecha_ = new DateTime();
+            $nombreArchivoFoto = $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"];
+            $tmp_foto = $_FILES["foto"]["tmp_name"];
+    
+            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
+    
+            // Borrar la foto anterior si existe
+            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
+    
+            if ($usuarioAnterior['foto'] != '') {
+                unlink("./uploads/" . $usuarioAnterior['foto']);
+            }
+        } else {
+            // Si no se actualiza la foto, mantener la foto actual
+            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
+            $nombreArchivoFoto = $usuarioAnterior['foto'];
+        }
+    
+        $usuarios = new UsuariosModel();
+        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto);
+        $data["titulo"] = "usuarios";
+        
+        
+        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios_n&ci_paciente='.$id);
+        exit();
+    }
+
+    
     
     public function eliminarUsuarios($id){
         

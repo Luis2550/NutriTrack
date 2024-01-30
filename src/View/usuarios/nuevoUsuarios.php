@@ -19,7 +19,7 @@
     }
 </style>
 <div id="form-container" class="container mt-4 col-md-8 my-auto">
-  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=guardarUsuarios" autocomplete="off">
+  <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=guardarUsuarios" autocomplete="off" enctype="multipart/form-data">
     <h2 class="text-center">Registro<?php echo $data['titulo'];?></h2>
     <?php
     if (isset($data['errors']) && count($data['errors']) > 0) {
