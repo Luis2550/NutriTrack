@@ -24,7 +24,7 @@ foreach ($data['citas'] as $cita) {
 <?php include("./src/View/templates/header_usuario.php")?>
 <br>
 <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-<h1>Citas del Paciente</h1>
+<h2>Cita hoy</h2>
 
 <?php if (!empty($citas_actuales) && array_filter($citas_actuales, function($cita) { return $cita['estado'] == 'Reservado'; })): ?>
     
@@ -64,7 +64,7 @@ foreach ($data['citas'] as $cita) {
 
 <br>
 
-    <h3>Citas Pasadas</h3>
+    <h3>Historial Citas</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-sm dataTable" id="citas_pasadas">
             <thead>
