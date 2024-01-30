@@ -10,18 +10,7 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Modificar Comidas Asignadas</title>
-        
-        <!-- Agrega los enlaces a Bootstrap y jQuery -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-        <script>
+<script>
             var comidaSeleccionada; // Variable para almacenar la comida seleccionada
             // Agrega una variable para almacenar la información de las comidas
             var comidasData = <?php echo json_encode($data_comida['comidas']); ?>;
@@ -298,16 +287,12 @@
             };
         </script>
 
-        
-    </head>
 
-    <body class="bg-light" id="body">
-
-        <?php include("./src/View/templates/header_admin.php")?>
+        <?php include("./src/View/templates/header_administrador.php")?>
         <!-- Contenido principal -->
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
 
             <div class="container">
+                <div class="row">
                 <div class="col-12 text-center">
                     <h2 class="titulo mt-4 mb-4 font-weight-bold">Modificar Comidas Asignadas</h2>
                 </div>
@@ -449,10 +434,16 @@
                 </style>
             </div>
             <!-- Añade botones para guardar o cancelar -->
+            
+            
+            </div>
+
             <div class="btn-container mt-4 text-center">
                 <button class="btn btn-primary" onclick="eliminarDetalleComida()">Eliminar Comidas Asignadas</button>
                 <button class="btn btn-secondary" class="btn-cancelar" onclick="cancelar()">Cancelar</button>
             </div>
+            <br><br>
+                
         </main>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -462,4 +453,4 @@
         
     </body>
 
-<?php include("./src/View/templates/footer_admin.php")?>
+<?php include("./src/View/templates/footer_administrador.php")?>

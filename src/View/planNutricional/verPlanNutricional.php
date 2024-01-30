@@ -10,28 +10,11 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ver Planes Nutricionales</title>
-        <!--Este enlace es estático-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        <!--Estos enlace son dinámicos-->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+        <?php include("./src/View/templates/header_administrador.php")?>
 
-    </head>
-
-
-
-    <body>
-        <?php include("./src/View/templates/header_admin.php")?>
         <br>
-        <!-- Contenido principal -->
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
+
         <!-- Contenido de la página aquí -->
             <main>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -138,4 +121,4 @@
         </script>    
     </body>
 
-<?php include("./src/View/templates/footer_admin.php")?>
+<?php include("./src/View/templates/footer_administrador.php")?>

@@ -3,6 +3,7 @@
 class InicioController {
 
     public function __construct() {
+        require_once __DIR__ . "/../Model/planNutricionalModel.php";
     }
 
     //Direcciones para el inicio de la pagina

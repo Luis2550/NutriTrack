@@ -10,25 +10,11 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Modificar Comida</title>
-      <!--Este enlace es estático-->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-      <!--Este enlaces son dinámicos-->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-  </head>
-
-  <body>
-    <?php include("./src/View/templates/header_admin.php")?>
-    <!-- Contenido principal -->
-    <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
+    <?php include("./src/View/templates/header_administrador.php")?>
+   
       <main class="container mt-5 d-flex justify-content-center">
+        
         <script src="./public/js/comida.js"></script>
 
         <form class="formulario bg-light p-4 rounded" id="modificarComida" name="modificarComida" method="POST" action="index.php?c=Comida&a=actualizarComida" autocomplete="off">
@@ -87,4 +73,4 @@
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
   </body>
 
-<?php include("./src/View/templates/footer_admin.php")?>
+<?php include("./src/View/templates/footer_administrador.php")?>

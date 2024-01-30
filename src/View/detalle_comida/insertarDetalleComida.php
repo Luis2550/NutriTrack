@@ -10,27 +10,10 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+        
+<?php include("./src/View/templates/header_administrador.php")?>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Asignar Comidas</title>
-
-        <!-- Agrega los enlaces a Bootstrap y jQuery -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-        <!--<link rel="stylesheet" href="./public/css/insertar_detalle_comida.css">-->
-
-        <style>
-            /* Agrega estilos según tus necesidades */
-            #comidaSeleccionada {
-                margin-top: 20px;
-            }
-        </style>
-
-        <script>
+<script>
             
             var comidaSeleccionada; // Variable para almacenar la comida seleccionada
 
@@ -273,155 +256,155 @@
                 }
             };
         </script>
-    </head>
 
-    <body class="bg-light" id="body">
-        
-        <?php include("./src/View/templates/header_admin.php")?>
-        
-        <!-- Contenido principal -->
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
             <div class="container">
+
+            <div class="row">
                 <div class="col-12 text-center"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                    <h2 class="titulo mt-4 mb-4 font-weight-bold">Plan Nutricional Semanal</h2>
-                </div>
+                        <h2 class="titulo mt-4 mb-4 font-weight-bold">Plan Nutricional Semanal</h2>
+                    </div>
 
-                <div class="semana-info mb-4">
-                    <div class="col-12 text-center"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                        <p class="rango-semana mt-4 mb-4 font-weight-bold" style="color: #444;">Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>
-                    </div>         
-                </div>
+                    <div class="semana-info mb-4">
+                        <div class="col-12 text-center"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
+                            <p class="rango-semana mt-4 mb-4 font-weight-bold" style="color: #444;">Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>
+                        </div>         
+                    </div>
 
-                <div class="plan-nutricional row">
-                    <?php
-                    $fechaInicio = new DateTime($data['detalle_comida'][0]['fecha_inicio']);
-                    $fechaFin = new DateTime($data['detalle_comida'][0]['fecha_fin']);
-                    
-                    // Asegurémonos de que se muestre el último día
-                    $intervaloDias = new DateInterval('P1D');
-                    $fechaFin->add($intervaloDias); // Agregamos 1 día al final para incluirlo
-                    $periodo = new DatePeriod($fechaInicio, $intervaloDias, $fechaFin);
-                    $tiposComida = ['Desayuno', 'Almuerzo', 'Cena'];
-                    
-                    function obtenerDia($fecha) {
-                        // Convierte la fecha en DateTime
-                        $dateTime = DateTime::createFromFormat('d/m/Y', $fecha);
-                    
-                        // Mapeo de nombres de días en español
-                        $diasSemana = [
-                            'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'
-                        ];
-                    
-                        // Obtiene el nombre del día en español
-                        $nombreDia = $diasSemana[$dateTime->format('w')];
-                    
-                        return $nombreDia;
-                    }
+                    <div class="plan-nutricional row">
+                        <?php
+                        $fechaInicio = new DateTime($data['detalle_comida'][0]['fecha_inicio']);
+                        $fechaFin = new DateTime($data['detalle_comida'][0]['fecha_fin']);
+                        
+                        // Asegurémonos de que se muestre el último día
+                        $intervaloDias = new DateInterval('P1D');
+                        $fechaFin->add($intervaloDias); // Agregamos 1 día al final para incluirlo
+                        $periodo = new DatePeriod($fechaInicio, $intervaloDias, $fechaFin);
+                        $tiposComida = ['Desayuno', 'Almuerzo', 'Cena'];
+                        
+                        function obtenerDia($fecha) {
+                            // Convierte la fecha en DateTime
+                            $dateTime = DateTime::createFromFormat('d/m/Y', $fecha);
+                        
+                            // Mapeo de nombres de días en español
+                            $diasSemana = [
+                                'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'
+                            ];
+                        
+                            // Obtiene el nombre del día en español
+                            $nombreDia = $diasSemana[$dateTime->format('w')];
+                        
+                            return $nombreDia;
+                        }
 
-                    foreach ($periodo as $dia) {
-                        // Obtener el nombre del día usando la función
-                        $nombreDia = obtenerDia($dia->format('d/m/Y'));
-                        ?>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card dia-columna mb-4">
-                                <div class="card-header" style="background-color: #004080; color: #fff;">
-                                    <h3><?php echo $nombreDia . " - " . $dia->format('d/m/Y'); ?></h3>
-                                </div>
-                                <div class="card-body">
-                                    <?php
-                                    foreach ($tiposComida as $tipo) {
-                                        $idTipoComida = 'id-tipo-comida-' . strtolower($nombreDia) . '-' . strtolower($tipo);
-                                        $idComida = 'comida-' . strtolower($nombreDia) . '-' . strtolower($tipo);
-                                    ?>
-                                        <div class="tipo-comida mb-3">
-                                            <h4><?php echo $tipo; ?></h4>
-                                            <div class="modulo">
-                                                <!-- Detalles del tipo de comida -->
-                                                <div id="<?php echo $idTipoComida; ?>"></div>
-                                                <div id="<?php echo $idComida; ?>"></div>
-                                                <div class="acciones mt-2">
-                                                    <button class='btn btn-outline-primary elegir-comida' id="elegir-comida" onclick="mostrarModal('<?php echo $tipo; ?>', '<?php echo $idTipoComida; ?>', '<?php echo $idComida; ?>')">Elegir Comida</button>
+                        foreach ($periodo as $dia) {
+                            // Obtener el nombre del día usando la función
+                            $nombreDia = obtenerDia($dia->format('d/m/Y'));
+                            ?>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card dia-columna mb-4">
+                                    <div class="card-header" style="background-color: #004080; color: #fff;">
+                                        <h3><?php echo $nombreDia . " - " . $dia->format('d/m/Y'); ?></h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <?php
+                                        foreach ($tiposComida as $tipo) {
+                                            $idTipoComida = 'id-tipo-comida-' . strtolower($nombreDia) . '-' . strtolower($tipo);
+                                            $idComida = 'comida-' . strtolower($nombreDia) . '-' . strtolower($tipo);
+                                        ?>
+                                            <div class="tipo-comida mb-3">
+                                                <h4><?php echo $tipo; ?></h4>
+                                                <div class="modulo">
+                                                    <!-- Detalles del tipo de comida -->
+                                                    <div id="<?php echo $idTipoComida; ?>"></div>
+                                                    <div id="<?php echo $idComida; ?>"></div>
+                                                    <div class="acciones mt-2">
+                                                        <button class='btn btn-outline-primary elegir-comida' id="elegir-comida" onclick="mostrarModal('<?php echo $tipo; ?>', '<?php echo $idTipoComida; ?>', '<?php echo $idComida; ?>')">Elegir Comida</button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php
-                                    }
-                                    ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                        <?php
+                        }
+                        ?>
                 </div>
-
-                <!-- Ventana Modal -->
-                <div id="myModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="titulo-modal" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="col-12 text-center">
-                                    <h3 class="modal-title titulo-modal" id="titulo-modal" style="color: #004080;">Comidas - </h3>
+                    
+                </div>
+                    <!-- Ventana Modal -->
+                    <div id="myModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="titulo-modal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="col-12 text-center">
+                                        <h3 class="modal-title titulo-modal" id="titulo-modal" style="color: #004080;">Comidas - </h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-body">
-                                <div id="myModalContent">                                
-                                    <table class="table table-bordered dataTable" id="tabla_id" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>ID Comida</th>
-                                                <th>Comida</th>
-                                                <th>Descripción</th>
-                                                <th>Cantidad Proteína</th>
-                                                <th>Cantidad Carbohidratos</th>
-                                                <th>Cantidad Grasas Saludables</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <!-- Los datos de la tabla se llenarán dinámicamente aquí -->
-                                    </table>
+                                <div class="modal-body">
+                                    <div id="myModalContent">                                
+                                        <table class="table table-bordered dataTable" id="tabla_id" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID Comida</th>
+                                                    <th>Comida</th>
+                                                    <th>Descripción</th>
+                                                    <th>Cantidad Proteína</th>
+                                                    <th>Cantidad Carbohidratos</th>
+                                                    <th>Cantidad Grasas Saludables</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <!-- Los datos de la tabla se llenarán dinámicamente aquí -->
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="cerrar_modal" class="btn btn-secondary" onclick="cerrarModal()" data-dismiss="modal">Cerrar</button>
+                                <div class="modal-footer">
+                                    <button type="button" id="cerrar_modal" class="btn btn-secondary" onclick="cerrarModal()" data-dismiss="modal">Cerrar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    
+                    <!-- Script y estilo para oscurecer el fondo -->
+                    
+                
+                    <style>
+                        .modal-content {
+                            background-color: #fefefe;
+                            padding: 15px;
+                            border-radius: 40px;
+                            box-shadow: 50px 50px 100px rgba(0, 0, 0, 0.8);
+                        }
+
+                        .modal-background::before {
+                            content: "";
+                            display: block;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.7);
+                            z-index: 1040;
+                        }
+                    </style>
+
+                    
+
+                    <!-- Añade botones para guardar o cancelar -->
+                    
                 </div>
 
-                
-                <!-- Script y estilo para oscurecer el fondo -->
-                
-            
-                <style>
-                    .modal-content {
-                        background-color: #fefefe;
-                        padding: 15px;
-                        border-radius: 40px;
-                        box-shadow: 50px 50px 100px rgba(0, 0, 0, 0.8);
-                    }
-
-                    .modal-background::before {
-                        content: "";
-                        display: block;
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgba(0, 0, 0, 0.7);
-                        z-index: 1040;
-                    }
-                </style>
-
-                
-
-                <!-- Añade botones para guardar o cancelar -->
                 <div class="btn-container mt-4 text-center">
-                    <button id="btnGuardar" class="btn btn-primary" onclick="guardarComida()">Guardar</button>
-                    <button id="btnCancelar" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
-                </div>
-            </div>
+                        <button id="btnGuardar" class="btn btn-primary" onclick="guardarComida()">Guardar</button>
+                        <button id="btnCancelar" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
+                    </div>
+                    <br>
+                    <br>
         </main>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -439,6 +422,6 @@
                 });
             });
         </script>
-    </body>
 
-<?php include("./src/View/templates/footer_admin.php")?>
+
+<?php include("./src/View/templates/footer_administrador.php")?>

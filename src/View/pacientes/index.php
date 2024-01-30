@@ -8,27 +8,17 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ver Plan Nutricional</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-    </head>
-
-    <body class="bg-light" id="body">
-        <?php include("./src/View/templates/header_user.php")?>
+        <?php include("./src/View/templates/header_usuario.php")?>
         <!-- Contenido principal -->
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
+        
             <div class="container">
                 
+                <div class="row">
                 <div class="col-12 text-center mt-4"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                    <h2 class="titulo mb-4 font-weight-bold">Bienvenid@! <?php echo $data['comida_diaria'][0]['nombres'] . " " . $data['comida_diaria'][0]['apellidos'];?></h2>
+                    <h2 class="titulo mb-4 font-weight-bold">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
                 </div>
 
+    
                 <div class="col-12 text-center mt-4"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
                     <h3 class="titulo mb-4 font-weight-bold">¡Estás son tus comidas de hoy!</h3>
                 </div>
@@ -88,8 +78,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                     }
                     ?>
                 </div>
-
-        
+                </div>
                 
             </div>
         </main>
@@ -102,4 +91,4 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     </body>
     
 
-<?php include("./src/View/templates/footer_administrador.php")?>
+<?php include("./src/View/templates/footer_usuario.php")?>

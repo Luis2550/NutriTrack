@@ -75,10 +75,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             name=""
             id=""
             class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional$ci_usuario=<?php echo $data['ci_usuario']; ?>"
+            href="http://localhost/nutritrack/index.php?c=PlanNutricional&a=verPlanNutricional"
             role="button"
         >
-            Ultimo
+            Agregar Plan Nutricional
         </a>
     </div>
 

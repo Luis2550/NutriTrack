@@ -45,6 +45,62 @@
     });
 </script>
 
+<script>
+    var comidaSeleccionada; // Variable para almacenar la comida seleccionada
+
+    // Agrega una variable para almacenar la información de las comidas
+    var comidasData = <?php echo json_encode($data_comida['comidas']); ?>;
+    //alert(JSON.stringify(comidasData, null, 2));
+
+
+    // Agrega esta función para construir la tabla de comidas
+    function construirTablaComidas(descripcion, tipoComida, idTipoComida, idComida) {
+        // Crear un div para mostrar la descripción
+        var descripcionDiv = document.createElement('div');
+        descripcionDiv.innerHTML = '<strong>Descripción:</strong> ' + (descripcion !== undefined ? descripcion : 'N/A');
+    
+        // Insertar el div de descripción en el contenido de la ventana modal
+        document.getElementById('myModalContent').innerHTML = '';
+        document.getElementById('myModalContent').appendChild(descripcionDiv);
+    }
+
+    function mostrarModal(tipoComida, idTipoComida, idComida, descripcion) {
+        /*alert(tipoComida);
+        alert(idTipoComida);
+        alert(idComida);*/
+        //alert(descripcion);
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'block';
+
+        // Filtrar las comidas según el tipoComida
+       // var comidasFiltradas = filtrarComidasPorTipo(tipoComida);
+        //alert(JSON.stringify(comidasFiltradas, null, 2));
+
+        document.getElementById('titulo-modal').innerHTML = 'Comidas - ' + tipoComida;
+
+        // Cargar la tabla de comidas en la ventana modal
+        construirTablaComidas(descripcion, tipoComida, idTipoComida, idComida);
+
+        // Limpiar la información de la comida seleccionada
+        //document.getElementById(idTipoComida).innerHTML = '';
+        //document.getElementById(idComida).innerHTML = '';
+    }
+
+    function cerrarModal() {
+        // Limpiar la variable de comida seleccionada al cerrar el modal
+        comidaSeleccionada = null;
+
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+        var modal = document.getElementById('myModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+    </script>
 
 <!-- Scripts de Bootstrap y otros aquí -->
 
