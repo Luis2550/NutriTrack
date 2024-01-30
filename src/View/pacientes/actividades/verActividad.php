@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     <h2>Ver Actividades</h2>
 
     <a name="" id="" class="btn btn-primary" href="http://localhost/nutritrack/index.php?c=Actividad&a=nuevoActividad" role="button">Agregar</a>
-
+    <br><br>
     <div class="actividades-container">
         <?php
         if (isset($data['actividades']) && is_array($data['actividades'])) {

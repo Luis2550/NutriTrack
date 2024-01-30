@@ -111,7 +111,7 @@
                         
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
 
-                    <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="far fa-calendar-alt"></i> Agendar Cita</a>
+                    <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a>
 
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a>
                     
