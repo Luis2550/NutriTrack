@@ -13,5 +13,21 @@
     </div>
 </div>
 
+<script>
+    function borrar(id){
+        Swal.fire({
+            title: "Desea borrar el registro?",
+            showCancelButton: true,
+            confirmButtonText: "Si, borrar",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location="index.php?txtID="+id;
+            }
+        });
+
+    }
+</script>
+
 </body>
 </html>

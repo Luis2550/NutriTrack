@@ -41,6 +41,12 @@
             margin-right: 20px; /* Aumenta el espacio a la derecha de los elementos de navegación */
         }
 
+        .nav-link{
+            font-size: 18px;
+            color:black;
+        }
+        
+
 
     </style>
 </head>
@@ -56,8 +62,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="<?php echo $urlBase?>index.php">Inicio</a>
+            <li class="nav-item">
+                <a class="nav-link link" href="<?php echo $urlBase?>index.php">Inicio</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $urlBase?>index.php?c=Inicio&a=sobre_nosotros">Sobre nosotros</a>

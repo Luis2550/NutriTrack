@@ -14,6 +14,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
     <h2 class="titulo_h2">Ver Citas</h2>
+    <h3>Fecha: <?php echo $fecha_actual; ?></h3>
+
 
     <div class="table-responsive">
         
@@ -22,10 +24,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             <thead>
                 <tr>
                     <!-- <th>Cedula Paciente</th> -->
+                    <th>Horario</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
-                    <th>Fecha</th>
-                    <th>Horario</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -36,10 +37,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     foreach($data['citas'] as $dato ){
                         echo "<tr>";
                         // echo "<td>".$dato['ci_paciente']."</td>";
+                        echo "<td>".$dato['horas_disponibles']."</td>";
                         echo "<td>".$dato['nombres']."</td>";
                         echo "<td>".$dato['apellidos']."</td>";
-                        echo "<td>".$dato['fecha']."</td>";
-                        echo "<td>".$dato['horas_disponibles']."</td>";
                         echo "<td class='acciones'>
                                 <a href='index.php?c=Citas&a=marcarAsistenciaCita&id=".$dato["ci_paciente"]."' class='btn btn-info'>Asistió</a>
                                 <a href='index.php?c=Citas&a=marcarNoAsistenciaCita&id=".$dato["id_cita"]."' class='btn btn-warning'>No Asistió</a>
@@ -84,10 +84,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     "sNext":     "Siguiente",
                     "sPrevious": "Anterior"
                 },
+                
                 "oAria": {
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
+                
             }
         });
     });
