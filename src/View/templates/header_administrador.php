@@ -70,6 +70,18 @@
             a:hover{
                 color: #f0fdf4;
             }
+
+            .titulo-img{
+                font-size: 16px;
+                text-align: center;
+                
+            }
+
+            .contenedor-img{
+                margin-bottom: 30px;
+                border: 3px solid white;
+                border-radius: 5px;
+            }
         }
 
         @media (max-width: 767px) {
@@ -155,6 +167,16 @@
                 background-color: black;
                 color: red;
             } */
+
+            .titulo-img{
+                font-size: 16px;
+                text-align: center;
+                
+            }
+
+            .contenedor-img{
+                margin: 10px 0;
+            }
             
 
         }
@@ -173,6 +195,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="sidebar-sticky">
                     <nav class="nav flex-column">
+
+                        
+                    
+                    <a class="nav-link contenedor-img" href="">
+                        <div class="d-flex align-items-center">
+                            <img width="50" height="70" src="./uploads/1706634216_foto-perfil.jpeg" class="img-fluid rounded-circle mr-2" alt="">
+                            <h3 class="titulo-img">
+                                <?php
+                                    $nombres = explode(" ", $_SESSION['usuario']['nombres']);
+                                    $apellidos = explode(" ", $_SESSION['usuario']['apellidos']);
+                                    echo $nombres[0] . " " . $apellidos[0];
+                                ?>
+                            </h3>
+                        </div>
+                    </a>
+
+                    
                         <a class="nav-link active" href="http://localhost/nutritrack/index.php?c=Citas&a=verCitas">
                             <i class="fas fa-home"></i> Inicio
                         </a>

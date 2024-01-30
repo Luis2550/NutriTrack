@@ -14,10 +14,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
             <div class="container">
                 
                 <div class="row">
-                <div class="col-12 text-center mt-4"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                    <h2 class="titulo mb-4 font-weight-bold">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
-                </div>
-
     
                 <div class="col-12 text-center mt-4"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
                     <h3 class="titulo mb-4 font-weight-bold">¡Estás son tus comidas de hoy!</h3>

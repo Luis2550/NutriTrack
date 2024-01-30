@@ -19,7 +19,7 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
 
 
     <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
-    <h2>Ver Usuarios</h2>
+    <h2>Asignar plan suscripción</h2>
     <!-- <button onclick="window.location.href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=verSuscripcion'">Ver Planes</button> -->
     
 <div class="container mt-5">

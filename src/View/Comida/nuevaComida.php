@@ -12,7 +12,6 @@
 
     <?php include("./src/View/templates/header_administrador.php")?>
 
-    
 
       <main class="container lg-8 mt-5 d-flex justify-content-center">
         

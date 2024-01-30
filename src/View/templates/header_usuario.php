@@ -62,6 +62,18 @@
             a:hover{
                 color: #c0dffd;
             }
+
+            .titulo-img{
+                font-size: 16px;
+                text-align: center;
+                
+            }
+
+            .contenedor-img{
+                margin-bottom: 30px;
+                border: 3px solid white;
+                border-radius: 5px;
+            }
         }
 
         @media (max-width: 767px) {
@@ -86,6 +98,16 @@
                 margin: 40px 0;
             }
 
+            .titulo-img{
+                font-size: 16px;
+                text-align: center;
+                
+            }
+
+            .contenedor-img{
+                margin: 10px 0;
+            }
+
 
         }
         
@@ -106,24 +128,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="sidebar-sticky">
                     <nav class="nav flex-column">
+
+                    <a class="nav-link contenedor-img" href="">
+                        <div class="d-flex align-items-center">
+                            <img width="50" height="70" src="./uploads/<?= $_SESSION['usuario']['foto'] ?>" class="img-fluid rounded-circle mr-2" alt="">
+                            <h3 class="titulo-img">
+                                <?php
+                                    $nombres = explode(" ", $_SESSION['usuario']['nombres']);
+                                    $apellidos = explode(" ", $_SESSION['usuario']['apellidos']);
+                                    echo $nombres[0] . " " . $apellidos[0];
+                                ?>
+                            </h3>
+                        </div>
+                    </a>
+
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p&ci_usuario=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-home"></i> Inicio</a>
-
-                        
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a>
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a>
-                    
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-file-medical"></i> Ver Historial Clínico</a>
-
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidasPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-weight-scale"></i> Ver Medidas</a>
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=pacientePlanNutricional&a=verPlanNutricional&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a>
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-user"></i> Cuenta</a>
-
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Inicio&a=cerrar"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesion</a>
                     
                     </nav>
