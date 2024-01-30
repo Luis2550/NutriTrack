@@ -63,9 +63,8 @@ class HistorialSuscripcionController{
                 $historialsuscripciones->modificarHistorialSuscripcion($id_suscripcion, $ci_usuario, $fecha_inicio, $fecha_fin, $estado);
                 $data["titulo"] = "Historial Suscripcion";
     
-                // Agrega mensajes de depuración
-                echo '<div class="success-message">Historial de Suscripción insertado correctamente</div>';
-                $this->verHistorialSuscripcion();
+                header('Location: http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcionSecuencial&ci_usuario='. $ci_usuario);
+                exit();
             } catch (Exception $e) {
                 // Agrega mensajes de depuración
     
@@ -116,11 +115,9 @@ class HistorialSuscripcionController{
         $historialsuscripciones = new historialSuscripcionModel();
         $historialsuscripciones->eliminarHistorialSuscripcion($id);
         $data["titulo"] = " Historial Suscripcion";
-        $this->verHistorialSuscripcion();
+        header('Location: http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=verHistorialSuscripcionSecuencial&ci_usuario='. $id);
+                exit();
     }
-
-    
-   
 }
 
 ?>

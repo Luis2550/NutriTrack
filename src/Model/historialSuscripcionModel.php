@@ -128,7 +128,8 @@ class historialSuscripcionModel{
     }
     public function eliminarHistorialSuscripcion($id){
 			//update con los datos por defecto 
-        $resultado = $this->db->query("DELETE FROM historial_suscripcion WHERE id_suscripcion = '$id'");
+            $resultado = $this->db->query("UPDATE historial_suscripcion
+        SET id_suscripcion='0', fecha_inicio='null', fecha_fin='null', estado='SIN SUSCRIPCIÓN', suscripcion='DEFECTO' WHERE ci_paciente='$id'");			
     }
     public function getSuscripcionUsuarios($ci_paciente) {
         $sql = "SELECT * FROM historial_suscripcion WHERE ci_paciente = ?";

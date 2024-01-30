@@ -20,9 +20,9 @@ class UsuariosModel{
         return $this->usuarios;
     }
 
-    public function insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto){
-        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo, foto)
-        VALUES ('$ci_usuario','$id_rol','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero','$foto')");
+    public function insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $foto,$intentos){
+        $resultado = $this->db->query("INSERT INTO usuario (ci_usuario, id_rol, nombres, apellidos, edad, correo, clave, sexo, foto, intentos)
+        VALUES ('$ci_usuario','$id_rol','$nombres', '$apellidos', '$edad', '$correo', '$contrasenia', '$genero','$foto','$intentos')");
 
         // Verificar si la inserción fue exitosa
         //if ($resultado) {

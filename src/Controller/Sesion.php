@@ -30,12 +30,14 @@ class SesionController {
             return;
         }
         // Realiza la validación del usuario y contraseña en la base de datos
-        $usuario = $this->sesionModel->obtenerUsuarioPorCredenciales($username, $password);
+        $usuario = $this->sesionModel->obtenerUsuarioPorCredenciales($username);
         $intentos = $this->usuariosModel->get_intentos_usuario($username);
-        echo $intentos; 
+        echo $intentos;
+        $contraseniaIngresadaEncriptada = password_hash($password, PASSWORD_DEFAULT);
+        echo "La contraseña ingresada (" . $contraseniaIngresadaEncriptada. ") coincide con la almacenada en la base de datos: " . (password_verify($password, $usuario['clave']) ? 'Sí' : 'No');
 
-        if ($usuario) {
-            // Verifica si la cuenta está activada
+        if ($usuario && password_verify($password, $usuario['clave'])) { 
+            // && password_verify($password, $usuario['clave'])
             if ($usuario['activo'] == 1) {
                 // Obtiene el rol del usuario
                 $rol = $this->sesionModel->obtenerRolUsuario($usuario['id_rol']);

@@ -39,7 +39,7 @@ $data['usuarios'] = $historialSuscripcionModel->getCiPaciente();
                     <?php else: ?>
                         <p>Ya tiene una suscripción. Solo puede editar.</p>
                         <a href='index.php?c=HistorialSuscripcion&a=modificarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-warning">Modificar</a>
-                        <a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=<?php echo $dato["id_suscripcion"]; ?>' class="btn btn-danger">Eliminar</a>
+                        <a href='index.php?c=HistorialSuscripcion&a=eliminarHistorialSuscripcion&id=<?php echo $dato["ci_paciente"]; ?>' class="btn btn-danger">Eliminar</a>
                     <?php endif; ?>
                     
                 </div>

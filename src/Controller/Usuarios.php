@@ -104,6 +104,12 @@ class UsuariosController{
     }
 
     public function guardarUsuarios() {
+
+        // Validar y asegurar una contraseña más fuerte (ajusta según sea necesario)
+        // if (strlen($_POST['contrasenia']) < 8) {
+        //     die("La contraseña debe tener al menos 8 caracteres.");
+        // }
+
         $ci_usuario = mb_strtoupper($_POST['cedula'], 'UTF-8');
         $id_rol = 1;
         $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
@@ -113,7 +119,8 @@ class UsuariosController{
         $hoy = new DateTime();
         $edad = $hoy->diff($fechaNacimiento)->y;
         $correo = strtolower($_POST['correo']);
-        $contrasenia = $_POST['clave'];
+        //$contrasenia = $_POST['clave'];
+        $contrasenia = password_hash(htmlspecialchars($_POST['clave']), PASSWORD_DEFAULT);
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
         $foto = $_POST['foto'];
         $intentos=3;
