@@ -17,9 +17,7 @@ $citas_pasadas = [];
 foreach ($data['citas'] as $cita) {
     if ($cita['fecha'] == $fecha_actual) {
         $citas_actuales[] = $cita;
-    } elseif ($cita['fecha'] < $fecha_actual) {
-        $citas_pasadas[] = $cita;
-    }
+    } 
 }
 ?>
 
@@ -28,8 +26,8 @@ foreach ($data['citas'] as $cita) {
 <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 <h1>Citas del Paciente</h1>
 
-<?php if (!empty($citas_actuales)): ?>
-    <h2>Cita de hoy</h2>
+<?php if (!empty($citas_actuales) && array_filter($citas_actuales, function($cita) { return $cita['estado'] == 'Reservado'; })): ?>
+    
     <div class="table-responsive">
         <table class="table table-bordered dataTable">
             <thead>
@@ -43,27 +41,30 @@ foreach ($data['citas'] as $cita) {
             </thead>
             <tbody>
                 <?php foreach ($citas_actuales as $cita): ?>
-                    <tr>
-                        <td><?= $cita['id_cita'] ?></td>
-                        <td><?= $cita['fecha'] ?></td>
-                        <td><?= $cita['horas_disponibles'] ?></td>
-                        <td><?= $cita['estado'] ?></td>
-                        <td>
-                            <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
-                            <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-danger">Cancelar</a>
-                        </td>
-                    </tr>
+                    <?php if ($cita['estado'] == 'Reservado'): ?>
+                        <tr>
+                            <td><?= $cita['id_cita'] ?></td>
+                            <td><?= $cita['fecha'] ?></td>
+                            <td><?= $cita['horas_disponibles'] ?></td>
+                            <td><?= $cita['estado'] ?></td>
+                            <td>
+                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
+                                <a href='index.php?c=Citas&a=eliminarCitasPaciente&id=<?= $cita['id_cita'] ?>' class="btn btn-danger">Cancelar</a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 <?php else: ?>
-    <p>No hay citas registradas para la fecha actual.</p>
+    <p>No hay citas registradas para la fecha actual o no hay citas con el estado "Reservado".</p>
 <?php endif; ?>
 <br>
 
-<?php if (!empty($citas_pasadas)): ?>
-    <h2>Citas pasadas</h2>
+<br>
+
+    <h3>Citas Pasadas</h3>
     <div class="table-responsive">
         <table class="table table-bordered table-sm dataTable" id="citas_pasadas">
             <thead>
@@ -75,20 +76,23 @@ foreach ($data['citas'] as $cita) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($citas_pasadas as $cita): ?>
-                    <tr>
-                        <td><?= $cita['id_cita'] ?></td>
-                        <td><?= $cita['fecha'] ?></td>
-                        <td><?= $cita['horas_disponibles'] ?></td>
-                        <td><?= $cita['estado'] ?></td>
-                    </tr>
+                <?php foreach ($data['citas'] as $cita): ?>
+                    <?php if ($cita['estado'] != 'Reservado'): ?>
+                        <tr>
+                            <td><?= $cita['id_cita'] ?></td>
+                            <td><?= $cita['fecha'] ?></td>
+                            <td><?= $cita['horas_disponibles'] ?></td>
+                            <td><?= $cita['estado'] ?></td>
+                        </tr>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-<?php else: ?>
+
     <p>No hay citas pasadas registradas para este paciente.</p>
-<?php endif; ?>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
