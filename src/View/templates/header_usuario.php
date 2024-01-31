@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
+    <!-- Asegúrate de que SweetAlert2 esté incluido -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
     <style>
         
         /* Personaliza la barra de navegación en dispositivos más grandes */
@@ -146,6 +150,7 @@
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Actividad&a=verActividadesPacientes&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-running"></i> Actividades</a>
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas"><i class="far fa-calendar-alt"></i> Agendar Cita</a>
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_citas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-eye"></i> Ver citas</a>
+                    <a class="nav-link" href="http://localhost/nutritrack/index.php?c=Citas&a=ver_historialCitas_paciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-clipboard"></i> Historial Citas</a>
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinicoPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-file-medical"></i> Ver Historial Clínico</a>
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidasPaciente&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fa-solid fa-weight-scale"></i> Ver Medidas</a>
                     <a class="nav-link" href="http://localhost/nutritrack/index.php?c=pacientePlanNutricional&a=verPlanNutricional&ci_paciente=<?= $_SESSION['usuario']['ci_usuario'] ?>"><i class="fas fa-utensils"></i> Ver Plan Nutricional</a>

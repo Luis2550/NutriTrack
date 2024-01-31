@@ -136,6 +136,13 @@ class CitasModel{
     
         return $resultado; 
     }
+
+    public function eliminar_CitasFutura($id_cita){
+        // Eliminar la cita después de haber eliminado los registros relacionados
+        $resultado = $this->db->query("DELETE FROM cita WHERE id_cita = '$id_cita'");
+    
+        return $resultado; 
+    }
     
     
     public function get_Cita($id_cita)

@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 // Verifica si hay una sesión activa
@@ -12,11 +11,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 <?php include("./src/View/templates/header_usuario.php")?>
 
 
-
-
 <div class="container nuevo-actividades justify-content-center align-items-center" style="height: 100vh;">
 
-    <form id="nuevo" name="nuevo" method="POST" action="index.php?c=actividad&a=guardarActividad" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
+    <form id="form-actividad" name="nuevo" method="POST" action="index.php?c=actividad&a=guardarActividad" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
 
         <h2>Agregar Actividad</h2>
 
@@ -45,19 +42,16 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 </div>
 
 <style>
-
-
-
 @media (max-width: 767px) {
     .container,
     .form-group,
-    #nuevo {
+    #form-actividad {
         width: 100%;
         max-width: none;
         min-height: auto;
     }
     
-    #nuevo {
+    #form-actividad {
         max-height: none;
         overflow-y: visible;
     }
@@ -65,3 +59,27 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 </style>
 
 <?php include("./src/View/templates/footer_usuario.php")?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('form-actividad').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Registro creado con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            document.getElementById('form-actividad').submit();
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
+</script>

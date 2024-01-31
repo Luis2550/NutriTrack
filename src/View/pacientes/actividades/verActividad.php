@@ -15,9 +15,46 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
 <style>
     .bg-custom {
-      background: linear-gradient(to bottom, #9cb6dd, #4a5989);
+      background-color: #cbe7ff ;
     }
+
+    .card-body{
+        color:black;
+    }
+
+    .card-title{
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        color: #1c448c;
+    }
+
+    .btn{
+        background-color: #3893f9;
+
+    }
+    
 </style>
+
+<script>
+    // Función para mostrar la confirmación antes de eliminar
+    function confirmarEliminar(idActividad) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminarlo"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redireccionar a la página de eliminar con la confirmación
+                window.location.href = "index.php?c=actividad&a=eliminarActividadPaciente&id=" + idActividad;
+            }
+        });
+    }
+</script>
 
 <main class="main"> 
     <h2 class="mt-3 mb-4">Ver Actividades</h2>
@@ -30,13 +67,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
             <div class="col-md-4 mb-4">
                 <div class="card bg-custom text-white">
                     <div class="card-body">
-                        <h5 class="card-title">Cédula Paciente: <?php echo $dato['ci_paciente']; ?></h5>
-                        <p class="card-text">Actividad: <?php echo $dato['actividad']; ?></p>
+                        <h5 class="card-title">Actividad: <?php echo $dato['actividad']; ?></h5>
                         <p class="card-text">Descripción: <?php echo $dato['descripcion']; ?></p>
                         <p class="card-text">Fecha: <?php echo $dato['fecha']; ?></p>
                         <div class="text-center">
-                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn btn-warning mr-2">Modificar</a>
-                            <a href="index.php?c=actividad&a=eliminarActividadPaciente&id=<?php echo $dato['id_actividad']; ?>" class="btn btn-danger">Eliminar</a>
+                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn mr-2">Modificar</a>
+                            <button class="btn" onclick="confirmarEliminar(<?php echo $dato['id_actividad']; ?>)">Eliminar</button>
                         </div>
                     </div>
                 </div>

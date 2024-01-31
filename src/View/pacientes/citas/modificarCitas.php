@@ -5,7 +5,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
     exit();
 }
-
 ?>
 
 <?php
@@ -27,7 +26,6 @@ sort($diasPermitidos);
 ?>
 
 <?php include("./src/View/templates/header_usuario.php")?>
-
 
 <main class="main main_ingresar_cita"> 
     <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
@@ -65,10 +63,32 @@ sort($diasPermitidos);
             <p style="color: red;"><?php echo $error_message; ?></p>
         <?php endif; ?>
 
-        <button id="guardar" name="guardar" type="submit" class="button">Actualizar</button>
+        <button id="actualizar" name="actualizar" type="submit" class="button">Actualizar</button>
     </form>
 </main>
 
-
-
 <?php include("./src/View/templates/footer_usuario.php")?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nuevo').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Cita actualizada con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            document.getElementById('nuevo').submit();
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
+</script>

@@ -228,6 +228,14 @@ class CitasController {
         require_once(__DIR__ . '/../View/pacientes/citas/verCitas.php');
     }
 
+    public function ver_HistorialCitas_paciente($ci_paciente) {
+        $citasModel = new CitasModel();
+        $data['citas'] = $citasModel->getCitasPaciente($ci_paciente);
+        $data['titulo'] = 'Citas del Paciente';
+    
+        require_once(__DIR__ . '/../View/pacientes/citas/historialCitas.php');
+    }
+
     public function eliminarCitasPaciente($id_cita) {
         $citas = new CitasModel();
         
@@ -236,6 +244,21 @@ class CitasController {
         $ci_paciente = $cita['ci_paciente'];
         
         $citas->eliminar_Citas($id_cita);
+        $data["titulo"] = "citas";
+        
+        // Pasar el $ci_paciente a la función
+        $this->ver_citas_paciente($ci_paciente);
+    }
+
+
+    public function eliminarCitasPacienteFuturas($id_cita) {
+        $citas = new CitasModel();
+        
+        // Obtener el ci_paciente relacionado con la cita
+        $cita = $citas->get_Cita($id_cita);
+        $ci_paciente = $cita['ci_paciente'];
+        
+        $citas->eliminar_CitasFutura($id_cita);
         $data["titulo"] = "citas";
         
         // Pasar el $ci_paciente a la función
