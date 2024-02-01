@@ -30,6 +30,8 @@ class CitasController {
             // Obtener la cédula de la nutrióloga directamente
             $data['ci_nutriologa'] = $citas->getCINutriologa();
 
+            $data['nutriologa'] = $citas->obtenerDatosNutriologa();
+
             // Obtener las configuraciones de horas
             $configuraciones = $citas->getConfiguraciones($data['ci_nutriologa']);
 
@@ -93,6 +95,8 @@ class CitasController {
     
     
 
+
+
     public function guardarCitas() {
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha2'];
@@ -105,30 +109,22 @@ class CitasController {
             // Intentar insertar la cita
             $citas->insertar_Citas($ci_paciente, $fecha, $horas_disponibles, $nutriologa);
             $data["titulo"] = "citas";
-
+    
             $this->ver_citas_paciente($ci_paciente);
         } catch (mysqli_sql_exception $e) {
-            // Manejar la excepción específica de MySQLi
-            $error_message =  $e;
+            // Capturar el mensaje específico de MySQLi
+            $error_message = $e->getMessage();
+    
+            // Verificar si el error indica que ya hay una cita agendada
+            if (strpos($error_message, 'tu_mensaje_de_error_especifico') !== false) {
+                // Mensaje de error más amigable para el usuario
+                $error_message = "Ya hay una cita agendada con esa fecha y horario. Por favor, elige otra fecha u hora.";
+            }
+    
+            // Redirige a la página de error con el mensaje específico
             header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
             exit();
         }
-    }
-    
-    public function modificarCitas($id_cita) {
-        $citas = new CitasModel();
-        $data["id_cita"] = $id_cita;
-        $cita = $citas->get_Cita($id_cita);
-    
-        // Obtener las configuraciones de horas para calcular las horas disponibles
-        $configuraciones = $citas->getConfiguraciones($cita['ci_nutriologa']);
-        $data["horas_disponibles"] = $this->calcularHorasDisponibles($configuraciones);
-    
-        $data["citas"] = $cita;
-        $data["titulo"] = "citas";
-    
-        require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
-        
     }
 
     public function marcarAsistenciaCita() {
@@ -151,8 +147,42 @@ class CitasController {
         $cita = $citas->marcar_Cita_No_Asistida($id_cita);
         $this->verCitas();
     }
+
+
+    public function modificarCitas($id_cita) {
+
+        try {
+            $citas = new CitasModel();
+            $data["id_cita"] = $id_cita;
+            $cita = $citas->get_Cita($id_cita);
+
+            $data['ci_nutriologa'] = $citas->getCINutriologa();
+
+            $data['nutriologa'] = $citas->obtenerDatosNutriologa();
+
+        
+            // Obtener las configuraciones de horas para calcular las horas disponibles
+            $configuraciones = $citas->getConfiguraciones($cita['ci_nutriologa']);
+            $data["horas_disponibles"] = $this->calcularHorasDisponibles($configuraciones);
+        
+            $data["citas"] = $cita;
+            $data["titulo"] = "citas";
+        
+            require_once(__DIR__ . '/../View/pacientes/citas/modificarCitas.php');
+
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        
+    }
     
     public function actualizarCitas() {
+        if (!isset($_POST['id_cita'])) {
+            // Si no se proporciona el ID de la cita, redirigir a algún lugar apropiado
+            header('Location: http://localhost/nutritrack/index.php?c=Error&a=citaNoEspecifica');
+            exit();
+        }
+    
         $id_cita = $_POST['id_cita'];
         $ci_paciente = $_POST['ci_paciente'];
         $fecha = $_POST['fecha2'];
@@ -160,22 +190,41 @@ class CitasController {
     
         $citas = new CitasModel();
     
-    
+        try {
             // Intentar actualizar la cita
             $citas->modificar_Citas($id_cita, $ci_paciente, $fecha, $horas_disponibles);
-            $data["titulo"] = "citas";
-
+    
+            // Obtener nuevamente los datos actualizados para mostrar en la vista
+            $cita = $citas->get_Cita($id_cita);
+            $configuraciones = $citas->getConfiguraciones($cita['ci_nutriologa']);
+            $data["horas_disponibles"] = $this->calcularHorasDisponibles($configuraciones);
+            $data["citas"] = $cita;
+    
             // Redirigir a la acción correspondiente
             $this->ver_citas_paciente($ci_paciente);
-        //catch (mysqli_sql_exception $e) {
-        //     // Manejar la excepción específica de MySQLi
-        //     $error_message = 'Ya existe una cita para la misma fecha y hora de inicio. Por favor, elige otra fecha u hora.';
-        //     header('Location: http://localhost/nutritrack/index.php?c=Citas&a=nuevoCitas&error_message=' . urlencode($error_message));
-        //     exit();
-        // }    
-
+        } catch (mysqli_sql_exception $e) {
+            // Capturar el mensaje específico de MySQLi
+            $error_message = $e->getMessage();
+    
+            // Verificar si el error indica que ya hay una cita agendada
+            if (strpos($error_message, 'tu_mensaje_de_error_especifico') !== false) {
+                // Mensaje de error más amigable para el usuario
+                $error_message = "Ya hay una cita agendada con ese horario, seleccione otro horario";
+            }
+    
+            // Obtener los datos necesarios para mostrar en la vista
+            $cita = $citas->get_Cita($id_cita);
+            $configuraciones = $citas->getConfiguraciones($cita['ci_nutriologa']);
+            $data["horas_disponibles"] = $this->calcularHorasDisponibles($configuraciones);
+            $data["citas"] = $cita;
+    
+            // Redirigir con el mensaje de error y el ID de la cita
+            header('Location: http://localhost/nutritrack/index.php?c=Citas&a=modificarCitas&id=' . $id_cita . '&error_message=' . urlencode($error_message));
+            exit();
+        }
     }
     
+
     
 
     public function eliminarCitas($id_cita) {

@@ -7,8 +7,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     exit();
 }
 // Obtener la fecha actual
-$fecha_actual = date('Y-m-d');
-
+date_default_timezone_set('America/Guayaquil'); // Establecer la zona horaria a Ecuador
+    $fecha_actual = (new DateTime())->format('Y-m-d');
 // Obtener todas las citas agendadas desde la fecha actual
 $citas_agendadas = array_filter($data['citas'], function($cita) use ($fecha_actual) {
     return $cita['fecha'] >= $fecha_actual;

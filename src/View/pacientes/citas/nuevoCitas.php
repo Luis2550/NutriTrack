@@ -25,50 +25,105 @@ $diasPermitidos = array_unique($diasPermitidos);
 sort($diasPermitidos);
 ?>
 
-<?php include("./src/View/templates/header_usuario.php")?>
+<?php include("./src/View/templates/header_usuario.php") ?>
 
-<main class="main main_ingresar_cita"> 
+<div class="container nuevo-citas justify-content-center align-items-center" style="height: 100vh;">
 
-    <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-
-    <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=guardarCitas" autocomplete="off">
+    <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Citas&a=guardarCitas" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
 
         <h2>Registro de Citas</h2>
+        
+        <br>
 
-        <h2 class="diaslaborales">Dias Laborales: <?php
-            // Iterar sobre el array $configuraciones e imprimir el campo dias_semana
-            foreach ($configuraciones as $configuracion) {
-                echo $configuracion['dias_semana'];
-            }?></h2> 
-
-        <h2 class="diaslaborales">Dias Feriados: <?php echo $configuraciones[0]['dias_Feriados']?></h2>
-
-        <label for="ci_paciente">Paciente:</label>
-        <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario'];?>">
-
-        <label for="fecha2">Fecha:</label>
-        <input type="date" id="fecha2" name="fecha2" min="<?= $fecha_actual; ?>" max="<?= $fecha_maxima?>" required>
-
-        <label for="horas_disponibles">Horas Disponibles:</label>
-        <select id="horas_disponibles" name="horas_disponibles" required>
-            <?php foreach ($data['horas_disponibles'] as $hora) : ?>
-                <option value="<?= $hora ?>"><?= $hora ?></option>
-            <?php endforeach; ?>
-        </select>
-
-        <label for="ci_nutriologa">Nutrióloga:</label>
-        <input type="text" id="ci_nutriologa" name="ci_nutriologa" readonly value="<?php echo $data['ci_nutriologa']; ?>">
-
-        <?php if (isset($_GET['error_message'])): ?>
-            <p style="color: red;"><?php echo htmlspecialchars($_GET['error_message']); ?></p>
-        <?php endif; ?>
+        <div class="col-sm-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="card-title">Dias Laborales</h4>
+                    <p class="card-text">
+                        <?php
+                        // Iterar sobre el array $configuraciones e imprimir el campo dias_semana
+                        foreach ($configuraciones as $configuracion) {
+                            echo $configuracion['dias_semana'];
+                        }
+                        ?>
+                    </p>
+                </div>
+            </div>
+        </div>
 
         <br>
-        <button id="agendar" name="agendar" type="submit">Agendar</button>
-    </form>
-</main>
+        
+        <input type="hidden" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario']; ?>" class="form-control">
+    
 
-<?php include("./src/View/templates/footer_usuario.php")?>
+        <div class="form-group">
+            <label for="fecha2">Fecha:</label>
+            <input type="date" id="fecha2" name="fecha2" min="<?= $fecha_actual; ?>" max="<?= $fecha_maxima ?>" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="horas_disponibles">Horas Disponibles:</label>
+            <select id="horas_disponibles" name="horas_disponibles" required class="form-control">
+                <?php foreach ($data['horas_disponibles'] as $hora) : ?>
+                    <option value="<?= $hora ?>"><?= $hora ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ci_nutriologa">Nutrióloga:</label>
+            <input type="hidden" id="ci_nutriologa" name="ci_nutriologa" readonly value="<?php echo $data['ci_nutriologa']; ?>" class="form-control">
+            <input type="text" id="nombre_completo" name="nombre_completo" readonly value="<?php echo $data['nutriologa']['nombre_completo']; ?>" class="form-control">
+
+
+        </div>
+        
+
+       <?php if (isset($_GET['error_message'])): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo htmlspecialchars($_GET['error_message']); ?>
+        </div>
+    <?php endif; ?>
+    
+
+        <div class="form-group">
+            <button id="agendar" name="agendar" type="submit" class="btn btn-primary">Agendar</button>
+        </div>
+    </form>
+</div>
+
+<style>
+@media (max-width: 767px) {
+    .container,
+    .form-group,
+    #nuevo {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+    }
+
+    #nuevo {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .diaslaborales {
+        white-space: normal; /* Permite que el texto envuelva */
+        word-wrap: break-word; /* Permite que las palabras largas se envuelvan */
+        max-width: 100%; /* Limita la anchura del contenedor al 100% del ancho del dispositivo */
+    }
+
+    .diaslaborales {
+        white-space: normal;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+}
+
+
+</style>
+
+<?php include("./src/View/templates/footer_usuario.php") ?>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

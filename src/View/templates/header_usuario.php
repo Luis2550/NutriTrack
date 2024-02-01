@@ -19,8 +19,8 @@
     <!-- Enlace al CSS de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./public/css/estilo_administrador3.css">
-    <link rel="stylesheet" href="./public/css/estilo_formulario_configuracion2.css">
-    <link rel="stylesheet" href="./public/css/citas.css">
+    <link rel="stylesheet" href="./public/css/estilo_formulario_configuracion3.css">
+    <link rel="stylesheet" href="./public/css/citas.css">    
     
     <!-- Otros enlaces de estilos aquí -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

@@ -34,7 +34,8 @@
 
         /* Ajustes para la barra de navegación */
         .navbar-brand img {
-            height: 40px; /* Ajusta el tamaño del logo */
+            height: 50px;
+            width: 150px; /* Ajusta el tamaño del logo */
         }
 
         .navbar-nav {
@@ -77,4 +78,3 @@
         </ul>
     </div>
 </nav>
-    

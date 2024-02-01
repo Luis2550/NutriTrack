@@ -81,7 +81,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         <input type="text" value="<?php echo $data['historial_clinico']['direccion'] ?>" readonly id="direccion" name="direccion" required>
 
         <label for="enfermedades">ANTECEDENTES MEDICOS PERSONALES: (marque únicamente la opción que aplique)</label>
-        <table id="enfermedadesTable">
+        <table id="enfermedadesTable" class="tabla_enfermedades">
             <thead>
                 <tr>
                     <th>ENFERMEDADES/ CIRUGIAS</th>
@@ -91,61 +91,63 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                 </tr>
             </thead>
             <tbody>
+
                 <tr>
-                    <tr>
                     <td>Enfermedades Neurológicos: Dolores de cabeza, convulsiones, mareos, parálisis</td>
-                    <td><input type="radio" name="neuro" readonly value="si" <?php if($data['historial_clinico']['neuro'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="neuro" readonly value="no" <?php if($data['historial_clinico']['neuro'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="neuro" readonly value="noSabe" <?php if($data['historial_clinico']['neuro'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="neuro" readonly value="si" <?php if($data['historial_clinico']['neuro'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="neuro" readonly value="no" <?php if($data['historial_clinico']['neuro'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="neuro" readonly value="noSabe" <?php if($data['historial_clinico']['neuro'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
+
                 <tr>
                     <td>Enfermedades Hemoglobina: Anemia, desórdenes sanguíneos o problemas de coagulación</td>
-                    <td><input type="radio" name="hemoglobina" readonly value="si" <?php if($data['historial_clinico']['hemoglobina'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="hemoglobina" readonly value="no" <?php if($data['historial_clinico']['hemoglobina'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="hemoglobina" readonly value="noSabe" <?php if($data['historial_clinico']['hemoglobina'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="hemoglobina" readonly value="si" <?php if($data['historial_clinico']['hemoglobina'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="hemoglobina" readonly value="no" <?php if($data['historial_clinico']['hemoglobina'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="hemoglobina" readonly value="noSabe" <?php if($data['historial_clinico']['hemoglobina'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
                 <tr>
-                    <td>Enfermedades Gastrointestinales: Problemas digestivos, enfermedad inflamatoria intestinal, úlceras, etc.<td><input type="radio" name="gastro" value="si" <?php if($data['historial_clinico']['gastro'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="gastro" value="no" <?php if($data['historial_clinico']['gastro'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="gastro" value="noSabe" <?php if($data['historial_clinico']['gastro'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td>Enfermedades Gastrointestinales: Problemas digestivos, enfermedad inflamatoria intestinal, úlceras, etc.</td>
+                    <td><input type="radio" name="gastro" readonly value="si" <?php if($data['historial_clinico']['gastro'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="gastro" readonly value="no" <?php if($data['historial_clinico']['gastro'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="gastro" readonly value="noSabe" <?php if($data['historial_clinico']['gastro'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
                 <tr>
                     <td>Enfermedades Respiratorias: Asma, amigdalitis, enfisema, afección laríngea o en bronquios</td>
-                    <td><input type="radio" name="respiratorias" value="si" <?php if($data['historial_clinico']['respiratorias'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="respiratorias" value="no" <?php if($data['historial_clinico']['respiratorias'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="respiratorias" value="noSabe" <?php if($data['historial_clinico']['respiratorias'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="respiratorias" value="si" <?php if($data['historial_clinico']['respiratorias'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="respiratorias" value="no" <?php if($data['historial_clinico']['respiratorias'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="respiratorias" value="noSabe" <?php if($data['historial_clinico']['respiratorias'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
+
                 <tr>
                     <td>Enfermedades Crónicas: Diabetes, hipertensión, enfermedades cardíacas, enfermedades respiratorias crónicas, artritis, etc.</td>
-                    <td><input type="radio" name="cronicas" value="si" <?php if($data['historial_clinico']['cronicas'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="cronicas" value="no" <?php if($data['historial_clinico']['cronicas'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="cronicas" value="noSabe" <?php if($data['historial_clinico']['cronicas'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="cronicas" value="si" <?php if($data['historial_clinico']['cronicas'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="cronicas" value="no" <?php if($data['historial_clinico']['cronicas'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="cronicas" value="noSabe" <?php if($data['historial_clinico']['cronicas'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
                 <tr>
                     <td>Problemas Endocrinos: Problemas de la tiroides u otras glándulas endocrinas.</td>
-                    <td><input type="radio" name="endocrinos" value="si" <?php if($data['historial_clinico']['endocrinos'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="endocrinos" value="no" <?php if($data['historial_clinico']['endocrinos'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="endocrinos" value="noSabe" <?php if($data['historial_clinico']['endocrinos'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="endocrinos" value="si" <?php if($data['historial_clinico']['endocrinos'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="endocrinos" value="no" <?php if($data['historial_clinico']['endocrinos'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="endocrinos" value="noSabe" <?php if($data['historial_clinico']['endocrinos'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
                 <tr>
                     <td>Cirugías Previas: Cirugías, traumas (accidentes)</td>
-                    <td><input type="radio" name="cirugias" value="si" <?php if($data['historial_clinico']['cirugias'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="cirugias" value="no" <?php if($data['historial_clinico']['cirugias'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="cirugias" value="noSabe" <?php if($data['historial_clinico']['cirugias'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="cirugias" value="si" <?php if($data['historial_clinico']['cirugias'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="cirugias" value="no" <?php if($data['historial_clinico']['cirugias'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="cirugias" value="noSabe" <?php if($data['historial_clinico']['cirugias'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
+                                <!-- Cuarto conjunto de opciones -->
                 <tr>
                     <td>Alergias e Intolerancias: Alergias alimentarias, alergias a medicamentos, intolerancias, etc.</td>
-                    <td><input type="radio" name="alergias" value="si" <?php if($data['historial_clinico']['alergias'] == 'si') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="alergias" value="no" <?php if($data['historial_clinico']['alergias'] == 'no') echo 'checked disabled'; ?>></td>
-                    <td><input type="radio" name="alergias" value="noSabe" <?php if($data['historial_clinico']['alergias'] == 'noSabe') echo 'checked disabled'; ?>></td>
+                    <td><input type="radio" name="alergias" value="si" <?php if($data['historial_clinico']['alergias'] == 'si') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="alergias" value="no" <?php if($data['historial_clinico']['alergias'] == 'no') echo 'checked disabled'; ?>><label></label></td>
+                    <td><input type="radio" name="alergias" value="noSabe" <?php if($data['historial_clinico']['alergias'] == 'noSabe') echo 'checked disabled'; ?>><label></label></td>
                 </tr>
                 <tr>
-                <td>Hipertensión, infartos, anginas, soplos, arritmias, enfermedad coronaria</td>
-                <td><input type="radio" name="hipertension" value="si" <?php if($data['historial_clinico']['hipertension'] == 'si') echo 'checked disabled'; ?> readonly></td>
-                <td><input type="radio" name="hipertension" value="no" <?php if($data['historial_clinico']['hipertension'] == 'no') echo 'checked disabled'; ?> readonly></td>
-                <td><input type="radio" name="hipertension" value="noSabe" <?php if($data['historial_clinico']['hipertension'] == 'noSabe') echo 'checked disabled'; ?> readonly></td>
-
-
+                    <td>Hipertensión, infartos, anginas, soplos, arritmias, enfermedad coronaria</td>
+                    <td><input type="radio" name="hipertension" value="si" <?php if($data['historial_clinico']['hipertension'] == 'si') echo 'checked disabled'; ?> readonly><label></label></td>
+                    <td><input type="radio" name="hipertension" value="no" <?php if($data['historial_clinico']['hipertension'] == 'no') echo 'checked disabled'; ?> readonly><label></label></td>
+                    <td><input type="radio" name="hipertension" value="noSabe" <?php if($data['historial_clinico']['hipertension'] == 'noSabe') echo 'checked disabled'; ?> readonly><label></label></td>
                 </tr>
             </tbody>
         </table>

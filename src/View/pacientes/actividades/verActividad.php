@@ -29,9 +29,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         color: #1c448c;
     }
 
-    .btn{
-        background-color: #3893f9;
+    
 
+    .card{
+        max-width: 300px;
     }
     
 </style>
@@ -64,19 +65,42 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         if (isset($data['actividades']) && is_array($data['actividades'])) {
             foreach ($data['actividades'] as $dato) {
         ?>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-2">
                 <div class="card bg-custom text-white">
                     <div class="card-body">
                         <h5 class="card-title">Actividad: <?php echo $dato['actividad']; ?></h5>
-                        <p class="card-text">Descripción: <?php echo $dato['descripcion']; ?></p>
                         <p class="card-text">Fecha: <?php echo $dato['fecha']; ?></p>
                         <div class="text-center">
-                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn mr-2">Modificar</a>
-                            <button class="btn" onclick="confirmarEliminar(<?php echo $dato['id_actividad']; ?>)">Eliminar</button>
+                            <!-- Agrega el botón "Ver Actividad" que abre la modal -->
+                            <button class="btn btn-info mb-2" data-toggle="modal" data-target="#verActividadModal<?php echo $dato['id_actividad']; ?>"><i class="fa-solid fa-eye" style="color: #fff;"></i> Ver Actividad</button>
+                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn btn-success mb-2"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i> Modificar</a>
+                            <button class="btn btn-danger mb-2" onclick="confirmarEliminar(<?php echo $dato['id_actividad']; ?>)"><i class="fa-solid fa-trash" style="color: #fff;"></i> Eliminar</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Modal para mostrar la actividad -->
+            <div class="modal fade" id="verActividadModal<?php echo $dato['id_actividad']; ?>" tabindex="-1" role="dialog" aria-labelledby="verActividadModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="verActividadModalLabel">Actividad: <?php echo $dato['actividad']; ?></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Mostrar la descripción de la actividad -->
+                            <p><?php echo $dato['descripcion']; ?></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <?php
             }
         } else {
@@ -86,7 +110,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         ?>
     </div>
 </main>
-
 
 
 <?php include("./src/View/templates/footer_usuario.php")?>

@@ -75,6 +75,28 @@ class CitasModel{
         }
     }
 
+
+    public function obtenerDatosNutriologa() {
+        $sql = "SELECT 
+                    u.ci_usuario AS ci_nutriologa,
+                    CONCAT(u.nombres, ' ', u.apellidos) AS nombre_completo
+                FROM nutriologa n
+                JOIN usuario u ON n.ci_nutriologa = u.ci_usuario
+                LIMIT 1";
+        $resultado = $this->db->query($sql);
+    
+        if ($resultado) {
+            // Obtener el primer valor directamente, asumiendo que solo hay una fila y columna
+            $datosNutriologa = $resultado->fetch_assoc();
+    
+            $resultado->free();
+    
+            return $datosNutriologa;
+        } else {
+            throw new Exception("Error en la consulta: " . $this->db->error);
+        }
+    }
+
     public function getConfiguraciones($ciNutriologa) {
         $configuraciones = array();
 
