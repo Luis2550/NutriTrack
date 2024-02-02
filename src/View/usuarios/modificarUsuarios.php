@@ -59,12 +59,18 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
                     <div class="form-group">
                         <label for="clave">Contraseña:</label>
-                        <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $data["usuarios"]["clave"]?>">
+                        <div class="input-group">
+                            <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $data["usuarios"]["clave"]?>">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="verContrasena" onclick="mostrarContrasena()">Ver</button>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="form-group">
                         <label for="sexo">Sexo:</label>
-                        <select id="sexo" name="sexo" required class="form-control">
+                        <select id="sexo" name="sexo" required class="form-control"> 
                             <?php
                             $sexoActual = $data["usuarios"]["sexo"];
                             ?>
@@ -75,7 +81,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
-                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
+                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="" value="<?php echo $data["usuarios"]["foto"]?>">
 
                         <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
                     </div>
@@ -86,5 +92,46 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         </form>
     </div>
 </div>
+
+
+<script>
+    function mostrarContrasena() {
+        var inputClave = document.getElementById('clave');
+        var botonVerContrasena = document.getElementById('verContrasena');
+
+        if (inputClave.type === 'password') {
+            inputClave.type = 'text';
+            botonVerContrasena.textContent = 'Ocultar';
+        } else {
+            inputClave.type = 'password';
+            botonVerContrasena.textContent = 'Ver';
+        }
+    }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nuevo').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Datos actualizados con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            document.getElementById('nuevo').submit();
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
+</script>
+
 
 <?php include("./src/View/templates/footer_usuario.php")?>

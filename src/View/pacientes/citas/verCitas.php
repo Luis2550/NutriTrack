@@ -29,13 +29,13 @@ foreach ($citas_agendadas as $cita) {
 
 <?php include("./src/View/templates/header_usuario.php")?>
 <br>
-<h2>Citas Agendadas</h2>
+<h2 style="text-align:center;">Citas Agendadas</h2>
 
 <?php if (!empty($citas_actuales_hoy) || !empty($citas_actuales_futuras)): ?>
     
     <!-- Citas de Hoy -->
     <?php if (!empty($citas_actuales_hoy)): ?>
-    <h3>Citas de Hoy</h3>
+    <h3>Cita de Hoy</h3>
     <div class="table-responsive">
         <table class="table table-bordered dataTable">
             <thead>
@@ -56,8 +56,8 @@ foreach ($citas_agendadas as $cita) {
                             <td><?= $cita['horas_disponibles'] ?></td>
                             <td><?= $cita['estado'] ?></td>
                             <td>
-                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
-                                <a href="#" class="btn btn-danger" onclick="return confirmarCancelarCita('<?= $cita['id_cita'] ?>');">Cancelar</a>
+                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i> Modificar</a>
+                                <a href="#" class="btn btn-danger" onclick="return confirmarCancelarCita('<?= $cita['id_cita'] ?>');"><i class="fa-solid fa-ban" style="color: #fff;"></i> Cancelar</a>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -95,8 +95,8 @@ foreach ($citas_agendadas as $cita) {
                             <td><?= $cita['horas_disponibles'] ?></td>
                             <td><?= $cita['estado'] ?></td>
                             <td>
-                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info">Modificar</a>
-                                <a href="#" class="btn btn-danger" onclick="return confirmarEliminarCita('<?= $cita['id_cita'] ?>');">Eliminar</a>
+                                <a href='index.php?c=Citas&a=modificarCitas&id=<?= $cita['id_cita']?>' class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i> Modificar</a>
+                                <a href="#" class="btn btn-danger" onclick="return confirmarEliminarCita('<?= $cita['id_cita'] ?>');"><i class="fa-solid fa-trash" style="color: #fff;"></i> Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

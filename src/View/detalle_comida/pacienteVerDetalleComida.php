@@ -141,7 +141,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 </style>
 
 
-    <h2>Modificar Comidas Asignadas</h2>
+<h2>Comidas de la semana</h2>
 
     <div class="semana-info">
         <p class="semana-info">Semana <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_inicio'])); ?> - <?php echo date('d/m/Y', strtotime($data['detalle_comida'][0]['fecha_fin'])); ?></p>
@@ -191,11 +191,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                         <div class="modulo">
                             <!-- <p><strong>ID Comida:</strong> <?php echo $comida['id_comida']; ?></p> -->
                             
-                            <p id="id-tipo-comida-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>ID Comida:</strong> <?php echo $comida['id_comida']; ?></p>
-                            <p id="comida-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Comida:</strong> <?php echo $comida['comida']; ?></p>
-                            <p id="proteina-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Proteína:</strong> <?php echo $comida['cantidad_proteina']; ?></p>
-                            <p id="carbohidratos-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Carbohidratos:</strong> <?php echo $comida['cantidad_carbohidratos']; ?></p>
-                            <p id="grasas-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Grasas Saludables:</strong> <?php echo $comida['cantidad_grasas_saludables']; ?></p>
+                            <p  class="card-text mb-0" id="id-tipo-comida-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>ID Comida:</strong> <?php echo $comida['id_comida']; ?></p>
+                            <p  class="card-text mb-0" id="comida-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Comida:</strong> <?php echo $comida['comida']; ?></p>
+                            <p  class="card-text mb-0" id="proteina-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Proteína:</strong> <?php echo $comida['cantidad_proteina']; ?></p>
+                            <p  class="card-text mb-0" id="carbohidratos-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Carbohidratos:</strong> <?php echo $comida['cantidad_carbohidratos']; ?></p>
+                            <p  id="grasas-<?php echo strtolower($dia) . '-' . strtolower($tipoComida); ?>"><strong>Grasas Saludables:</strong> <?php echo $comida['cantidad_grasas_saludables']; ?></p>
 
                             <div class="acciones">
                                 <!--Tipocomida /id-comida- /comida-->  

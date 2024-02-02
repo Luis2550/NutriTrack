@@ -16,7 +16,17 @@ usort($data['historial_medidas'], function($a, $b) {
 
 <main class="main">
     <h2 class="historial-title mt-3 mb-4">Historial Medidas</h2>
-    
+
+    <div class="col-sm-6 mx-auto text-center">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">Número de historial clínico: <?php echo $data['historial_medidas'][0]['id_historial_clinico']?></p>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
     <!-- Contenedor con estilos de Bootstrap -->
     <div class="row justify-content-center">
         <?php
@@ -24,14 +34,13 @@ usort($data['historial_medidas'], function($a, $b) {
             foreach ($data['historial_medidas'] as $dato) {
         ?>
                 <!-- Carta con estilos personalizados y Bootstrap -->
-                <div class="card col-10 col-sm-6 col-md-4 mb-4 mx-2" style="max-width: 300px; background-color: #cbe7ff; border: 1px solid #1c448c; color: black;">
+                <div class="card col-10 col-sm-6 col-md-4 mb-4 mx-2" style="max-width: 320px; background-color: #cbe7ff; border: 1px solid #1c448c; color: black;">
                     <div class="card-body">
-                        <p class="card-text"><strong>Número Historial Clínico:</strong> <?php echo $dato['id_historial_clinico']; ?></p>
-                        <p class="card-text"><strong>Peso:</strong> <?php echo $dato['peso']; ?></p>
-                        <p class="card-text"><strong>Estatura:</strong> <?php echo $dato['estatura']; ?></p>
-                        <p class="card-text"><strong>Presión Arterial Sistólica:</strong> <?php echo $dato['presion_arterial_sistolica']; ?></p>
-                        <p class="card-text"><strong>Presión Arterial Diastólica:</strong> <?php echo $dato['presion_arterial_diastolica']; ?></p>
-                        <p class="card-text"><strong>Fecha:</strong> <?php echo $dato['fecha']; ?></p>
+                        <p class="card-text mb-0"><strong>Peso:</strong> <?php echo $dato['peso']; ?></p>
+                        <p class="card-text mb-0"><strong>Estatura:</strong> <?php echo $dato['estatura']; ?></p>
+                        <p class="card-text mb-0"><strong>Presión Arterial Sistólica:</strong> <?php echo $dato['presion_arterial_sistolica']; ?></p>
+                        <p class="card-text mb-0"><strong>Presión Arterial Diastólica:</strong> <?php echo $dato['presion_arterial_diastolica']; ?></p>
+                        <p class="card-text mb-0"><strong>Fecha:</strong> <?php echo $dato['fecha']; ?></p>
                     </div>
                 </div>
         <?php

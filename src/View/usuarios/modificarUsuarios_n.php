@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<div class="card"> 
+<div class="card">
     <div class="card-body">
         <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios_n" autocomplete="off" enctype="multipart/form-data">
             <h2 class="card-title">Editar Datos</h2>
@@ -59,7 +59,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
                     <div class="form-group">
                         <label for="clave">Contraseña:</label>
-                        <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $data["usuarios"]["clave"]?>">
+                        <div class="input-group">
+                            <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $data["usuarios"]["clave"]?>">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="verContrasena" onclick="mostrarContrasena()">Ver</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -86,5 +91,21 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </form>
     </div>
 </div>
+
+<script>
+    function mostrarContrasena() {
+        var inputClave = document.getElementById('clave');
+        var botonVerContrasena = document.getElementById('verContrasena');
+
+        if (inputClave.type === 'password') {
+            inputClave.type = 'text';
+            botonVerContrasena.textContent = 'Ocultar';
+        } else {
+            inputClave.type = 'password';
+            botonVerContrasena.textContent = 'Ver';
+        }
+    }
+</script>
+
 
 <?php include("./src/View/templates/footer_administrador.php")?>

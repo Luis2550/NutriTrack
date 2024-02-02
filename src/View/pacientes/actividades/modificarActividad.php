@@ -15,10 +15,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
         <input type="hidden" id="id" name="id" value="<?php echo $data["id_actividad"]; ?>" />
 
-        <div class="form-group">
-            <label for="ci_paciente">CI Paciente:</label>
-            <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $data["actividad"]["ci_paciente"]?>" class="form-control">
-        </div>
+     
+            <input type="hidden" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $data["actividad"]["ci_paciente"]?>" class="form-control">
+    
 
         <div class="form-group">
             <label for="actividad">Actividad:</label>

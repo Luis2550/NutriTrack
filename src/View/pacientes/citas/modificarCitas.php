@@ -38,15 +38,15 @@ sort($diasPermitidos);
         <div class="col-sm-12">
             <div class="card text-center">
                 <div class="card-body">
-                    <h4 class="card-title">Dias Laborales</h4>
-                    <p class="card-text">
+                <p class="card-text">Días Laborales:
                         <?php
                         // Iterar sobre el array $configuraciones e imprimir el campo dias_semana
                         foreach ($configuraciones as $configuracion) {
                             echo $configuracion['dias_semana'];
                         }
                         ?>
-                    </p>
+                    </p><br>
+                        (Nota: Días feriados no se trabaja)
                 </div>
             </div>
         </div>

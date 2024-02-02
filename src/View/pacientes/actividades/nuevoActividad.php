@@ -14,13 +14,24 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 <div class="container nuevo-actividades justify-content-center align-items-center" style="height: 100vh;">
 
     <form id="form-actividad" name="nuevo" method="POST" action="index.php?c=actividad&a=guardarActividad" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
-
+        
         <h2>Agregar Actividad</h2>
+        <br>
 
-        <div class="form-group">
-            <label for="ci_paciente">CI Paciente:</label>
-            <input type="text" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario']; ?>" class="form-control">
+        <div class="col-sm-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="card-text">
+                        Nota: Solo puede ingresar una actividad por día
+                    </p>
+                </div>
+            </div>
         </div>
+
+        <br>
+       
+            <input type="hidden" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario']; ?>" class="form-control">
+       
 
         <div class="form-group">
             <label for="actividad">Actividad:</label>
