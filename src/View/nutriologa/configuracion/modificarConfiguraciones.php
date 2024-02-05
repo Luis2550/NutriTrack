@@ -13,9 +13,10 @@ include("./src/View/templates/header_administrador.php")
 
     <div class="main_configuracion vista_configuracion">
 
-        <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
         <form id="modificar" name="modificar" method="POST" action="index.php?c=Configuracion&a=actualizarConfiguraciones">
+            <br>
+            <br>
             <h2>Modificar Configuración</h2>
 
             <label for="ci_nutriologa">Cedula:</label>

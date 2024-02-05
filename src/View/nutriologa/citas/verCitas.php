@@ -11,7 +11,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <main class="main main_citas"> 
 
-    <h2 class="title"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
     <h2 class="titulo_h2">Ver Citas</h2>
     <h3>Fecha: <?php echo $fecha_actual; ?></h3>

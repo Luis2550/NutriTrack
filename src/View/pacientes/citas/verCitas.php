@@ -106,7 +106,7 @@ foreach ($citas_agendadas as $cita) {
     <?php endif; ?>
 
 <?php else: ?>
-    <p>No hay citas registradas para la fecha actual o posteriores.</p>
+    <p>No hay citas registradas para la fecha actual o futuras.</p>
 <?php endif; ?>
 <br>
 

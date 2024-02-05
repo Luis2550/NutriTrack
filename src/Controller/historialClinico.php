@@ -38,7 +38,11 @@ class historialClinicoController{
         $data['historial_clinico'] = $historiaClini->get_historialClinicoPaciente($ci_paciente);
     
         if ($data['historial_clinico']['fecha_creacion'] === null) {
-            echo "Usted aún no tiene un historial clínico asignado.";
+
+            echo "<script>alert('Usted aún no tiene un historial clínico asignado.');";
+            // Redirige a la página especificada después de cerrar la alerta
+            echo "window.location.href = 'http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p&ci_usuario=" . $data['historial_clinico']['ci_paciente'] . "';</script>";
+        
         } else {
             // Pasa los datos a la vista
             require_once(__DIR__ . '/../View/pacientes/historialClinico/verHistorialPaciente.php');
@@ -53,7 +57,10 @@ class historialClinicoController{
         $data['historial_clinico'] = $historiaClini->get_historialClinico($id);
         
         if ($data['historial_clinico']['fecha_creacion'] == null) {
-            echo "No puede modificar ya que no tiene datos";
+            echo "<script>alert('No puede modificar ya que no tiene datos.');";
+            // Redirige a la página especificada después de cerrar la alerta
+            echo "window.location.href = 'http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico';</script>";
+        
         } else {
             // Pasa los datos a la vista
             require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
@@ -67,7 +74,10 @@ class historialClinicoController{
         $data['historial_clinico'] = $historiaClini->get_historialClinico($id);
         
         if ($data['historial_clinico']['fecha_creacion'] != null) {
-            echo "Este paciente ya tiene un historial clinico";
+            echo "<script>alert('Este paciente ya tiene un historial clínico.');";
+            // Redirige a la página especificada después de cerrar la alerta
+            echo "window.location.href = 'http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico';</script>";
+        
         } else {
             // Pasa los datos a la vista
             require_once(__DIR__ . '/../View/nutriologa/historialClinico/modificarHistorialClinico.php');
@@ -136,9 +146,11 @@ class historialClinicoController{
         $data["historial_clinico"] = $historiaClini->get_historialClinico($id);
         $data["titulo"] = "historial_clinico";
         
-
         if ($data['historial_clinico']['fecha_creacion'] === null) {
-            echo "Aún no se asigna un historial clínico a este paciente.";
+            // Muestra una alerta utilizando JavaScript
+            echo "<script>alert('Usted aún no tiene un historial clínico asignado.');";
+            // Redirige a la página especificada después de cerrar la alerta
+            echo "window.location.href = 'http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialClinico';</script>";
         } else {
             // Pasa los datos a la vista
             require_once(__DIR__ . '/../View/nutriologa/historialClinico/verHistorialPaciente.php');

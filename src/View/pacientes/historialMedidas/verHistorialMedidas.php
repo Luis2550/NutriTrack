@@ -18,12 +18,17 @@ usort($data['historial_medidas'], function($a, $b) {
     <h2 class="historial-title mt-3 mb-4">Historial Medidas</h2>
 
     <div class="col-sm-6 mx-auto text-center">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-text">Número de historial clínico: <?php echo $data['historial_medidas'][0]['id_historial_clinico']?></p>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <?php if (!empty($data['historial_medidas']) && isset($data['historial_medidas'][0]['id_historial_clinico'])): ?>
+                <p class="card-text">Número de historial clínico: <?php echo $data['historial_medidas'][0]['id_historial_clinico']; ?></p>
+            <?php else: ?>
+                <p class="card-text">Usted aún no tiene un historial clínico</p>
+            <?php endif; ?>
         </div>
     </div>
+</div>
+
 
     <br>
 
