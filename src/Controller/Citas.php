@@ -246,12 +246,11 @@ class CitasController {
     
                 $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
                 $mail->addAddress($correo);
+                $mail->CharSet = 'UTF-8';
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Cita Cancelada';
                 $mail->Body = 'Cita cancelada';
-                $mail->addAttachment('./public/assets/images/Cita-Cancelada.png', 'imagen_cita_cancelada.png', 'base64', 'image/png');
-
 
                 $mail->send();
                 echo 'Correo enviado correctamente';

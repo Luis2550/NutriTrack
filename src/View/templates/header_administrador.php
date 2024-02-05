@@ -200,7 +200,7 @@
                     
                     <a class="nav-link contenedor-img" href="">
                         <div class="d-flex align-items-center">
-                            <img width="50" height="70" src="./uploads/1706634216_foto-perfil.jpeg" class="img-fluid rounded-circle mr-2" alt="">
+                            <img width="50" height="70" src="./uploads/<?= $_SESSION['usuario']['foto'] ?>" class="img-fluid rounded-circle mr-2" alt="">
                             <h3 class="titulo-img">
                                 <?php
                                     $nombres = explode(" ", $_SESSION['usuario']['nombres']);

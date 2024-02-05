@@ -81,9 +81,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
-                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="" value="<?php echo $data["usuarios"]["foto"]?>">
-
-                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
+                        <img id="previewFoto" width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
+                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" class="form-control" onchange="previewImage(this)">
                     </div>
                 </div>
             </div>
@@ -107,7 +106,24 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
             botonVerContrasena.textContent = 'Ver';
         }
     }
+
+    function previewImage(input) {
+        var preview = document.getElementById('previewFoto');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "./uploads/<?php echo $data["usuarios"]["foto"];?>";
+        }
+    }
 </script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

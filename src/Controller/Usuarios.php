@@ -267,6 +267,7 @@ class UsuariosController{
         $data["ci_usuario"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "Usuarios";
+
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
     }
     
@@ -336,6 +337,7 @@ class UsuariosController{
             if ($usuarioAnterior['foto'] != '') {
                 unlink("./uploads/" . $usuarioAnterior['foto']);
             }
+
         } else {
             // Si no se actualiza la foto, mantener la foto actual
             $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);

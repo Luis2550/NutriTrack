@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<div class="card">
+<div class="card"> 
     <div class="card-body">
         <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios_n" autocomplete="off" enctype="multipart/form-data">
             <h2 class="card-title">Editar Datos</h2>
@@ -67,9 +67,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         </div>
                     </div>
 
+
                     <div class="form-group">
                         <label for="sexo">Sexo:</label>
-                        <select id="sexo" name="sexo" required class="form-control">
+                        <select id="sexo" name="sexo" required class="form-control"> 
                             <?php
                             $sexoActual = $data["usuarios"]["sexo"];
                             ?>
@@ -80,9 +81,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
-                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
-
-                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
+                        <img id="previewFoto" width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
+                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" class="form-control" onchange="previewImage(this)">
                     </div>
                 </div>
             </div>
@@ -91,6 +91,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </form>
     </div>
 </div>
+
 
 <script>
     function mostrarContrasena() {
@@ -105,6 +106,47 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             botonVerContrasena.textContent = 'Ver';
         }
     }
+
+    function previewImage(input) {
+        var preview = document.getElementById('previewFoto');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "./uploads/<?php echo $data["usuarios"]["foto"];?>";
+        }
+    }
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nuevo').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Datos actualizados con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            document.getElementById('nuevo').submit();
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
 </script>
 
 

@@ -31,20 +31,27 @@ class actividadController{
         require_once(__DIR__ . '/../View/pacientes/actividades/nuevoActividad.php');
     }
 
-    public function guardarActividad(){
-        
-        $ci_paciente = $_POST['ci_paciente'];
-        $actividad = $_POST['actividad'];
-        $descripcion = $_POST['descripcion'];
-        $fecha = $_POST['fecha'];
-   
-
-        $acti = new actividadModel();
-        $acti->insertar_actividad($ci_paciente,$actividad,$descripcion,$fecha);
-        $data["titulo"] = "actividad";
-
-        $this->verActividadesPacientes($ci_paciente);
+    public function guardarActividad() {
+        try {
+            $ci_paciente = $_POST['ci_paciente'];
+            $actividad = $_POST['actividad'];
+            $descripcion = $_POST['descripcion'];
+            $fecha = $_POST['fecha'];
+    
+            $acti = new actividadModel();
+            $acti->insertar_actividad($ci_paciente, $actividad, $descripcion, $fecha);
+            $data["titulo"] = "actividad";
+    
+            $this->verActividadesPacientes($ci_paciente);
+        } catch (mysqli_sql_exception $e) {
+            // Captura la excepción y almacena el mensaje en $data
+            $data["error_message"] = $e->getMessage();
+            // Redirige a la página de nuevoActividad con el mensaje de error
+            header('Location: http://localhost/nutritrack/index.php?c=actividad&a=nuevoActividad&error_message=' . urlencode($data["error_message"]));
+            exit();
+        }
     }
+    
 
     public function modificarActividad($id){
 			

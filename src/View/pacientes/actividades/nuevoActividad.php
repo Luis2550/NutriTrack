@@ -10,7 +10,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
 <?php include("./src/View/templates/header_usuario.php")?>
 
-
 <div class="container nuevo-actividades justify-content-center align-items-center" style="height: 100vh;">
 
     <form id="form-actividad" name="nuevo" method="POST" action="index.php?c=actividad&a=guardarActividad" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
@@ -30,8 +29,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
         <br>
        
-            <input type="hidden" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario']; ?>" class="form-control">
-       
+        <input type="hidden" id="ci_paciente" name="ci_paciente" readonly value="<?php echo $_SESSION['usuario']['ci_usuario']; ?>" class="form-control">
 
         <div class="form-group">
             <label for="actividad">Actividad:</label>
@@ -47,6 +45,27 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" readonly class="form-control">
         </div>
+
+        <?php
+        // Verificar si hay un mensaje de error presente
+        $error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
+
+        // Mostrar el mensaje de error si está presente
+        if (!empty($error_message)) {
+            // Mostrar la alerta de error con el mensaje correspondiente
+            echo '<script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Error",
+                            text: "' . htmlspecialchars($error_message) . '",
+                            showConfirmButton: true,
+                        });
+                    });
+                  </script>';
+        }
+        ?>
 
         <button id="guardar" name="guardar" type="submit" class="btn btn-primary">Registrar</button>
     </form>
@@ -70,27 +89,3 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 </style>
 
 <?php include("./src/View/templates/footer_usuario.php")?>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('form-actividad').addEventListener('submit', function (event) {
-        // Evitar que el formulario se envíe de manera predeterminada
-        event.preventDefault();
-
-        // Muestra la alerta después de unos segundos
-        setTimeout(function () {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Registro creado con éxito",
-                showConfirmButton: false,
-            });
-        }, 1000); // Cambia el valor del temporizador según tus necesidades
-
-        // Envía el formulario después de mostrar la alerta
-        setTimeout(function () {
-            document.getElementById('form-actividad').submit();
-        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
-    });
-});
-</script>
