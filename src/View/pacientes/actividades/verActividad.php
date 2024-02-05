@@ -98,7 +98,7 @@ usort($data['actividades'], function($a, $b) {
                         <!-- Mover los botones al final y ajustar estilos -->
                         <div class="card-buttons">
                             <button class="btn btn-info mb-2" data-toggle="modal" data-target="#verActividadModal<?php echo $dato['id_actividad']; ?>"><i class="fa-solid fa-eye" style="color: #fff;"></i> Ver Actividad</button>
-                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn btn-success mb-2"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i> Modificar</a>
+                            <a href="index.php?c=actividad&a=modificarActividad&id=<?php echo $dato['id_actividad']; ?>" class="btn btn-info mb-2"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i> Modificar</a>
                             <button class="btn btn-danger mb-2" onclick="confirmarEliminar(<?php echo $dato['id_actividad']; ?>)"><i class="fa-solid fa-trash" style="color: #fff;"></i> Eliminar</button>
                         </div>
                     </div>

@@ -6,7 +6,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
     exit();
 }
 
-// Lógica de manejo de la inserción aquí...
+usort($data['historial_medidas'], function($a, $b) {
+    return strtotime($a['fecha']) - strtotime($b['fecha']);
+});
 
 ?>
 
@@ -56,14 +58,14 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             // Mostrar la carta solo cuando $dato['ci_usuario'] sea igual a $data['ci_usuario']
             if ($dato['ci_usuario'] == $data['ci_usuario']) {
                 echo "<div class='notita'>";
-                echo "<p><strong>Cédula:</strong> " . $dato['ci_usuario'] . "</p>";
-                echo "<p><strong>Nombres:</strong> " . $dato['nombres'] . "</p>"; // Agregado
-                echo "<p><strong>Apellidos:</strong> " . $dato['apellidos'] . "</p>";
-                echo "<p><strong>Peso:</strong> " . $dato['peso'] . "</p>";
-                echo "<p><strong>Estatura:</strong> " . $dato['estatura'] . "</p>";
-                echo "<p><strong>Presion Arterial Sistolica:</strong> " . $dato['presion_arterial_sistolica'] . "</p>";
-                echo "<p><strong>Presion Arterial Diastolica:</strong> " . $dato['presion_arterial_diastolica'] . "</p>";
-                echo "<p><strong>Fecha:</strong> " . $dato['fecha'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Cédula:</strong> " . $dato['ci_usuario'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Nombres:</strong> " . $dato['nombres'] . "</p>"; // Agregado
+                echo "<p class='card-text mb-1'><strong>Apellidos:</strong> " . $dato['apellidos'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Peso:</strong> " . $dato['peso'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Estatura:</strong> " . $dato['estatura'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Presion Arterial Sistolica:</strong> " . $dato['presion_arterial_sistolica'] . "</p>";
+                echo "<p class='card-text mb-1'><strong>Presion Arterial Diastolica:</strong> " . $dato['presion_arterial_diastolica'] . "</p>";
+                echo "<p class='card-text mb-3'><strong>Fecha:</strong> " . $dato['fecha'] . "</p>";
                 echo "<div class='celda-acciones'>
                         <a class='btn btn-modificar' href='index.php?c=historialMedidas&a=modificarHistorialMedidas&id=".$dato["id_historial_medidas"]."'>Modificar</a>
                         <a class='btn btn-eliminar' href='index.php?c=historialMedidas&a=eliminarHistorialMedidas&id=".$dato["id_historial_medidas"]."&ci_usuario=".$cedula."'>Eliminar</a>

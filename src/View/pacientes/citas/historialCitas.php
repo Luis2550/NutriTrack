@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
 <h3>Historial Citas</h3>
 <div class="table-responsive">
-    <table class="table table-bordered table-sm dataTable" id="citas_pasadas">
+    <table class="table table-bordered table-sm dataTable table-hover" id="citas_pasadas">
         <thead>
             <tr>
                 <th style="width: 10%">Numero cita</th>

@@ -10,7 +10,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <?php include("./src/View/templates/header_administrador.php")?>
 
 <main class="main main_historialCli"> 
-    <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
     <h2 class="titulo_h2">Ver Historial Clinico</h2>
 
     <div class="row">
@@ -23,9 +22,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     <p class="card-text">Código: <?php echo $historia['id_historial_clinico']; ?></p>
                     <p class="card-text">Fecha Creación: <?php echo $historia['fecha_creacion']; ?></p>
                     <div class="d-flex justify-content-between mt-2">
-                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=asignarHistorialClinico&id=<?php echo $historia['id_historial_clinico']; ?>.' class='btn btn-info'>Asignar</a>
-                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinico&id=<?php echo $historia['id_historial_clinico']; ?>' class='btn btn-warning'>Modificar</a>
-                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialPaciente&id=<?php echo $historia['id_historial_clinico']; ?>' class='btn btn-success'>Ver historial</a>
+                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=asignarHistorialClinicoSecuencial&id=<?php echo $historia['id_historial_clinico']; ?>.' class='btn btn-info'>Asignar</a>
+                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=modificarHistorialClinicoSecuencial&id=<?php echo $historia['id_historial_clinico']; ?>' class='btn btn-warning'>Modificar</a>
+                        <a href='http://localhost/nutritrack/index.php?c=historialClinico&a=verHistorialPacienteSecuencial&id=<?php echo $historia['id_historial_clinico']; ?>' class='btn btn-success'>Ver historial</a>
                     </div>
                 </div>
             </div>

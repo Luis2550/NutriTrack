@@ -80,11 +80,26 @@ sort($diasPermitidos);
 
         </div>
 
-        <?php if (!empty($_GET['error_message'])) : ?>
-    <div class="alert alert-danger" role="alert">
-        <?php echo htmlspecialchars($_GET['error_message']); ?>
-    </div>
-<?php endif; ?>
+        <?php
+        // Verificar si hay un mensaje de error presente
+        $error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
+
+        // Mostrar el mensaje de error si está presente
+        if (!empty($error_message)) {
+            // Mostrar la alerta de error con el mensaje correspondiente
+            echo '<script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: "Error",
+                            text: "' . htmlspecialchars($error_message) . '",
+                            showConfirmButton: true,
+                        });
+                    });
+                  </script>';
+        }
+        ?>
 
         <div class="form-group">
             <button id="actualizar" name="actualizar" type="submit" class="btn btn-primary">Actualizar</button>
@@ -117,26 +132,3 @@ sort($diasPermitidos);
 
 <?php include("./src/View/templates/footer_usuario.php") ?>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('nuevo').addEventListener('submit', function (event) {
-        // Evitar que el formulario se envíe de manera predeterminada
-        event.preventDefault();
-
-        // Muestra la alerta después de unos segundos
-        setTimeout(function () {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Cita actualizada con éxito",
-                showConfirmButton: false,
-            });
-        }, 1000); // Cambia el valor del temporizador según tus necesidades
-
-        // Envía el formulario después de mostrar la alerta
-        setTimeout(function () {
-            document.getElementById('nuevo').submit();
-        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
-    });
-});
-</script>

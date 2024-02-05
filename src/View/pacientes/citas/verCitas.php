@@ -37,7 +37,7 @@ foreach ($citas_agendadas as $cita) {
     <?php if (!empty($citas_actuales_hoy)): ?>
     <h3>Cita de Hoy</h3>
     <div class="table-responsive">
-        <table class="table table-bordered dataTable">
+        <table class="table table-bordered dataTable table-hover">
             <thead>
                 <tr>
                     <th>Fecha</th>
@@ -75,7 +75,7 @@ foreach ($citas_agendadas as $cita) {
     <?php if (!empty($citas_actuales_futuras)): ?>
         <h3>Citas Futuras</h3>
         <div class="table-responsive">
-            <table class="table table-bordered dataTable" id="citas_futuras">
+            <table class="table table-bordered dataTable table-hover" id="citas_futuras">
                 <thead>
                     <tr>
                         
@@ -119,7 +119,8 @@ function confirmarCancelarCita(idCita) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, Cancelar"
+        confirmButtonText: "Sí, Cancelar",
+        cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
             // Redireccionar a la página de cancelar con la confirmación
@@ -130,6 +131,7 @@ function confirmarCancelarCita(idCita) {
 }
 </script>
 
+
 <script>
 function confirmarEliminarCita(idCita) {
     Swal.fire({
@@ -139,7 +141,8 @@ function confirmarEliminarCita(idCita) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, Eliminar"
+        confirmButtonText: "Sí, Eliminar",
+        cancelButtonText: "Cancelar"
     }).then((result) => {
         if (result.isConfirmed) {
             // Redireccionar a la página de cancelar con la confirmación
@@ -149,6 +152,7 @@ function confirmarEliminarCita(idCita) {
     return false; // Evitar el comportamiento predeterminado del enlace
 }
 </script>
+
 
 
 <br>
