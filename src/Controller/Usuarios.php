@@ -256,7 +256,16 @@ class UsuariosController{
         $data["ci_usuario"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "Usuarios";
+
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
+
+        if(isset($data["usuarios"]["foto"])){
+            $_SESSION['usuario']['foto'] = $data["usuarios"]["foto"];
+
+        } else {
+            echo "El campo 'foto' no está presente en el array de usuarios.";
+        }
+
     }
 
 
@@ -269,7 +278,16 @@ class UsuariosController{
         $data["titulo"] = "Usuarios";
 
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
+
+        if(isset($data["usuarios"]["foto"])){
+            $_SESSION['usuario']['foto'] = $data["usuarios"]["foto"];
+        } else {
+            echo "El campo 'foto' no está presente en el array de usuarios.";
+        }
+
+
     }
+
     
     public function actualizarUsuarios() {
         $id = $_POST['id'];
@@ -305,8 +323,8 @@ class UsuariosController{
         $usuarios = new UsuariosModel();
         $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto);
         $data["titulo"] = "usuarios";
-        
-        
+
+        setcookie('reload_page_once', 'true', time() + 3600, '/');  // La cookie expirará en 1 hora        
         header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios&ci_paciente='.$id);
         exit();
     }
@@ -349,8 +367,12 @@ class UsuariosController{
         $data["titulo"] = "usuarios";
         
         
-        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios_n&ci_paciente='.$id);
+        // Después de la actualización exitosa
+        setcookie('reload_page_once', 'true', time() + 3600, '/');  // La cookie expirará en 1 hora
+
+        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios_n&ci_paciente=' . $id);
         exit();
+
     }
 
     

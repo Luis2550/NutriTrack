@@ -166,3 +166,15 @@
         <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
             <!-- Contenido de la página aquí -->
  
+<script>
+    const reloadCookie = document.cookie.replace(/(?:(?:^|.*;\s*)reload_page_once\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
+    if (reloadCookie === 'true') {
+        document.cookie = 'reload_page_once=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        // Recargar la página después de 500 milisegundos
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+    }
+</script>

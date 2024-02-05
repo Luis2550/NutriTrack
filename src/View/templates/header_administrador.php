@@ -195,9 +195,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="sidebar-sticky">
                     <nav class="nav flex-column">
-
-                        
-                    
                     <a class="nav-link contenedor-img" href="">
                         <div class="d-flex align-items-center">
                             <img width="50" height="70" src="./uploads/<?= $_SESSION['usuario']['foto'] ?>" class="img-fluid rounded-circle mr-2" alt="">
@@ -246,3 +243,16 @@
         <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-md-4 main-content">
             <!-- Contenido de la página aquí -->
  
+
+<script>
+    const reloadCookie = document.cookie.replace(/(?:(?:^|.*;\s*)reload_page_once\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+
+    if (reloadCookie === 'true') {
+        document.cookie = 'reload_page_once=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        // Recargar la página después de 100 milisegundos
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    }
+</script>
