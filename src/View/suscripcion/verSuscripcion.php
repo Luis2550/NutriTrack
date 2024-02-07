@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <main class="container-fluid mt-4">
     <div class="row">
         <div class="col-12">
-            <h2 class="title mb-4"> <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
+            <h2 class="title mb-4">Planes de Suscripción </h2>
 
             <div class="d-flex justify-content-end mb-3">
                 <a href='http://localhost/NutriTrack/index.php?c=Suscripcion&a=nuevoSuscripcion' class='btn btn-success'>
@@ -57,29 +57,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                                 echo "<tr>";
                                     echo "<td>".$dato['suscripcion']."</td>";
                                     echo "<td>".$dato['duracion_dias']."</td>";
-                                    echo "<td><a href='index.php?c=Suscripcion&a=modificarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-outline-success btn-sm'><i class='fas fa-edit'></i></a></td>
-                                    <td><button type='button' class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#eliminarModal_".$dato["id_suscripcion"]."'><i class='fas fa-trash-alt border-0'></i></button></td>";
-                                   
-                                    echo "<div class='modal fade' id='eliminarModal_".$dato["id_suscripcion"]."' tabindex='-1' role='dialog' aria-labelledby='eliminarModalLabel_".$dato["id_suscripcion"]."' aria-hidden='true'>
-                                        <div class='modal-dialog'>
-                                            <div class='modal-content'>
-                                                <div class='modal-header'>
-                                                    <h5 class='modal-title' id='eliminarModalLabel_".$dato["id_suscripcion"]."'>Confirmar Eliminación</h5>
-                                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                                        <span aria-hidden='true'>&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class='modal-body'>
-                                                    ¿Estás seguro de que deseas eliminar este dato?
-                                                </div>
-                                                <div class='modal-footer'>
-                                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                                    <a href='index.php?c=Suscripcion&a=eliminarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-danger'>Eliminar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
-                                
+                                    echo "<td><a href='index.php?c=Suscripcion&a=modificarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-success mb-2'><i class='fa-solid fa-pen-to-square' style='color: #fff;'></i></a></td>
+                                    <td><button class='btn btn-danger mb-2' onclick='confirmarEliminar(".$dato['id_suscripcion'].")'><i class='fa-solid fa-trash' style='color: #fff;'></i></button></td>";
                                 echo "</tr>";
                             }
                         ?>
@@ -132,6 +111,23 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
             }
         });
     });
+
+    function confirmarEliminar(idSuscripcion) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "No podrás revertir esto",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminarlo"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redireccionar a la página de eliminar con la confirmación
+                window.location.href = "index.php?c=suscripcion&a=eliminarSuscripcion&id=" + idSuscripcion;
+            }
+        });
+    }
 </script>
 
 </body>

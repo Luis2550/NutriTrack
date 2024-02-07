@@ -5,7 +5,25 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
     header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_sesion'); // Redirige si no hay sesión o el rol no es correcto
     exit();
 }
+function decrypt($string, $key)
+{
+    $result = '';
+    $string = base64_decode($string); // Corregido: base64_decode en lugar de base64_encode
+    for ($i = 0; $i < strlen($string); $i++) {
+        $char = substr($string, $i, 1);
+        $keychar = substr($key, ($i % strlen($key)) - 1, 1);
+        $char = chr(ord($char) - ord($keychar));
+        $result .= $char;
+    }
+    return $result;
+}
 
+// Obtener la contraseña encriptada de $data["usuarios"]["clave"]
+$clave_encriptada = $data["usuarios"]["clave"];
+$tu_llave_secreta = 'memocode';
+
+// Desencriptar la contraseña
+$clave_desencriptada = decrypt($clave_encriptada, $tu_llave_secreta);
 ?>
 
 
@@ -59,18 +77,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
                     <div class="form-group">
                         <label for="clave">Contraseña:</label>
-                        <div class="input-group">
-                            <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $data["usuarios"]["clave"]?>">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="verContrasena" onclick="mostrarContrasena()">Ver</button>
-                            </div>
-                        </div>
+                        <input type="password" id="clave" name="clave" required class="form-control" value="<?php echo $clave_desencriptada; ?>">
                     </div>
-
 
                     <div class="form-group">
                         <label for="sexo">Sexo:</label>
-                        <select id="sexo" name="sexo" required class="form-control"> 
+                        <select id="sexo" name="sexo" required class="form-control">
                             <?php
                             $sexoActual = $data["usuarios"]["sexo"];
                             ?>
@@ -81,8 +93,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
                     <div class="form-group">
                         <label for="foto">Foto:</label>
-                        <img id="previewFoto" width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
-                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" class="form-control" onchange="previewImage(this)">
+                        <img width="100" src="./uploads/<?php echo $data["usuarios"]["foto"];?>" class="img-fluid rounded" alt="">
+
+                        <input type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png" required class="form-control" value="<?php echo $data["usuarios"]["foto"]?>">
                     </div>
                 </div>
             </div>
@@ -91,63 +104,5 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
         </form>
     </div>
 </div>
-
-
-<script>
-    function mostrarContrasena() {
-        var inputClave = document.getElementById('clave');
-        var botonVerContrasena = document.getElementById('verContrasena');
-
-        if (inputClave.type === 'password') {
-            inputClave.type = 'text';
-            botonVerContrasena.textContent = 'Ocultar';
-        } else {
-            inputClave.type = 'password';
-            botonVerContrasena.textContent = 'Ver';
-        }
-    }
-
-    function previewImage(input) {
-        var preview = document.getElementById('previewFoto');
-        var file = input.files[0];
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "./uploads/<?php echo $data["usuarios"]["foto"];?>";
-        }
-    }
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('nuevo').addEventListener('submit', function (event) {
-        // Evitar que el formulario se envíe de manera predeterminada
-        event.preventDefault();
-
-        // Muestra la alerta después de unos segundos
-        setTimeout(function () {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Datos actualizados con éxito",
-                showConfirmButton: false,
-            });
-        }, 1000); // Cambia el valor del temporizador según tus necesidades
-
-        // Envía el formulario después de mostrar la alerta
-        setTimeout(function () {
-            document.getElementById('nuevo').submit();
-        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
-    });
-});
-</script>
-
 
 <?php include("./src/View/templates/footer_usuario.php")?>

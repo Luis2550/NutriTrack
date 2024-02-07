@@ -10,12 +10,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main class="main main_suscripcion container">
-    <div class="row justify-content-center">
-        <div class="col-md-15">
-        <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=actualizarSuscripcion" autocomplete="off" class="needs-validation" novalidate>
-                <h2 class="mb-4 text-center">Actualizar <?php echo $data['titulo']; ?></h2>
-
+<main class="main mainHistorial" >
+            <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=actualizarSuscripcion" autocomplete="off" class="mx-auto col-lg-8 col-sm-12" novalidate>
+                <h2 >Cambios en el plan <?php echo $data['titulo']; ?></h2>
+                <!-- class="mb-4 text-center" -->
                 <input type="hidden" id="id_suscripcion" name="id_suscripcion" required value="<?php echo $data["suscripcion"]["id_suscripcion"] ?>">
 
                 <div class="form-group">
@@ -49,18 +47,62 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 </div>
 
                 <div class="form-group">
-                    <button id="guardar" name="guardar" type="submit" class="btn btn-primary btn-block">Actualizar</button>
+                    <button id="guardar" name="guardar" type="submit" class="btn btn-primary"  style="background-color: #22c55e; border-color: #22c55e">Actualizar</button>
                 </div>
                 
-                <div class="form-group">
-                    <button id="volver" name="volver" type="button" class="btn btn-secondary btn-block" onclick="window.location.href='index.php?c=Suscripcion&a=verSuscripcion'">Regresar</button>
+                <div class="d-flex justify-content-between mt-4">
+                <button id="volver" name="volver" type="button" class="btn btn-secondary" onclick="window.location.href='index.php?c=Suscripcion&a=verSuscripcion'">Regresar</button>
                 </div>
             </form>
-        </div>
-    </div>
+            
+<style>
+@media (max-width: 767px) {
+    .container,
+    .form-group,
+    #modificar {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+    }
+    
+    #modificar {
+        max-height: none;
+        overflow-y: visible;
+    }
+    .btn-primary {
+    background-color: #22c55e; /* Cambia el color de fondo del botón */
+    border-color: #22c55e; /* Cambia el color del borde del botón */
+    }
+    .btn-primary {
+        color: #fff; /* Cambia el color del texto del botón a blanco */
+    }
+
+}
+</style>
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nuevo').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Cambios realizados con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            window.location.href = 'http://localhost/nutritrack/index.php?c=suscripcion&a=verSuscripcion';
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
+</script>
 
 <?php include("./src/View/templates/footer_administrador.php")?>
 
-
-<!-- ojo esto ya no se esta llamando solo se usa en ver suscripcion -->

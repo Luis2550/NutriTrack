@@ -19,8 +19,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>Correo</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+                <th></th>
+                <!-- <th>Eliminar</th> -->
             </tr>
         </thead>
 
@@ -34,8 +34,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                             echo "<td>".$dato['apellidos']."</td>";
                             echo "<td>".$dato['edad']."</td>";
                             echo "<td>".$dato['correo']."</td>";
-                            echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios_n&id=".$dato["ci_usuario"]."' class='btn btn-outline-success btn-sm'><i class='fas fa-edit'></i></a></td>";
-                            echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["ci_usuario"]."' class='btn btn-outline-danger btn-sm'><i class='fas fa-trash-alt'></i></a></td>";
+                            echo "<td><a href='index.php?c=Usuarios&a=modificarUsuarios_n&id=".$dato["ci_usuario"]."' class='btn btn-success mb-2'><i class='fa-solid fa-pen-to-square' style='color: #fff;'></i></a></td>";
+                            // echo "<td><a href='index.php?c=Usuarios&a=eliminarUsuarios&id=".$dato["ci_usuario"]."' class='btn btn-outline-danger btn-sm'><i class='fas fa-trash-alt'></i></a></td>";
                         echo "</tr>";
                     }
                 }

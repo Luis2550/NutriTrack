@@ -10,11 +10,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 
-<main class="main main_suscripcion container">
-    <div class="row justify-content-center">
-        <div class="col-md-20">
-            <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off" class="needs-validation" novalidate>
-                <h2 class="mb-4 text-center">Registro <?php echo $data['titulo']; ?></h2>
+<main class="main mainHistorial">
+            <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Suscripcion&a=guardarSuscripcion" autocomplete="off" class="mx-auto col-lg-8 col-sm-12" novalidate>
+                <h2 class="mb-4 text-center">Registro del plan<?php echo $data['titulo']; ?></h2>
 
                 <div class="form-group">
                     <label for="suscripciondato">Suscripcion:</label>
@@ -24,7 +22,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
                 <div class="form-group">
                     <label for="duracion_dias">Duracion Dias:</label>
-                    <input type="number" id="duracion_dias" name="duracion_dias" class="form-control" required>
+                    <input type="number" id="duracion_dias" name="duracion_dias" class="form-control" required min="0">
                     <div class="invalid-feedback">Este campo es obligatorio.</div>
                 </div>
 
@@ -46,16 +44,62 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                     ?>
                 </div>
                 <div class="form-group">
-                    <button id="guardar" name="guardar" type="submit" class="btn btn-primary btn-block">Registrar</button>
+                    <button id="guardar" name="guardar" type="submit" class="btn btn-primary" style="background-color: #22c55e; border-color: #22c55e">Registrar</button>
                 </div>
                 <div class="form-group">
-                    <button id="volver" name="volver" type="button" class="btn btn-secondary btn-block" onclick="window.location.href='index.php?c=Suscripcion&a=verSuscripcion'">Regresar</button>
+                    <button id="volver" name="volver" type="button" class="btn btn-secondary " onclick="window.location.href='index.php?c=Suscripcion&a=verSuscripcion'">Regresar</button>
                 </div>
             </form>
-        </div>
-    </div>
+            <style>
+@media (max-width: 767px) {
+    .container,
+    .form-group,
+    #modificar {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+    }
+    
+    #modificar {
+        max-height: none;
+        overflow-y: visible;
+    }
+    .btn-primary {
+    background-color: #22c55e; /* Cambia el color de fondo del botón */
+    border-color: #22c55e; /* Cambia el color del borde del botón */
+    }
+    .btn-primary {
+        color: #fff; /* Cambia el color del texto del botón a blanco */
+    }
+
+}
+</style>
 </main>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('nuevo').addEventListener('submit', function (event) {
+        // Evitar que el formulario se envíe de manera predeterminada
+        event.preventDefault();
+
+        // Muestra la alerta después de unos segundos
+        setTimeout(function () {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Registro plan suscripción realizada con éxito",
+                showConfirmButton: false,
+            });
+        }, 1000); // Cambia el valor del temporizador según tus necesidades
+
+        // Envía el formulario después de mostrar la alerta
+        setTimeout(function () {
+            document.getElementById('nuevo').submit();
+        }, 3000); // Asegúrate de ajustar el valor del temporizador según el tiempo de la alerta
+    });
+});
+</script>
 <?php include("./src/View/templates/footer_administrador.php")?>
 
 

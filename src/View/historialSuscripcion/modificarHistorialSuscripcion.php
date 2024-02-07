@@ -12,50 +12,76 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <?php include("./src/View/templates/header_administrador.php")?>
 <main class="main mainHistorial" >
-<form id="nuevo" name="nuevo" method="POST" action="index.php?c=HistorialSuscripcion&a=actualizarHistorialSuscripcion" autocomplete="off" class="container mt-5 d-flex flex-column align-items-center">
-    <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
-    <h2>Editar <?php echo $data['titulo'];?></h2>
+    <form id="nuevo" name="nuevo" method="POST" action="index.php?c=HistorialSuscripcion&a=actualizarHistorialSuscripcion" autocomplete="off" class="mx-auto col-lg-8 col-xm-12">
+        <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?></h2>
+        <h2>Editar Suscripción Paciente </h2>
 
-    <div class="mb-3 w-100">
+        <div class="form-group">
         <label for="ci_paciente" class="form-label">Cédula Paciente:</label>
         <input type="text" id="ci_paciente" name="ci_paciente" readonly required value="<?php echo $data["historialsuscripciones"]["ci_paciente"]?>" class="form-control">
     </div>
-    
-    <div class="mb-3 w-100">
-        <label for="id_suscripcion" class="form-label">Suscripcion:</label>
-        <select id="id_suscripcion" name="id_suscripcion" required onchange="actualizarDatos()" required class="form-select">
-            <?php
-            $usuarioSeleccionadoId = $data["historialsuscripciones"]["id_suscripcion"];
-            $usuarioSeleccionadoSuscripcion = $data["historialsuscripciones"]["suscripcion"];
+    <div class="input-group mb-3">
+    <label class="input-group-text" for="id_suscripcion">Suscripcion:</label>
+    <select id="id_suscripcion" name="id_suscripcion" required onchange="actualizarDatos()" class="form-select">
+        <option selected>Escoja un plan ...</option>
+        <?php
+        $usuarioSeleccionadoId = $data["historialsuscripciones"]["id_suscripcion"];
+        $usuarioSeleccionadoSuscripcion = $data["historialsuscripciones"]["suscripcion"];
 
-            // Mueve el usuario seleccionado al principio del array
-            $opcionesSuscripcion = $data2['opciones_suscripcion'];
-            usort($opcionesSuscripcion, function($a, $b) use ($usuarioSeleccionadoId) {
-                return ($a['id_suscripcion'] == $usuarioSeleccionadoId) ? -1 : 1;
-            });
+        // Mueve el usuario seleccionado al principio del array
+        $opcionesSuscripcion = $data2['opciones_suscripcion'];
+        usort($opcionesSuscripcion, function($a, $b) use ($usuarioSeleccionadoId) {
+            return ($a['id_suscripcion'] == $usuarioSeleccionadoId) ? -1 : 1;
+        });
 
-            // Ahora, muestra las opciones
-            foreach ($opcionesSuscripcion as $suscripcion) {
-            ?>
-                <option value="<?php echo $suscripcion['id_suscripcion']; ?>" data-duracion_dias="<?php echo $suscripcion['duracion_dias']; ?>"><?php echo $suscripcion['suscripcion']; ?></option>
-            <?php } ?>
-        </select>
-        <input type="hidden" readonly id="duracion_dias" name="duracion_dias" value="<?php echo $opcionesSuscripcion[0]['duracion_dias']; ?>">
-    </div>
+        // Ahora, muestra las opciones
+        foreach ($opcionesSuscripcion as $suscripcion) {
+        ?>
+            <option value="<?php echo $suscripcion['id_suscripcion']; ?>" data-duracion_dias="<?php echo $suscripcion['duracion_dias']; ?>" <?php echo ($suscripcion['id_suscripcion'] == $usuarioSeleccionadoId) ? 'selected' : ''; ?>>
+                <?php echo $suscripcion['suscripcion']; ?>
+            </option>
+        <?php } ?>
+    </select>
+    <input type="hidden" readonly id="duracion_dias" name="duracion_dias" value="<?php echo $opcionesSuscripcion[0]['duracion_dias']; ?>">
+</div>
 
-    <div class="mb-3 w-100">
+
+    <div class="form-group">
         <label for="fecha_inicio" class="form-label">Fecha Inicio:</label>
         <input type="date" id="fecha_inicio" name="fecha_inicio" required value="<?php echo $data["historialsuscripciones"]["fecha_inicio"]?>" class="form-control">
     </div>
 
-    <div class="mb-3 w-100">
+    <div class="form-group">
         <label for="fechaFin" class="form-label">Fecha Fin:</label>
         <input type="date" id="fecha_fin" name="fecha_fin" required value="<?php echo $data["historialsuscripciones"]["fecha_fin"]?>" class="form-control">
     </div>
     
-    <button id="guardar" name="guardar" type="submit" class="btn btn-primary">Actualizar</button>
+    <button id="guardar" name="guardar" type="submit" class="btn btn-primary" style="background-color: #22c55e; border-color: #22c55e">Actualizar</button>
 </form>
+<style>
+@media (max-width: 767px) {
+    .container,
+    .form-group,
+    #modificar {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+    }
+    
+    #modificar {
+        max-height: none;
+        overflow-y: visible;
+    }
+    .btn-primary {
+    background-color: #22c55e; /* Cambia el color de fondo del botón */
+    border-color: #22c55e; /* Cambia el color del borde del botón */
+    }
+    .btn-primary {
+        color: #fff; /* Cambia el color del texto del botón a blanco */
+    }
 
+}
+</style>
 
 <script>
   function actualizarDatos() {

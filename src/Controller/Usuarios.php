@@ -102,14 +102,24 @@ class UsuariosController{
         $data['roles'] = $usuarios->get_Roles();
         require_once(__DIR__ . '/../View/usuarios/nuevoUsuarios.php');
     }
-
+    function encryptPassword($password, $key)
+    {
+        $result = '';
+        for ($i = 0; $i < strlen($password); $i++) {
+            $char = substr($password, $i, 1);
+            $keychar = substr($key, ($i % strlen($key)) - 1, 1);
+            $char = chr(ord($char) + ord($keychar));
+            $result .= $char;
+        }
+        return base64_encode($result);
+    }
     public function guardarUsuarios() {
 
         // Validar y asegurar una contraseña más fuerte (ajusta según sea necesario)
         // if (strlen($_POST['contrasenia']) < 8) {
         //     die("La contraseña debe tener al menos 8 caracteres.");
         // }
-
+        $tu_llave_secreta='memocode';
         $ci_usuario = mb_strtoupper($_POST['cedula'], 'UTF-8');
         $id_rol = 1;
         $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
@@ -120,23 +130,14 @@ class UsuariosController{
         $edad = $hoy->diff($fechaNacimiento)->y;
         $correo = strtolower($_POST['correo']);
         //$contrasenia = $_POST['clave'];
-        $contrasenia = password_hash(htmlspecialchars($_POST['clave']), PASSWORD_DEFAULT);
+        $clave_ingresada = htmlspecialchars($_POST['clave']);
+        $clave_encriptada =UsuariosController::encryptPassword($clave_ingresada, $tu_llave_secreta);
         $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
-        $foto = $_FILES["foto"]["name"];
+        $foto = $_POST['foto'];
         $intentos=3;
 
-        // Procesar la foto
-        $fecha_ = new DateTime();
-        $nombreArchivoFoto = ($foto != '') ? $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"] : "";
-        $tmp_foto = $_FILES["foto"]["tmp_name"];
-
-        if ($tmp_foto != '') {
-            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
-        }
-
-
         $usuarios = new UsuariosModel();
-        $vacioCampos = $usuarios->esNulo([$ci_usuario, $nombres, $apellidos, $fecha_nacimiento, $correo, $contrasenia, $genero, $nombreArchivoFoto]);
+        $vacioCampos = $usuarios->esNulo([$ci_usuario, $nombres, $apellidos, $fecha_nacimiento, $correo, $clave_ingresada, $genero, $foto]);
 
         if ($vacioCampos) {
             $data["titulo"] = "Usuarios";
@@ -157,7 +158,7 @@ class UsuariosController{
             } elseif (UsuariosController::validarCedula($ci_usuario)) {
                 if (UsuariosController::validarNombre($nombres) && UsuariosController::validarApellido($apellidos)) {
                     
-                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto,$intentos);
+                    $usuarios->insertar_Usuarios($ci_usuario, $id_rol, $nombres, $apellidos, $edad, $correo, $clave_encriptada, $genero, $foto,$intentos);
 
                     // Agregar envío de correo de activación
                     $hash = md5(rand(0, 1000));
@@ -180,7 +181,9 @@ class UsuariosController{
     
     
     public function enviarCorreoActivacion($email, $hash) {
+        
         try {
+            
             $mail = new PHPMailer(true);
             $mail->SMTPDebug = 0;
             $mail->isSMTP();
@@ -193,6 +196,7 @@ class UsuariosController{
     
             $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
             $mail->addAddress($email);
+            $mail->CharSet = 'UTF-8';
     
             $mail->isHTML(true);
             $mail->Subject = 'Activación de cuenta';
@@ -207,9 +211,47 @@ class UsuariosController{
             ";
     
             $mail->send();
-            echo 'Correo de activación enviado con éxito.';
+            // echo 'Correo de activación enviado con éxito.';
         } catch (Exception $e) {
-            echo "No se pudo enviar el correo de activación. Error del servidor de correo: {$mail->ErrorInfo}";
+            // echo "No se pudo enviar el correo de activación. Error del servidor de correo: {$mail->ErrorInfo}";
+        }
+       
+       
+
+        
+    }
+
+    public function enviarCorreoCambioContrasena($email) {
+        try {
+            $mail = new PHPMailer(true);
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'nutritrack02@gmail.com';
+            $mail->Password   = 'reaq znpz rqhr huac';
+            $mail->SMTPSecure = 'SSL';
+            $mail->Port       = 587;
+    
+            $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
+            $mail->addAddress($email);
+            $mail->CharSet = 'UTF-8';
+    
+            $mail->isHTML(true);
+            $mail->Subject = 'Cambio Contraseña';
+            $mail->Body    = "
+                Has perdido la contraseña de la cuenta
+    
+                ------------------------
+                Por favor haz clic en este enlace para cambiar  tu cuenta:
+                http://localhost/nutritrack/index.php?c=Sesion&a=cambio_contrasena
+
+            ";
+    
+            $mail->send();
+            // echo 'Correo de activación enviado con éxito.';
+        } catch (Exception $e) {
+            // echo "No se pudo enviar el correo de activación. Error del servidor de correo: {$mail->ErrorInfo}";
         }
     }
 
@@ -227,6 +269,7 @@ class UsuariosController{
     
             $mail->setFrom('nutritrack02@gmail.com', 'Nutritrack');
             $mail->addAddress($email);
+            $mail->CharSet = 'UTF-8';
     
             $mail->isHTML(true);
             $mail->Subject = 'Recuperación de Contraseña';
@@ -256,16 +299,7 @@ class UsuariosController{
         $data["ci_usuario"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "Usuarios";
-
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios.php');
-
-        if(isset($data["usuarios"]["foto"])){
-            $_SESSION['usuario']['foto'] = $data["usuarios"]["foto"];
-
-        } else {
-            echo "El campo 'foto' no está presente en el array de usuarios.";
-        }
-
     }
 
 
@@ -276,106 +310,26 @@ class UsuariosController{
         $data["ci_usuario"] = $id;
         $data["usuarios"] = $usuarios->get_Usuario($id);
         $data["titulo"] = "Usuarios";
-
         require_once(__DIR__ . '/../View/usuarios/modificarUsuarios_n.php');
-
-        if(isset($data["usuarios"]["foto"])){
-            $_SESSION['usuario']['foto'] = $data["usuarios"]["foto"];
-        } else {
-            echo "El campo 'foto' no está presente en el array de usuarios.";
-        }
-
-
     }
-
     
-    public function actualizarUsuarios() {
+    public function actualizarUsuarios(){
+        $tu_llave_secreta='memocode';
         $id = $_POST['id'];
-        $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
-        $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
         $edad = $_POST['edad'];
-        $correo = strtolower($_POST['correo']);
-        $contrasenia = $_POST['clave'];
-        $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
-        $foto = $_FILES["foto"]["name"]; // Nueva foto que se está subiendo
-    
-        // Verificar si se está actualizando la foto
-        if ($_FILES["foto"]["tmp_name"] != '') {
-            // Procesar la nueva foto
-            $fecha_ = new DateTime();
-            $nombreArchivoFoto = $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"];
-            $tmp_foto = $_FILES["foto"]["tmp_name"];
-    
-            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
-    
-            // Borrar la foto anterior si existe
-            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
-    
-            if ($usuarioAnterior['foto'] != '') {
-                unlink("./uploads/" . $usuarioAnterior['foto']);
-            }
-        } else {
-            // Si no se actualiza la foto, mantener la foto actual
-            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
-            $nombreArchivoFoto = $usuarioAnterior['foto'];
-        }
-    
+        $correo = $_POST['correo'];
+        $clave_ingresada = htmlspecialchars($_POST['clave']);
+        $clave_encriptada =UsuariosController::encryptPassword($clave_ingresada, $tu_llave_secreta);
+        $genero = $_POST['sexo'];
+        $foto = $_POST['foto'];
+
         $usuarios = new UsuariosModel();
-        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto);
+        $usuarios->modificar_Usuarios($id,$nombres, $apellidos, $edad, $correo, $clave_encriptada, $genero, $foto);
         $data["titulo"] = "usuarios";
-
-        setcookie('reload_page_once', 'true', time() + 3600, '/');  // La cookie expirará en 1 hora        
-        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios&ci_paciente='.$id);
-        exit();
+        $this->verUsuarios();
     }
-
-
-    public function actualizarUsuarios_n() {
-        $id = $_POST['id'];
-        $nombres = mb_strtoupper($_POST['nombres'], 'UTF-8');
-        $apellidos = mb_strtoupper($_POST['apellidos'], 'UTF-8');
-        $edad = $_POST['edad'];
-        $correo = strtolower($_POST['correo']);
-        $contrasenia = $_POST['clave'];
-        $genero = mb_strtoupper($_POST['sexo'], 'UTF-8');
-        $foto = $_FILES["foto"]["name"]; // Nueva foto que se está subiendo
-    
-        // Verificar si se está actualizando la foto
-        if ($_FILES["foto"]["tmp_name"] != '') {
-            // Procesar la nueva foto
-            $fecha_ = new DateTime();
-            $nombreArchivoFoto = $fecha_->getTimestamp() . "_" . $_FILES["foto"]["name"];
-            $tmp_foto = $_FILES["foto"]["tmp_name"];
-    
-            move_uploaded_file($tmp_foto, "./uploads/" . $nombreArchivoFoto);
-    
-            // Borrar la foto anterior si existe
-            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
-    
-            if ($usuarioAnterior['foto'] != '') {
-                unlink("./uploads/" . $usuarioAnterior['foto']);
-            }
-
-        } else {
-            // Si no se actualiza la foto, mantener la foto actual
-            $usuarioAnterior = (new UsuariosModel())->get_Usuario($id);
-            $nombreArchivoFoto = $usuarioAnterior['foto'];
-        }
-    
-        $usuarios = new UsuariosModel();
-        $usuarios->modificar_Usuarios($id, $nombres, $apellidos, $edad, $correo, $contrasenia, $genero, $nombreArchivoFoto);
-        $data["titulo"] = "usuarios";
-        
-        
-        // Después de la actualización exitosa
-        setcookie('reload_page_once', 'true', time() + 3600, '/');  // La cookie expirará en 1 hora
-
-        header('Location: http://localhost/nutritrack/index.php?c=Usuarios&a=modificarUsuarios_n&ci_paciente=' . $id);
-        exit();
-
-    }
-
-    
     
     public function eliminarUsuarios($id){
         
@@ -384,6 +338,7 @@ class UsuariosController{
         $data["titulo"] = "Usuarios";
         $this->verUsuarios();
     }
+    
     
 }
 

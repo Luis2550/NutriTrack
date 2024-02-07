@@ -261,6 +261,32 @@ class UsuariosModel{
     
         return isset($clave) ? $clave : null;
     }
+    public function restablecer_contrasena($email, $nueva)
+    {
+        // Preparar la consulta SQL con parámetros
+        $sql = "UPDATE usuario SET clave = ? WHERE correo = ?";
+        
+        // Preparar la sentencia
+        $stmt = $this->db->prepare($sql);
+
+        // Vincular los parámetros
+        $stmt->bind_param("ss", $nueva, $email);
+
+        // Ejecutar la sentencia
+        $resultado = $stmt->execute();
+
+        // Verificar si la actualización fue exitosa
+        if ($resultado) {
+            // Actualización exitosa
+            $stmt->close();
+            return true;
+        } else {
+            // Error en la actualización
+            $stmt->close();
+            return false;
+        }
+    }
+
     
 }
 
