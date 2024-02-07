@@ -78,7 +78,7 @@ class SesionController {
 
                 // Redirige según el rol
                 if ($rol['rol'] === 'Paciente') {
-                    header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p');
+                    header('Location: http://localhost/nutritrack/index.php?c=Inicio&a=inicio_p&ci_usuario=' . $usuario['ci_usuario']);
                     exit(); // Agregado: evita que el script siga ejecutándose después de la redirección
                 } elseif ($rol['rol'] === 'Nutriologa') {
                     header('Location: http://localhost/nutritrack/index.php?c=Citas&a=verCitas');

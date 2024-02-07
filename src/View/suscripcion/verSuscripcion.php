@@ -46,8 +46,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         <tr>
                             <th>Suscripcion</th>
                             <th>Duracion Dias</th>
-                            <th></th>
-                            <th></th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
 
