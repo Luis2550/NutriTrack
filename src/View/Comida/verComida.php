@@ -92,7 +92,7 @@
                                         echo "<td>".$dato['cantidad_carbohidratos']."</td>";
                                         echo "<td>".$dato['cantidad_grasas_saludables']."</td>";
                                         echo "<td>
-                                            <a onclick='return confirmarEliminarComida(".$dato["id_comida"].")' class='btn btn-warning' href='index.php?c=Comida&a=modificarComida&id=".$dato["id_comida"]."'><i class='fas fa-pencil-alt'></i></a>
+                                            <a  class='btn btn-warning' href='index.php?c=Comida&a=modificarComida&id=".$dato["id_comida"]."'><i class='fas fa-pencil-alt'></i></a>
                                             <a onclick='return confirmarEliminarComida(".$dato["id_comida"].")' class='btn btn-danger'href='index.php?c=Comida&a=eliminarComida&id=".$dato["id_comida"]."'><i class='fas fa-trash'></i></a>
                                         </td>";
                                     echo "</tr>";
