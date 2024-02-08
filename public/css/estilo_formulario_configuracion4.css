@@ -67,8 +67,17 @@
 }
 
 .main_historialCli #enfermedadesTable th {
-    background-color: #4caf50;
+    background-color: #12832e;
     color: #fff;
+}
+
+
+.main_historialCli #enfermedadesTable input[type="radio"] {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #12832e;
+    cursor: not-allowed; /* Cambia el cursor a no permitido para indicar que es de solo lectura */
+    color: #0853af; /* Color del texto */
 }
 
 .main_historialCli #enfermedadesTable input {
@@ -121,7 +130,7 @@
 }
 
 .main_historialCli button {
-    background-color: #4caf50;
+    background-color: #12832e;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -131,7 +140,7 @@
 }
 
 .main_historialCli button:hover {
-    background-color: #45a049;
+    background-color: #12832e;
 }
 
 /* Estilos para el radio button del tiempo de actividad física */
@@ -155,7 +164,7 @@
 }
 
 .main_historialCli .radio-container input[type="radio"]:checked + label {
-    background-color: #4caf50;
+    background-color: #12832e;
     color: #fff;
 }
 
@@ -165,7 +174,7 @@
     top: 50%;
     left: 80%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #12832e;
     font-size: 1.5em;
 }
 
@@ -195,7 +204,7 @@
 }
 
 .main_historialCli .check-container_m input[type="radio"]:checked + label {
-    background-color: #4caf50; /* Color de fondo verde cuando está seleccionado */
+    background-color: #12832e; /* Color de fondo verde cuando está seleccionado */
     color: #fff;
 }
 
@@ -211,15 +220,19 @@
 }
 
 .main_historialCli .check-container input[type="radio"]:checked + label {
-    background-color: #4caf50; /* Color de fondo verde cuando está seleccionado */
+    background-color: #12832e; /* Color de fondo verde cuando está seleccionado */
     color: #fff;
 }
 
 .main_historialCli .check-container input[type="radio"]:checked:not([value="si"]) + label {
-    background-color: #d67f7f; /* Color de fondo rojo cuando la opción seleccionada no es 'Sí' */
+    background-color: #12832e; /* Color de fondo rojo cuando la opción seleccionada no es 'Sí' */
     color: #fff;
 }
 
+
+
+
+/* configuracion */
 
 
 .main_configuracion .vista_configuracion {
@@ -270,7 +283,7 @@
   
   .main_configuracion button {
     padding: 12px;
-    background-color: #4caf50;
+    background-color: #12832e;
     color: white;
     border: none;
     border-radius: 5px;
@@ -286,7 +299,7 @@
   
   .main_configuracion .btn-fecha{
         padding: 5px 10px;
-        background-color: #0763db;
+        background-color: #12832e;
         margin-bottom: 10px;
     }
   
@@ -387,4 +400,20 @@
       margin-bottom: 15px;
   }
 
-  
+  .tabla_enfermedades input[type="radio"] {
+    display: none; /* Oculta el input radio */
+  }
+
+  .tabla_enfermedades label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #12832e; /* Color del borde cuando no está seleccionado */
+    background-color: white; /* Color de fondo cuando no está seleccionado */
+  }
+
+  .tabla_enfermedades input[type="radio"]:checked + label {
+    background-color: #12832e; /* Color de fondo cuando está seleccionado */
+  }

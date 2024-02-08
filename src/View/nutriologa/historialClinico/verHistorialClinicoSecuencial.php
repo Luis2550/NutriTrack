@@ -10,9 +10,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <?php include("./src/View/templates/header_administrador.php")?>
 
 <main class="main main_historialCli"> 
-    <h2 class="titulo_h2">Ver Historial Clinico</h2>
-
-    <div class="row">
+    <br>
+    <h2 class="titulo_h2 text-center">Historial Clinico</h2>
+    <br>
+    <div class="row justify-content-center"> <!-- Añadido justify-content-center -->
     <?php foreach ($data['historial_clinico'] as $historia): ?>
     <?php if ($historia['ci_paciente'] == $data['ci_usuario']): ?>
         <div class="col-md-4">
@@ -38,6 +39,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         <a name="" id="" class="btn btn-primary" href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas&ci_usuario=<?php echo $data['ci_usuario']; ?>" role="button">Siguiente</a>
     </div>
 </main>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

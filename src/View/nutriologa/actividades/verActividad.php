@@ -12,10 +12,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 
 <main class="main main_actividades act_n"> 
-   
-    <h2>Ver Actividades</h2>
-
     
+   <br>
+   <h2 class="text-center">Ver Actividades</h2>
+    <br>
 
     <div class="table-responsive">
         <table class="table table-bordered dataTable" id="tabla_id">

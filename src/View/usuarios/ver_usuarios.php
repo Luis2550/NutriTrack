@@ -9,8 +9,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 ?>
 
 <?php include("./src/View/templates/header_administrador.php")?>
-<h2>Ver Pacientes</h2>
-<main class="container mt-4">
+<br>
+<h2 class="text-center">Ver Pacientes</h2>
+<br>
+<main class="container-fluid mt-4">
 <div class="table-responsive">
     <table class="table table-bordered table-sm" id="tabla_usuarios">
         <thead>

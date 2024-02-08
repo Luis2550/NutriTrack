@@ -11,10 +11,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <main class="main main_citas"> 
 
-
-    <h2 class="titulo_h2">Ver Citas</h2>
+<br>
+    <h2 class="titulo_h2 text-center">Ver Citas</h2>
     <h3>Fecha: <?php echo $fecha_actual; ?></h3>
-
+<br>
 
     <div class="table-responsive">
         

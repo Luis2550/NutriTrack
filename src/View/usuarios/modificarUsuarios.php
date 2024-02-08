@@ -33,7 +33,10 @@ $clave_desencriptada = decrypt($clave_encriptada, $tu_llave_secreta);
 <div class="card"> 
     <div class="card-body">
         <form id="nuevo" name="nuevo" method="POST" action="index.php?c=Usuarios&a=actualizarUsuarios" autocomplete="off" enctype="multipart/form-data">
-            <h2 class="card-title">Editar Datos</h2>
+            
+        <br>
+        <h2 class="card-title text-center">Editar Datos</h2>
+<br>
 
             <div class="row">
                 <div class="col-md-6">

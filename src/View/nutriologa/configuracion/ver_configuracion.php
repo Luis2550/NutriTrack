@@ -12,7 +12,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <main class="main main_configuracion">
     <div class="vista">
 
-        <h2>Ver Configuración</h2>
+
+        <h2 class="text-center">Ver Configuración</h2>
 
         <?php
         foreach ($data['configuraciones'] as $dato) {

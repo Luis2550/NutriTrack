@@ -16,10 +16,10 @@ usort($data['historial_medidas'], function($a, $b) {
 
 
 <main class="main main_historialMed"> 
-   
-    <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
-
-    <h2 class="titulo_h2">Ver Historial Medidas</h2>
+    
+    <br>
+    <h2 class="titulo_h2 text-center">Ver Historial Medidas</h2>
+    <br>
 
     <?php 
         foreach ($histClinico['datos'] as $dato) {

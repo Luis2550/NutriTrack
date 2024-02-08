@@ -10,8 +10,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 <?php include("./src/View/templates/header_administrador.php")?>
 
 <main class="main main_historialCli"> 
-   
-    <h2>Ver Historial Clinico</h2>
+    
+<br>
+    <h2 class="text-center">Ver Historial Clinico</h2>
+<br>
 
     <div class="table-responsive">
         <table class="table table-bordered dataTable" id="tabla_id">
@@ -46,27 +48,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
         </table>
     </div>
 
-    <div class="d-flex justify-content-between mt-4">
-        <a
-            name=""
-            id=""
-            class="btn btn-primary"
-            href="http://localhost/Nutritrack/index.php?c=historialSuscripcion&a=nuevoHistorialSuscripcion&ci_usuario=1111111111"
-            role="button"
-        >
-            Regresar
-        </a>
-
-        <a
-            name=""
-            id=""
-            class="btn btn-primary"
-            href="http://localhost/nutritrack/index.php?c=historialMedidas&a=verHistorialMedidas"
-            role="button"
-        >
-            Siguiente
-        </a>
-    </div>
 </main>
 
 

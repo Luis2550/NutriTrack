@@ -13,9 +13,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
 
 <main class="main main_historialCli"> 
    
-    <h2 class="title"><?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
-<h1>Historial Clínico</h1>
+<br>
+<h2 class="titulo_h2 text-center">Historial Clínico</h2>
+<br>
 
     <div class="formulario-intro-container">
         <div class="formulario-intro">
