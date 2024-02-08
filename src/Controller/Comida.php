@@ -69,9 +69,28 @@ class ComidaController{
     public function eliminarComida($id){
         
         $com = new ComidaModel();
-        $com->eliminar_comida($id);
-        $data["titulo"] = "Eliminar Comida";
-        $this->verComida();
+        $hayComidasAsignadas = $com->get_hayComidasAsignadas($id);
+
+        if($hayComidasAsignadas){
+            $error_message = 'No puede eliminar una comida que ya ha sido asignada.';
+            //$this->verComida();
+            $comida = new ComidaModel();
+            $data['titulo'] = 'Comida';
+            $data['comida'] = $comida->get_comida();
+    
+            // Redirige a la página de error con el mensaje específico
+            header('Location: http://localhost/nutritrack/index.php?c=Comida&a=verComida&error_message=' . urlencode($error_message));
+            exit();
+
+            
+        }else{
+            //$mensaje = '';
+            $com->eliminar_comida($id);
+            $data["titulo"] = "Eliminar Comida";
+            $this->verComida();
+        }
+
+        
     }
 }
 ?>

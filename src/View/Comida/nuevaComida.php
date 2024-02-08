@@ -15,9 +15,9 @@
 
       <main class="container lg-8 mt-5 d-flex justify-content-center">
         
-        <script src="./public/js/comida.js"></script>
-
-        <form class="formulario bg-light p-4 rounded" id="nuevaComida" name="nuevaComida" method="POST" action="index.php?c=Comida&a=guardarComida" autocomplete="off">
+        <script src="./public/js/nuevaComida.js"></script>
+        
+        <form class="formulario bg-light p-4 rounded" id="nuevaComida" onsubmit="return onSubmitForm()" name="nuevaComida" method="POST" action="index.php?c=Comida&a=guardarComida" autocomplete="off">
           
           <h2 class="titulo text-center">Nueva Comida</h2>
             
@@ -55,7 +55,7 @@
             <input type="number" id="cantidad_grasas_saludables" name="cantidad_grasas_saludables" class="form-control" value="1" min="1" max="10000" required>
           </div>
 
-          <button id="guardarComida" name="guardarComida" type="submit" class="btn btn-primary btn-block">Guardar Comida</button>
+          <button id="guardarComida" name="guardarComida" type="submit"  class="btn btn-primary btn-block">Guardar Comida</button>
           <button id="cancelar" name="cancelar" type="submit" onclick="confirmarCancelar()" class="btn btn-secondary btn-block">Cancelar</button>
         </form>
       </main>

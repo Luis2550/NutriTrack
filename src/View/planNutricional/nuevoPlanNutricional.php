@@ -21,7 +21,7 @@
 
         
 
-        <form class="formulario bg-light p-4 rounded" id="nuevo" name="nuevo" method="POST" action="index.php?c=planNutricional&a=guardarPlanNutricional" autocomplete="off">
+        <form class="formulario bg-light p-4 rounded" onsubmit="return onSubmitForm()" id="nuevo" name="nuevo" method="POST"  action="index.php?c=planNutricional&a=guardarPlanNutricional" autocomplete="off">
           <h2 class="titulo text-center">Nuevo<?php echo $data['titulo'];?></h2>
           
           <!-- <h3>Datos Nutriolog@</h3>
@@ -93,7 +93,7 @@
             <input class="form-control" type="text" readonly id="duracionDias" name="duracionDias" required>
           </div>
 
-          <button class="btn btn-primary btn-block" id="guardar" name="guardar" type="submit" class="button">Registrar</button>
+          <button class="btn btn-primary btn-block" id="guardar" name="guardar" type="submit"  class="button">Registrar</button>
           
           <button class="btn btn-secondary btn-block" id="cancelar" onclick="confirmarCancelar()" name="cancelar" type="submit" class="cancelar">Cancelar</button>
         </form>
@@ -107,4 +107,5 @@
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
   </body>
 
+  
 <?php include("./src/View/templates/footer_administrador.php")?>

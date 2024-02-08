@@ -87,7 +87,13 @@
                 // Insertar las comidas al plan nutricional semanal
                 if(verificarComidasIngresadas()){
                     //hay divs vacios
-                    alert("¿Elija comidas para cada tipo de comida y para todos los dias?");
+                    Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "¿Elija comidas para 'Desayuno, Almuerzo y Cena' para todos los dias?",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                    });
+                    
                 }else{
                     //Guardar detalle comidas
                 // alert("Toca definir el guardado jajaaj");
@@ -135,30 +141,43 @@
 
                     // Verificar los datos antes de enviar la solicitud
                     console.log("Datos a enviar al servidor:", JSON.stringify(datosComidas));
-
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Registro Éxitoso",
+                        showConfirmButton: false,
+                        timer: 4500
+                    });
                     // Crear un formulario dinámicamente
-                    var form = document.createElement('form');
-                    form.action = 'index.php?c=DetalleComida&a=guardarComidaPlanNutricional'; // Cambiar la acción según la estructura de tus archivos
-                    form.method = 'POST';
+                    // Simular un retraso antes de enviar el formulario (ajusta según tus necesidades)
+                    setTimeout(function() {
+                        // Crear un formulario
+                        var form = document.createElement('form');
+                        form.action = 'index.php?c=DetalleComida&a=guardarComidaPlanNutricional'; // Cambiar la acción según la estructura de tus archivos
+                        form.method = 'POST';
 
-                    // Crear un campo oculto para enviar los datos
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'datosComidas';
-                    input.value = JSON.stringify(datosComidas);
+                        // Crear un campo oculto para enviar los datos
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'datosComidas';
+                        input.value = JSON.stringify(datosComidas);
 
-                    // Agregar el campo oculto al formulario
-                    form.appendChild(input);
+                        // Agregar el campo oculto al formulario
+                        form.appendChild(input);
 
-                    // Agregar el formulario al cuerpo del documento
-                    document.body.appendChild(form);
+                        // Agregar el formulario al cuerpo del documento
+                        document.body.appendChild(form);
 
-                    // Enviar el formulario
-                    form.submit();
+                        // Enviar el formulario
+                        form.submit();
 
-                    // Eliminar el formulario después de enviarlo
-                    document.body.removeChild(form);
+                        // Eliminar el formulario después de enviarlo
+                        document.body.removeChild(form);
+                    }, 2000); // Ejemplo: espera 2 segundos antes de enviar el formulario
+
+                    //return false;
                 }
+                
                 // Luego, cierra el modal
                 cerrarModal();
             }
@@ -233,19 +252,33 @@
 
             function cancelar() {
                 // Pregunta al usuario si desea salir sin asignar comidas al plan nutricional
-                var confirmacion = confirm("¿Desea salir sin asignar comidas al plan nutricional?");
+                Swal.fire({
+                    title: "¿Desea salir sin asignar comidas al plan nutricional?",
+                    text: "¡No podrá revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, salir"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, limpia la variable de comida seleccionada y redirige
+                        comidaSeleccionada = null;
 
-                // Si el usuario confirma, limpia la variable de comida seleccionada y redirige
-                if (confirmacion) {
-                    comidaSeleccionada = null;
+                        // Redirige a la URL deseada (reemplaza 'tu_url' con la URL real)
+                        window.location.href = 'index.php?c=PlanNutricional&a=verPlanNutricional';
 
-                    // Redirige a la URL deseada (reemplaza 'tu_url' con la URL real)
-                    window.location.href = 'index.php?c=PlanNutricional&a=verPlanNutricional';
-                } else {
-                    // Si el usuario cancela, no realiza ninguna acción
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none';
-                }
+                        Swal.fire(
+                            'Cancelado',
+                            'Has salido sin asignar comidas al plan nutricional.',
+                            'success'
+                        );
+                    } else {
+                        // Si el usuario cancela, no realiza ninguna acción
+                        var modal = document.getElementById('myModal');
+                        modal.style.display = 'none';
+                    }
+                });
             }
 
             window.onclick = function (event) {

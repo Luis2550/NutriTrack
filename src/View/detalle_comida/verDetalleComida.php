@@ -18,18 +18,41 @@
 
             function eliminarDetalleComida() {
                 // Muestra una ventana de confirmación
-                var confirmacion = confirm("¿Está seguro que desea eliminar las comidas asignadas?");
-
-
-                // Verifica la respuesta del usuario
-                if (confirmacion) {
-                    // Si el usuario confirma, redirige a la URL deseada
-                    alert();
-                    window.location.href = 'index.php?c=DetalleComida&a=eliminarDetalleComida&id=' + <?php echo $id;?>;
-                } else {
-                    // Si el usuario cancela, no hace nada o puedes mostrar un mensaje adicional
-                    // alert("Eliminación cancelada");
-                }
+                Swal.fire({
+                    title: "¿Está seguro/a que desea eliminar las comidas asignadas?",
+                    text: "¡No podrá revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, redirige a la URL deseada
+                        // Si el usuario confirma, ejecuta la siguiente lógica
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Las comidas asignadas han sido eliminadas.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            didClose: () => {
+                                // Redirige a la URL deseada después de que se cierra el cuadro de diálogo
+                                window.location.href = 'index.php?c=DetalleComida&a=eliminarDetalleComida&id=' + <?php echo $id; ?>;
+                            }
+                        });
+                    } else {
+                        // Si el usuario cancela, no hace nada o puedes mostrar un mensaje adicional
+                        // alert("Eliminación cancelada");
+                        Swal.fire({
+                            position: "center",
+                            icon: "warning",
+                            title: "Eliminación cancelada",
+                            showConfirmButton: false,
+                            timer: 1500
+                            });
+                    }
+                });
             }
             // Ajusta la función para filtrar las comidas por tipo utilizando comidasData
             function filtrarComidasPorTipo(tipoComida) {
@@ -110,52 +133,60 @@
             }
 
             function guardarComida(id_plan_nutri, id_comida_act, id_comida_nuev, dia) {
-                // Crear un formulario dinámicamente
-                var form = document.createElement('form');
-                form.action = 'index.php?c=DetalleComida&a=modificarDetalleComidaPlanNutricional'; // Cambiar la acción según la estructura de tus archivos
-                form.method = 'POST';
+                // Mostrar SweetAlert
+                Swal.fire({
+                    title: "¡Actualizado!",
+                    text: "La comida ha sido actualizada exitosamente.",
+                    icon: "success",
+                    showConfirmButton: false
+                });
 
-                // Crear un campo oculto para enviar los datos
-                //id_plan_nutricional
-                var input1 = document.createElement('input');
-                input1.type = 'hidden';
-                input1.name = 'id_plan_nutricional';
-                input1.value = id_plan_nutri;
+                // Esperar brevemente antes de enviar el formulario
+                setTimeout(function () {
+                    // Crear un formulario dinámicamente
+                    var form = document.createElement('form');
+                    form.action = 'index.php?c=DetalleComida&a=modificarDetalleComidaPlanNutricional'; // Cambiar la acción según la estructura de tus archivos
+                    form.method = 'POST';
 
-                //id_comida_act
-                var input2 = document.createElement('input');
-                input2.type = 'hidden';
-                input2.name = 'id_comida_act';
-                input2.value = id_comida_act;
+                    // Crear campos ocultos para enviar los datos
+                    var input1 = document.createElement('input');
+                    input1.type = 'hidden';
+                    input1.name = 'id_plan_nutricional';
+                    input1.value = id_plan_nutri;
 
-                //id_comida_nuev
-                var input3 = document.createElement('input');
-                input3.type = 'hidden';
-                input3.name = 'id_comida_nuev';
-                input3.value = id_comida_nuev;
-        
-                //dia
-                var input4 = document.createElement('input');
-                input4.type = 'hidden';
-                input4.name = 'dia';
-                input4.value = dia;
-        
-                // Agregar el campo oculto al formulario
-                form.appendChild(input1);
-                form.appendChild(input2);
-                form.appendChild(input3);
-                form.appendChild(input4);
+                    var input2 = document.createElement('input');
+                    input2.type = 'hidden';
+                    input2.name = 'id_comida_act';
+                    input2.value = id_comida_act;
 
-                // Agregar el formulario al cuerpo del documento
-                document.body.appendChild(form);
+                    var input3 = document.createElement('input');
+                    input3.type = 'hidden';
+                    input3.name = 'id_comida_nuev';
+                    input3.value = id_comida_nuev;
 
-                // Enviar el formulario
-                form.submit();
+                    var input4 = document.createElement('input');
+                    input4.type = 'hidden';
+                    input4.name = 'dia';
+                    input4.value = dia;
 
-                // Eliminar el formulario después de enviarlo
-                document.body.removeChild(form);
-                // Luego, cierra el modal
-                cerrarModal();
+                    // Agregar campos ocultos al formulario
+                    form.appendChild(input1);
+                    form.appendChild(input2);
+                    form.appendChild(input3);
+                    form.appendChild(input4);
+
+                    // Agregar el formulario al cuerpo del documento
+                    document.body.appendChild(form);
+
+                    // Enviar el formulario
+                    form.submit();
+
+                    // Eliminar el formulario después de enviarlo
+                    document.body.removeChild(form);
+
+                    // Luego, cierra el modal
+                    cerrarModal();
+                }, 2000); // Ajusta el tiempo de espera según sea necesario
             }
 
             function seleccionarComida(index, tipoComida, idTipoComida, idComida, contenidoIdComida, contenidoComida, proteina, carbohidratos, grasas) {
@@ -195,22 +226,37 @@
             //alert(id_comida_actual);
 
             if(id_comida_actual == contenidoIdComida){
-                alert("¡Está comida ya está asignada!");
+                Swal.fire({
+                    icon: "warning",
+                    title: "Oops...",
+                    text: "¡Esta comida ya está asignada!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
             }
             // Verifica la respuesta del usuario
-            else if (confirm("¿Desea actualizar la comida en este día?")) {
-                document.getElementById(idTipoComida).innerHTML = '<span style="font-weight: bold;">ID:</span> ' + contenidoIdComida;
-                document.getElementById(idComida).innerHTML = '<span style="font-weight: bold;">Comida:</span> ' + contenidoComida;
-                document.getElementById('proteina-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Proteína:</strong>' + proteina;
-                document.getElementById('carbohidratos-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Carbohidratos:</strong>' + carbohidratos;
-                document.getElementById('grasas-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Grasas Saludables:</strong>' + grasas;
+            else if (Swal.fire({
+                title: "¿Está seguro que desea actualizar la comida en este día?",
+                text: "¡No podrá revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, actualizar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(idTipoComida).innerHTML = '<span style="font-weight: bold;">ID:</span> ' + contenidoIdComida;
+                    document.getElementById(idComida).innerHTML = '<span style="font-weight: bold;">Comida:</span> ' + contenidoComida;
+                    document.getElementById('proteina-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Proteína:</strong>' + proteina;
+                    document.getElementById('carbohidratos-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Carbohidratos:</strong>' + carbohidratos;
+                    document.getElementById('grasas-' + dia + '-' + tipoComida.toLowerCase()).innerHTML = '<strong>Grasas Saludables:</strong>' + grasas;
 
-                guardarComida(id_plan_nutri, id_comida_actual, contenidoIdComida, diaMayuscula);
-                
-                // El usuario ha hecho clic en "Aceptar"
-                alert("Comida actualizada");
-                // Aquí puedes agregar la lógica para actualizar la comida
-            } else {
+                    guardarComida(id_plan_nutri, id_comida_actual, contenidoIdComida, diaMayuscula);
+
+                    // El usuario ha hecho clic en "Sí"
+                    
+                    // Aquí puedes agregar la lógica para actualizar la comida
+                }
+            })); else {
                 // El usuario ha hecho clic en "Cancelar" o ha cerrado el cuadro de diálogo
             alert("No se ha actualizado la comida");
                 // Aquí puedes agregar la lógica que desees en caso de cancelación
@@ -262,20 +308,33 @@
             }
 
             function cancelar() {
-                // Pregunta al usuario si desea salir sin asignar comidas al plan nutricional
-                var confirmacion = confirm("¿Desea salir sin asignar comidas al plan nutricional?");
+                
 
-                // Si el usuario confirma, limpia la variable de comida seleccionada y redirige
-                if (confirmacion) {
-                    comidaSeleccionada = null;
-
-                    // Redirige a la URL deseada (reemplaza 'tu_url' con la URL real)
-                    window.location.href = 'index.php?c=PlanNutricional&a=verPlanNutricional';
-                } else {
-                    // Si el usuario cancela, no realiza ninguna acción
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none';
-                }
+                Swal.fire({
+                    title: "¿Desea salir sin modificar las comidas del plan nutricional?",
+                    text: "¿Desea salir sin modificar las comidas del plan nutricional?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, cancelar!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "¡Cancelado!",
+                            text: "Ha cancelado la modificación de las comidas del plan nutricional.",
+                            icon: "success",
+                            didClose: () => {
+                                // Si el usuario confirma, ejecuta la redirección
+                                window.location.href = 'index.php?c=PlanNutricional&a=verPlanNutricional';
+                            }
+                        });
+                    } else {
+                        // Si el usuario cancela, no realiza ninguna acción
+                        var modal = document.getElementById('myModal');
+                        modal.style.display = 'none';
+                    }
+                });
             }
 
             window.onclick = function (event) {

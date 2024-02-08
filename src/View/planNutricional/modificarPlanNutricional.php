@@ -11,15 +11,16 @@
 ?>
 
  
+
     <?php include("./src/View/templates/header_administrador.php")?>
     
  
       <main class="container mt-5 d-flex justify-content-center">
 
-        <script src="./public/js/nuevoPlanNutricional.js"></script>
+        <script src="./public/js/modificarPlanNutricional.js"></script>
         <script src="./public/js/formulariosR.js"></script>
 
-        <form class="formulario bg-light p-4 rounded" id="modificar" name="modificar" method="POST" action="index.php?c=planNutricional&a=actualizarPlanNutricional" autocomplete="off">
+        <form class="formulario bg-light p-4 rounded" id="modificar" onsubmit="return onSubmitForm()" name="modificar" method="POST" action="index.php?c=planNutricional&a=actualizarPlanNutricional" autocomplete="off">
           
           <h2 class="titulo text-center">Editar <?php echo $data['titulo'];?></h2>
 
@@ -73,8 +74,9 @@
             <input class="form-control" type="text" readonly id="duracionDias" name="duracionDias" required value="<?php echo $data["plan_nutricional"][0]["duracion_dias"]?>">
           </div>
         
-          <button class="btn btn-primary btn-block" id="guardar" name="guardar" type="submit" class="button">Guardar</button>
-          <button class="btn btn-secondary btn-block" id="cancelar" onclick="confirmarCancelar()" name="cancelar" type="submit" class="cancelar">Cancelar</button>
+          <button class="btn btn-primary btn-block" id="guardar" name="guardar" onclick="onSubmitForm('guardar')" type="submit" class="button">Guardar</button>
+          <button class="btn btn-secondary btn-block" id="cancelar" onclick="onSubmitForm('cancelar')" name="cancelar" type="submit" class="cancelar">Cancelar</button>
+          
         </form>
 
       </main>

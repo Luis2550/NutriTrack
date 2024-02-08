@@ -67,25 +67,56 @@ class DetalleComidaModel{
             return false;   // No hay filas en el resultado, retorna false
     }
     
-    public function get_DetalleComidasId($id_plan_nutri){
-
+    public function get_DetalleComidasId($id_plan_nutri) {
+        date_default_timezone_set('America/Guayaquil');
+    
+        // Fecha actual
+        $fechaActual = date('Y-m-d');
+    
+        $nombreDiasEsp = [
+            'Monday'    => 'LUNES',
+            'Tuesday'   => 'MARTES',
+            'Wednesday' => 'MIÉRCOLES',
+            'Thursday'  => 'JUEVES',
+            'Friday'    => 'VIERNES',
+            'Saturday'  => 'SÁBADO',
+            'Sunday'    => 'DOMINGO'
+        ];
+    
+        // Nombre actual del día
+        $nombreDiaActual = date('l');
+        $nombreDiaActualEsp = $nombreDiasEsp[$nombreDiaActual];
+    
+        // Obtén el índice del día actual en el arreglo
+        $indiceDiaActual = array_search($nombreDiaActualEsp, $nombreDiasEsp);
+    
+        // Construye la ordenación en base al índice del día actual
+        $diasOrdenados = array_merge([$nombreDiaActualEsp], array_values($nombreDiasEsp));
+        $ordenDia = implode(', ', array_map(function($dia) use ($diasOrdenados) {
+            return array_search($dia, $diasOrdenados) + 1;
+        }, $diasOrdenados));
+    
         $sql = "SELECT c.*, u.*, pn.*, dc.*, tc.id_tipo_comida, tc.tipo_comida FROM detalle_comida AS dc 
-        JOIN plan_nutricional AS pn ON dc.id_plan_nutricional = pn.id_plan_nutricional 
-        JOIN comida AS c on c.id_comida = dc.id_comida 
-        JOIN tipo_comida AS tc ON tc.id_tipo_comida = c.id_tipo_comida
-        JOIN usuario AS u ON u.ci_usuario = pn.ci_paciente
-        WHERE pn.id_plan_nutricional = '$id_plan_nutri'
-        ORDER BY dc.dia ASC";
-        
-        
-
+            JOIN plan_nutricional AS pn ON dc.id_plan_nutricional = pn.id_plan_nutricional 
+            JOIN comida AS c on c.id_comida = dc.id_comida 
+            JOIN tipo_comida AS tc ON tc.id_tipo_comida = c.id_tipo_comida
+            JOIN usuario AS u ON u.ci_usuario = pn.ci_paciente
+            WHERE pn.id_plan_nutricional = '$id_plan_nutri'
+            ORDER BY FIELD(dc.dia, $ordenDia)";
+    
         $resultado = $this->db->query($sql);
-
+    
         while($fila = $resultado->fetch_assoc()){
             $this->detalle_comida[] = $fila;
         }
         return $this->detalle_comida;
     }
+    
+    
+    
+    
+    
+    
 
     public function get_DatosPacienteId($id_plan_nutri){
 

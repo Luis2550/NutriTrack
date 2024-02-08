@@ -9,7 +9,10 @@
 
 /* Estilo para el botón de inserción */
 .btnNuevo {
-    background-color: #47a84a; /* Color de fondo verde */
+    /*R: 75
+G: 221
+B: 134*/
+    background-color: rgb(75, 221, 134);
     color: #fff; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     font-size: 16px; /* Tamaño del texto */

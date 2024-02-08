@@ -15,9 +15,9 @@
    
       <main class="container mt-5 d-flex justify-content-center">
         
-        <script src="./public/js/comida.js"></script>
+        <script src="./public/js/modificarComida.js"></script>
 
-        <form class="formulario bg-light p-4 rounded" id="modificarComida" name="modificarComida" method="POST" action="index.php?c=Comida&a=actualizarComida" autocomplete="off">
+        <form class="formulario bg-light p-4 rounded" id="modificarComida" onsubmit="return onSubmitForm()" name="modificarComida" method="POST" action="index.php?c=Comida&a=actualizarComida" autocomplete="off">
           <h2 class="titulo text-center">Modificar Comida</h2>
 
           <input type="hidden" id="id_comida" name="id_comida" required value="<?php echo $data["comida"]["id_comida"]; ?>">
@@ -61,8 +61,8 @@
             <input type="number" id="cantidad_grasas_saludables" name="cantidad_grasas_saludables" class="form-control" min="1" max="10000" required value="<?php echo $data["comida"]["cantidad_grasas_saludables"]; ?>">
           </div>
 
-          <button id="guardarComida" name="guardarComida" type="submit" class="btn btn-primary btn-block">Actualizar Comida</button>
-          <button id="cancelar" name="cancelar" type="submit" onclick="confirmarCancelar()" class="btn btn-secondary btn-block">Cancelar</button>
+          <button id="guardarComida" name="guardarComida" type="submit" onclick="onSubmitForm('guardar')" class="btn btn-primary btn-block">Actualizar Comida</button>
+          <button id="cancelar" name="cancelar" type="submit" onclick="onSubmitForm('cancelar')" class="btn btn-secondary btn-block">Cancelar</button>
         </form>
       </main>
     </main>

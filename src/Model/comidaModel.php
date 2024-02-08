@@ -43,6 +43,17 @@ class ComidaModel{
     
         return $fila;
     }
+    
+    public function get_hayComidasAsignadas($id){
+        $sql = "SELECT * FROM detalle_comida WHERE id_comida = '$id'";
+        $resultado = $this->db->query($sql);
+
+        // Verifica si hay al menos una fila en el resultado
+        if ($resultado && $resultado->num_rows > 0)
+            return true;    // Existe al menos una fila, retorna true
+        else
+            return false;   // No hay filas en el resultado, retorna false
+    }
 
     public function modificar_comida($id_comida,$comida,$id_tipo_comida, $descripcion, $cantidad_proteina, $cantidad_carbohidratos, $cantidad_grasas_saludables) {
         $resultado = $this->db->query("UPDATE comida 
