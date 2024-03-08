@@ -13,7 +13,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
 
 <main class="main main_historialCli"> 
    
-    <h2 class="title">Bienvenido! <?php echo $_SESSION['usuario']['nombres'] . " " . $_SESSION['usuario']['apellidos'];?> </h2>
 
 <h1>Historial Clínico</h1>
 
@@ -119,10 +118,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <tr>
                     <tr>
                     <td>Enfermedades Neurológicos: Dolores de cabeza, convulsiones, mareos, parálisis</td>
-                    <td><input type="radio" name="neuro"  value="si" <?php if($data['historial_clinico']['neuro'] == 'si') echo 'checked'; ?>></td>
-                    <td><input type="radio" name="neuro"  value="no" <?php if($data['historial_clinico']['neuro'] == 'no') echo 'checked'; ?>></td>
-                    <td><input type="radio" name="neuro"  value="noSabe" <?php if($data['historial_clinico']['neuro'] == 'noSabe') echo 'checked'; ?>></td>
-                   </tr>
+                    <td><input type="radio" name="neuro"  value="si" <?php if($data['historial_clinico']['neuro'] == 'si') echo 'no checked'; ?>></td>
+                    <td><input type="radio" name="neuro"  value="no" <?php if($data['historial_clinico']['neuro'] == 'no') echo 'no checked'; ?>></td>
+                    <td><input type="radio" name="neuro"  value="noSabe" <?php if($data['historial_clinico']['neuro'] == 'noSabe') echo 'no checked'; ?>></td>
+                </tr>
                 <tr>
                     <td>Enfermedades Hemoglobina: Anemia, desórdenes sanguíneos o problemas de coagulación</td>
                     <td><input type="radio" name="hemoglobina" readonly value="si" <?php if($data['historial_clinico']['hemoglobina'] == 'si') echo 'checked'; ?>></td>

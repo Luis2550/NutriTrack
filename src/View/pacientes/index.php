@@ -15,12 +15,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                 
                 <div class="row">
     
-                    <div class="col-12 text-center mt-4"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                        <h3 class="titulo mb-4 font-weight-bold">¡Estás son tus comidas de hoy!</h3>
-                    </div>
-                    
+
                     <div class="col-12 text-center"> <!-- Agregamos una columna que ocupa todo el ancho y centraremos su contenido -->
-                        <p class="rango-semana mt-4 mb-4 font-weight-bold" style="color: #444;"><?php echo $data['dia'];?> -
+                        <h3 class="text-center rango-semana mt-4 mb-4 font-weight-bold" style="color: #444;"><?php echo $data['dia'];?> -
                             <?php
                             //var_dump($data['comida_diaria']);
                                 // Obtén la fecha actual
@@ -28,7 +25,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Paciente') 
                                 // Imprime la fecha en el formato mes-día-año
                                 echo "" . $fechaActual;
                             ?>
-                        </p>
+                        </h3>
                     </div>
 
                     <div class="plan-nutricional row">

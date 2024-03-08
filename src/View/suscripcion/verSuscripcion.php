@@ -44,8 +44,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                 <table class="table table-bordered" id="tabla_id">
                     <thead>
                         <tr>
-                            <th>Suscripcion</th>
+                            
                             <th>Duracion Dias</th>
+                            <th>Suscripcion</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </tr>
@@ -55,8 +56,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'Nutriologa'
                         <?php
                             foreach($data['suscripcion'] as $dato){
                                 echo "<tr>";
-                                    echo "<td>".$dato['suscripcion']."</td>";
+                                    
                                     echo "<td>".$dato['duracion_dias']."</td>";
+                                    echo "<td>".$dato['suscripcion']."</td>";
                                     echo "<td><a href='index.php?c=Suscripcion&a=modificarSuscripcion&id=".$dato["id_suscripcion"]."' class='btn btn-success mb-2'><i class='fa-solid fa-pen-to-square' style='color: #fff;'></i></a></td>
                                     <td><button class='btn btn-danger mb-2' onclick='confirmarEliminar(".$dato['id_suscripcion'].")'><i class='fa-solid fa-trash' style='color: #fff;'></i></button></td>";
                                 echo "</tr>";

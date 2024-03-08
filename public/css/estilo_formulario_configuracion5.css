@@ -76,7 +76,6 @@
     margin-right: 10px;
     padding: 10px;
     border: 1px solid #12832e;
-    cursor: not-allowed; /* Cambia el cursor a no permitido para indicar que es de solo lectura */
     color: #0853af; /* Color del texto */
 }
 
