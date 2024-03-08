@@ -143,7 +143,7 @@
             .main_historialMed .notita{
                 width: 100%;
                 font-size: 14px;
-                margin-bottom: ;
+                margin-bottom: 10px;
                
             }
 
